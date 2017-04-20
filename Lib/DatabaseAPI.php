@@ -13,32 +13,39 @@ class DatabaseAPI {
 		$this->db->query('SET NAMES UTF8');
 		return $this->db;
 	}
+
 	/**
 	 * Create user in database
 	 */
 	public function insertUser($userinfo){
 		$nowtime = NOWTIME;
-		$sql = "INSERT INTO `user` SET `openid` = ?, `created` = ?, `updated` = ?"; 
-		$res = $this->connect()->prepare($sql); 
-		$res->bind_param("sss", $userinfo->openid, $nowtime, $nowtime);
+		$nickname = $userinfo->nickname ? $userinfo->nickname : '';
+		$sex = $userinfo->sex ? $userinfo->sex : '';
+		$city = $userinfo->city ? $userinfo->city : '';
+		$province = $userinfo->province ? $userinfo->province : '';
+		$country = $userinfo->country ? $userinfo->country : '';
+		$headimgurl = $userinfo->headimgurl ? $userinfo->headimgurl : '';
+        $sql = "INSERT INTO `user` SET `openid` = ?, `nickname` = ?, `sex` = ?, `city` = ?, `province` = ?, `country` = ?, `headimgurl` = ?, `created` = ?, `updated` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("sssssssss", $userinfo->openid, $nickname, $sex, $city, $province, $country, $headimgurl, $nowtime, $nowtime);
 		if($res->execute()) 
 			return $this->findUserByOpenid($userinfo->openid);
 		else 
 			return FALSE;
 	}
 
-	public function updateUser($data) {
-		if ($this->findUserByOauth($data->openid)) {
-			return TRUE;
-		}
-		$sql = "INSERT INTO `oauth` SET `openid` = ?, nickname = ?, headimgurl = ?";
-		$res = $this->db->prepare($sql); 
-		$res->bind_param("sss", $data->openid, $data->nickname, $data->headimgurl);
-		if ($res->execute()) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
+	public function updateUser($userinfo) {
+        $userinfo = (object)$userinfo;
+		if ($this->findUserByOpenid($userinfo->openid)) {
+            $nowtime = NOWTIME;
+            $sql = "UPDATE `user` SET `nickname` = ?, `sex` = ?, `city` = ?, `province` = ?, `country` = ?, `headimgurl` = ?, `created` = ?, `updated` = ? WHERE `openid` = ?";
+            $res = $this->connect()->prepare($sql);
+            $res->bind_param("sssssssss", $userinfo->nickname, $userinfo->sex, $userinfo->city, $userinfo->province, $userinfo->country, $userinfo->headimgurl, $nowtime, $nowtime, $userinfo->openid);
+            if($res->execute())
+                return $this->findUserByOpenid($userinfo->openid);
+		}else{
+            $this->insertUser($userinfo);
+        }
 	}
 
 	public function findUserByOauth($openid) {

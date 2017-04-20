@@ -16,13 +16,13 @@ class CurioController extends Controller {
 		if(!$user) {
 			$userAPI->userRegister($request->query->get('openid'));
 		}
-		$url = '';
+		$url = $request->getSourcetUrl();
 		$this->redirect($url);
 	}
 
 	public function receiveUserInfoAction() {
-		$data = $GLOBALS['HTTP_RAW_POST_DATA'];	
-		$data = json_decode($data);
+		$data = file_get_contents("php://input");	
+        $data = json_decode($data);
 		if($data->code = 200) {
 			$DatabaseAPI = new \Lib\DatabaseAPI();
 			$DatabaseAPI->updateUser($data->data);

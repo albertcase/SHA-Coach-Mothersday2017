@@ -85,7 +85,7 @@ class Request {
 
 	public function setSourceUrl($url, $type = 'cookie') {
 		if($type == 'cookie') {
-			setcookie("redirect_url", $url);
+			setcookie("redirect_url", $url, time() + 3600*8, '/');
 		}
 	}
 

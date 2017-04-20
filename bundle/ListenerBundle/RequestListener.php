@@ -5,8 +5,8 @@ use Core\Request;
 
 class RequestListener {
 	public function afterRequest($request) {
-//		$this->initUser();
-//		$this->authorize();
+		$this->initUser();
+		$this->authorize();
 	}
 
 	private function initUser() {
