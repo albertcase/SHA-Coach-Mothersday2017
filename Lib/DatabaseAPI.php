@@ -137,4 +137,18 @@ class DatabaseAPI {
 		return NULL;
 	}
 
+	/**
+     * Create apply in database
+	 */
+	public function insertApply($applyInfo) {
+        $nowtime = NOWTIME;
+	    $sql = "INSERT INTO `apply` SET `uid` = ?, `name` = ?, `tel` = ?, `shop` = ?, `date` = ?, `created` = ?";
+	    $res = $this->connect()->prepare($sql);
+        $res->bind_param("ssssss", $applyInfo->uid, $applyInfo->name, $applyInfo->tel, $applyInfo->shop, $applyInfo->date, $nowtime);
+        if($res->execute())
+            return $res->insert_id;
+        else
+            return FALSE;
+    }
+
 }

@@ -12,3 +12,5 @@ $routers['/'] = array('CampaignBundle\Page', 'index');
 $routers['/clear'] = array('CampaignBundle\Page', 'clearCookie');
 $routers['/user/register'] = array('CampaignBundle\Register', 'user');//预约授权
 $routers['/collection'] = array('CampaignBundle\Collection', 'index');//集赞授权
+
+$routers['/api/apply'] = array('CampaignBundle\Api', 'inCreateApply');

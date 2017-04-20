@@ -69,4 +69,12 @@ class RedisAPI {
 		$wechatJSSDKAPI = new \Lib\JSSDKAPI();
 		return json_encode($wechatJSSDKAPI->getJSSDKConfig(APPID, $jsapi_ticket, $url));
 	}
+
+	public function hmSet($key, $data) {
+	    $this->_redis->hMset($key, $data);
+    }
+
+    public function hmGet($key){
+        $this->_redis->hMGet($key);
+    }
 }

@@ -28,7 +28,7 @@ define("REDIS_PORT", '6379');
 //Database config info
 define("DBHOST", '127.0.0.1');
 define("DBUSER", 'root');
-define("DBPASS", '1qazxsw2');
+define("DBPASS", '');
 define("DBNAME", 'coach-monthersday2017');
 
 //Wechat Authorize
