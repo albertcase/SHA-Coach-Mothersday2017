@@ -19,12 +19,12 @@ class DatabaseAPI {
 	 */
 	public function insertUser($userinfo){
 		$nowtime = NOWTIME;
-		$nickname = $userinfo->nickname ? $userinfo->nickname : '';
-		$sex = $userinfo->sex ? $userinfo->sex : '';
-		$city = $userinfo->city ? $userinfo->city : '';
-		$province = $userinfo->province ? $userinfo->province : '';
-		$country = $userinfo->country ? $userinfo->country : '';
-		$headimgurl = $userinfo->headimgurl ? $userinfo->headimgurl : '';
+		$nickname = isset($userinfo->nickname) ? $userinfo->nickname : '';
+		$sex = isset($userinfo->sex) ? $userinfo->sex : '';
+		$city = isset($userinfo->city) ? $userinfo->city : '';
+		$province = isset($userinfo->province) ? $userinfo->province : '';
+		$country = isset($userinfo->country) ? $userinfo->country : '';
+		$headimgurl = isset($userinfo->headimgurl) ? $userinfo->headimgurl : '';
         $sql = "INSERT INTO `user` SET `openid` = ?, `nickname` = ?, `sex` = ?, `city` = ?, `province` = ?, `country` = ?, `headimgurl` = ?, `created` = ?, `updated` = ?";
         $res = $this->connect()->prepare($sql);
         $res->bind_param("sssssssss", $userinfo->openid, $nickname, $sex, $city, $province, $country, $headimgurl, $nowtime, $nowtime);

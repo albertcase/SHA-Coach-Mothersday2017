@@ -93,4 +93,9 @@ class RedisAPI {
     public function hInCrby($key, $feild, $num) {
         return $this->_redis->hIncrBy($key, $feild, $num);
     }
+
+    public function hKeys($key) {
+        return $this->_redis->hKeys($key);
+    }
+
 }
