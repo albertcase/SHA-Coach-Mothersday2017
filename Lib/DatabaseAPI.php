@@ -151,4 +151,26 @@ class DatabaseAPI {
             return FALSE;
     }
 
+    /**
+     * find apply in database
+     */
+    public function findApplyByUid($uid){
+        $sql = "SELECT `id`, `name`, `tel`, `shop`, `date`, `created` FROM `apply` WHERE `uid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $uid);
+        $res->execute();
+        $res->bind_result($id, $name, $tel, $shop, $date, $created);
+        if($res->fetch()) {
+            $apply = new \stdClass();
+            $apply->id = $id;
+            $apply->name = $name;
+            $apply->tel = $tel;
+            $apply->shop = $shop;
+            $apply->date = $date;
+            $apply->created = $created;
+            return $apply;
+        }
+        return NULL;
+    }
+
 }

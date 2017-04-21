@@ -6,6 +6,7 @@ include_once "./config/router.php";
 $db = new \Lib\DatabaseAPI();
 $redis = new \Lib\RedisAPI();
 
+$pkey = 'count';
 //店
 $shop = array(
     'shop1',
@@ -31,6 +32,14 @@ $date = array(
 //名额数
 $count = 10;
 
-echo $count;
+//生成场次
+foreach ($shop as $sv) {
+    foreach ($date as $dv) {
+        $feildKey = $sv . ':' . $dv;
+        $redis->hSet($pkey, $feildKey, $count);
+    }
+}
+
+
 
 

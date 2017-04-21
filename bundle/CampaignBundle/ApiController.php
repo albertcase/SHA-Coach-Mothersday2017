@@ -12,36 +12,18 @@ class ApiController extends Controller {
 
         parent::__construct();
 
-//        if(!$user->uid) {
-//	        $this->statusPrint('100', 'access deny!');
-//        }
+        if(!$user->uid) {
+	        $this->statusPrint('100', 'access deny!');
+        }
     }
 
-    public function formAction() {
+    /**
+     * 获取场次列表
+     */
+    public function getApplyListAction() {
 
-    	global $user;
-
-    	$request = $this->request;
-    	$fields = array(
-			'name' => array('notnull', '120'),
-			'cellphone' => array('cellphone', '121'),
-			'address' => array('notnull', '122'),
-		);
-		$request->validation($fields);
-		$DatabaseAPI = new \Lib\DatabaseAPI();
-		$data = new \stdClass();
-		$data->uid = $user->uid;
-		$data->name = $request->request->get('name');
-		$data->cellphone = $request->request->get('cellphone');
-		$data->address = $request->request->get('address');
-
-		if($DatabaseAPI->insertInfo($data)) {
-			$data = array('status' => 1);
-			$this->dataPrint($data);
-		} else {
-			$this->statusPrint('0', 'failed');
-		}
     }
+
 
     /**
      * 预约
@@ -67,11 +49,11 @@ class ApiController extends Controller {
         $searchKey = $this->convertKey($searchData);
 
         if(!$this->getCountNum($searchKey)) {
-            //如果没有名额返回错误
+            $this->statusPrint('1005', 'count failed');
         }
 
         if(!$this->checkUserStatus($user->uid)) {
-            //如果不符合预约用户返回错误
+            $this->statusPrint('1006', 'user status failed');
         }
 
         $db = new \Lib\DatabaseAPI();
@@ -83,12 +65,14 @@ class ApiController extends Controller {
         $applyInfo->date = $request->request->get('date');
 
         if(!$db->insertApply($applyInfo)) {
-            $this->statusPrint('1005', 'insert failed');
+            $this->statusPrint('1007', 'insert failed');
         }
 
         if(!$this->inCreateCountNum($searchKey)) {
-            $this->statusPrint('1006', 'apply failed');
+            $this->statusPrint('1008', 'apply failed');
         }
+
+        $this->statusPrint('2000', 'apply success');
 
     }
 
@@ -100,21 +84,40 @@ class ApiController extends Controller {
      */
     private function checkUserStatus($uid) {
 
+        global $user;
+
+        $db = new \Lib\DatabaseAPI();
+
+        if(empty($db->findApplyByUid($user->uid))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * 获取预约剩余预约名额
      */
     private function getCountNum($key) {
-
+        $redis = new \Lib\RedisAPI();
+        if($redis->hGet('count', $key) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
     /**
      * 写入预约剩余名额
      */
-    private function inCreateCountNum($key) {
-
+    private function inCreateCountNum($key, $num = -1) {
+        $redis = new \Lib\RedisAPI();
+        if(!$redis->hInCrby('count', $key, $num)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
