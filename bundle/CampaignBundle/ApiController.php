@@ -2,20 +2,89 @@
 namespace CampaignBundle;
 
 use Core\Controller;
+use Wechat\ApiBundle\Modals\classes\WechatRequest\eventRequest\scanEvent;
 
 
 class ApiController extends Controller {
 
     private $hashKey = 'quality';
+    private $uploadPath = TEMPLATE_ROOT . '/upload';
+
     public function __construct() {
 
     	global $user;
 
         parent::__construct();
 
-       if(!$user->uid) {
+        if(!$user->uid) {
 	        $this->statusPrint('100', 'access deny!');
-       }
+        }
+    }
+
+    /**
+     * 上传图片作品
+     * 1.验证字段
+     * 2.查询是否已经上传过图片
+     * 3.转换图片流为图片并且存储到/template/upload
+     * 4.保存作品
+     */
+    public function uploadPicAction() {
+        global $user;
+        $request = $this->request;
+        $fields = array(
+            'pic' => array('notnull', '2001', 'pic is null'),
+        );
+        $request->validation($fields);
+        $pic = $request->request->get('pic');
+
+        if(!$this->checkUserUpload($user->uid)) {
+            $this->statusPrint('2002', 'pic is upload again');
+        }
+
+        $fileName = $this->picConvert($pic);
+        if(!$fileName) {
+            $this->statusPrint('2003', 'pic failed');
+        }
+
+        $db = new \Lib\DatabaseAPI();
+        $photoInfo = new \stdClass();
+        $photoInfo->uid = $user->uid;
+        $photoInfo->pic = $fileName;
+        $pid = $db->insertPhoto($photoInfo);
+        if(!$pid) {
+            $this->statusPrint('2004', 'pic insert failed');
+        }
+
+        $this->statusPrint('1', 'upload success');
+    }
+
+    /**
+     * 用户积赞
+     * 1.判断用户能否进行积赞(1.是否是自己的作品 2.是否已经积赞过)
+     */
+    public function praiseAction() {
+        global $user;
+        $request = $this->request;
+        $fields = array(
+            'pid' => array('notnull', '2006', 'pid is null'),
+        );
+        $request->validation($fields);
+        $pid = $request->request->get('pid');
+
+        if(!$this->checkUserPraise($user->uid, $pid)) {
+            $this->statusPrint('2005', 'user praise failed');
+        }
+
+        $db = new \Lib\DatabaseAPI();
+        $praiseInfo = new \stdClass();
+        $praiseInfo->uid = $user->uid;
+        $praiseInfo->pid = $pid;
+
+        if(!$db->insertPraise($praiseInfo)) {
+            $this->statusPrint('2008', 'praise insert failed');
+        }
+
+        $this->statusPrint('1', 'success');
     }
 
     /**
@@ -81,6 +150,50 @@ class ApiController extends Controller {
 
         $this->statusPrint('1', 'apply success');
 
+    }
+
+    /**
+     * 判断用户是否可以进行积赞
+     * 1.判断当前这个作品是否是当前用户自己的
+     * 2.判断当前这个人对这个作品是否进行过积赞
+     */
+    private function checkUserPraise($uid, $pid) {
+        $pid = (int) $pid;
+        $db = new \Lib\DatabaseAPI();
+        $db->findPhotoByUidPid($uid, $pid);
+        var_dump($db->findPhotoByUidPid($uid, $pid));exit;
+        if($db->findPhotoByUidPid($uid, $pid)) {
+            return false;
+        }
+        if($db->findPraiseByUid($uid)){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 判断用户是否已经上传过照片
+     */
+    private function checkUserUpload($uid) {
+        $db = new \Lib\DatabaseAPI();
+        if($db->findPhotoByUid($uid)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 图片转换
+     */
+    private function picConvert($picstr) {
+        global $user;
+        $str = base64_decode($picstr);
+        $fileName = $this->uploadPath.'/'. md5(NOWTIME . $user->uid) . '.png';
+        if(file_put_contents($fileName ,$str) > 0) {
+            return $fileName;
+        } else {
+            return false;
+        }
     }
 
     /**

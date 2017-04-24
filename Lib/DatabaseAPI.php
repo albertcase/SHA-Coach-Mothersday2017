@@ -173,4 +173,77 @@ class DatabaseAPI {
         return NULL;
     }
 
+    /**
+     * Create photo in database
+     */
+    public function insertPhoto($photoInfo) {
+        $nowtime = NOWTIME;
+        $sql = "INSERT INTO `photo` SET `uid` = ?, `pic` = ?, `created` = ?, `updated` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ssss", $photoInfo->uid, $photoInfo->pic, $nowtime, $nowtime);
+        if($res->execute())
+            return $res->insert_id;
+        else
+            return FALSE;
+    }
+
+    /**
+     * find photo in database
+     */
+    public function findPhotoByUid($uid){
+        $sql = "SELECT `id` FROM `photo` WHERE `uid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $uid);
+        $res->execute();
+        $res->bind_result($uid);
+        if($res->fetch()) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
+     * find photo in database
+     */
+    public function findPhotoByUidPid($uid, $pid){
+        $sql = "SELECT `id` FROM `photo` WHERE `uid` = ?, `id` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ss", $uid, $pid);
+        $res->execute();
+        $res->bind_result($uid);
+        if($res->fetch()) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
+     * Create praise in database
+     */
+    public function insertPraise($praiseInfo) {
+        $nowtime = NOWTIME;
+        $sql = "INSERT INTO `praise` SET `pid` = ?, `uid` = ?, `created` = ?, `updated` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ssss", $praiseInfo->pid, $praiseInfo->uid, $nowtime, $nowtime);
+        if($res->execute())
+            return $res->insert_id;
+        else
+            return FALSE;
+    }
+
+    /**
+     * find photo in database
+     */
+    public function findPraiseByUid($uid){
+        $sql = "SELECT `id` FROM `praise` WHERE `uid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $uid);
+        $res->execute();
+        $res->bind_result($uid);
+        if($res->fetch()) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
 }

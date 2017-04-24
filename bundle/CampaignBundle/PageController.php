@@ -15,4 +15,18 @@ class PageController extends Controller {
 		setcookie('_user', json_encode($user), time(), '/');
 		$this->statusPrint('success');
 	}
+
+	/**
+     * 预约
+     */
+    public function applyAction() {
+        $this->render('apply');
+    }
+
+    /**
+     * 积赞
+     */
+    public function collectionAction() {
+        $this->render('collection');
+    }
 }

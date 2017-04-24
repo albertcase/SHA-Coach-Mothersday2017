@@ -10,8 +10,14 @@ $routers['/wechat/ws/jssdk/config/js'] = array('WechatBundle\WebService', 'jssdk
 $routers['/ajax/post'] = array('CampaignBundle\Api', 'form');
 $routers['/'] = array('CampaignBundle\Page', 'index');
 $routers['/clear'] = array('CampaignBundle\Page', 'clearCookie');
-$routers['/user/register'] = array('CampaignBundle\Register', 'user');//预约授权
-$routers['/collection'] = array('CampaignBundle\Collection', 'index');//集赞授权
 
+//page
+$routers['/apply'] = array('CampaignBundle\Page', 'apply');//预约授权
+$routers['/collection'] = array('CampaignBundle\Page', 'collection');//集赞授权
+
+//api
 $routers['/api/apply'] = array('CampaignBundle\Api', 'inCreateApply');//预约
 $routers['/api/applylist'] = array('CampaignBundle\Api', 'getApplyList');//获取场次列表
+$routers['/api/uploadpic'] = array('CampaignBundle\Api', 'uploadPic');//上传头像
+$routers['/api/praise'] = array('CampaignBundle\Api', 'praise');//用户积赞
+$routers['/api/topTenList'] = array('CampaignBundle\Api', 'topTen');//积赞榜
