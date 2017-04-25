@@ -50,38 +50,47 @@
         <div class="bg">
             <img src="/build/dist/img/logo.png" width="100%" class="logo">
             
+            
             <div class="pageCon">
-                <div class="formArea">
-                    <ul>
-                        <li>
-                            <input type="text" name="name" placeholder="姓 名">
-                        </li>
-                        <li>
-                            <input type="tel" maxlength="11" name="tel" placeholder="手 机">
-                        </li>
-                        <li class="selectType">
-                            <input type="text" name="shop" placeholder="店 铺" readonly>
-                            <select class="choseShop">
-                                <option>北京</option>
-                                <option>上海</option>
-                                <option>深圳</option>
-                            </select>
-                        </li>
-                        <li class="selectType">
-                            <input type="text" name="date" placeholder="日 期" readonly>
-                            <select class="choseDate">
-                                <option>4/20</option>
-                                <option>4/21</option>
-                                <option>4/22</option>
-                            </select>
-                        </li>
-                    </ul>
+                <div class="formNode formSuccess hidden">
+                    <div class="applyDesc">
+                        <img src="/build/dist/img/form-success.png" width="100%">
+                    </div>
                 </div>
 
-                <div class="showFooterArea">
-                    <a href="javascript:void(0);" class="btn submit">提交资料</a>
-                </div>
+                <div class="formNode formTable">
+                    <div class="formArea">
+                        <ul>
+                            <li>
+                                <input type="text" name="name" placeholder="姓 名">
+                            </li>
+                            <li>
+                                <input type="tel" maxlength="11" name="tel" placeholder="手 机">
+                            </li>
+                            <li class="selectType">
+                                <input type="text" name="shop" placeholder="店 铺" readonly>
+                                <select class="choseShop">
+                                    <option>北京</option>
+                                    <option>上海</option>
+                                    <option>深圳</option>
+                                </select>
+                            </li>
+                            <li class="selectType">
+                                <input type="text" name="date" placeholder="日 期" readonly>
+                                <select class="choseDate">
+                                    <option>20170501am</option>
+                                    <option>20170502am</option>
+                                    <option>20170503pm</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
 
+                    <div class="showFooterArea">
+                        <a href="javascript:void(0);" class="btn submit">提交资料</a>
+                    </div>
+                </div>
+    
             </div>
         </div>
     </div>
@@ -150,14 +159,15 @@
         }else{
             self.addClass("disabled");
             console.log(formData);
-            // pfun.ajaxFun("POST", "/api/submit", question, "json", function(data){
-            //     if(data.status == "1"){
-            //        console.log(question);
-            //        _v.sectionChange("result"); 
-            //     }
-            //     pfun.formErrorTips(data.msg);
-            //     self.removeClass("disabled");
-            // });
+
+            pfun.ajaxFun("POST", "/api/apply", formData, "json", function(data){
+                if(data.status == "1"){
+                   $(".formNode").removeClass("hidden");
+                   $(".formTable").addClass("hidden");
+                }
+                pfun.formErrorTips(data.msg);
+                self.removeClass("disabled");
+            });
 
         }
 
