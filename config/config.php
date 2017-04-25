@@ -38,7 +38,7 @@ define("SCOPE", 'snsapi_userinfo');
 //Wechat Authorize Page
 define("AUTHORIZE_URL", '[
 	"/apply",
-	"/collection"
+	"/create"
 ]');
 
 //Account Access`

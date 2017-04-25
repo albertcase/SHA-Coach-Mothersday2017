@@ -13,7 +13,8 @@ $routers['/clear'] = array('CampaignBundle\Page', 'clearCookie');
 
 //page
 $routers['/apply'] = array('CampaignBundle\Page', 'apply');//预约授权
-$routers['/collection'] = array('CampaignBundle\Page', 'collection');//集赞授权
+$routers['/create'] = array('CampaignBundle\Page', 'collection');//上传图片授权
+$routers['/result'] = array('CampaignBundle\Page', 'praise');//积赞
 
 //api
 $routers['/api/apply'] = array('CampaignBundle\Api', 'inCreateApply');//预约

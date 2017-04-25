@@ -24,9 +24,16 @@ class PageController extends Controller {
     }
 
     /**
-     * 积赞
+     * 上传图片
      */
     public function collectionAction() {
-        $this->render('collection');
+        $this->render('create');
+    }
+
+    /**
+     * 积赞
+     */
+    public function praiseAction() {
+        $this->render('result');
     }
 }
