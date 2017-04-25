@@ -195,8 +195,9 @@ class DatabaseAPI {
         $res = $this->connect()->prepare($sql);
         $res->bind_param("s", $uid);
         $res->execute();
+        $res->bind_result($pid);
         if($res->fetch()) {
-            return TRUE;
+            return $pid;
         }
         return FALSE;
     }
@@ -291,6 +292,24 @@ class DatabaseAPI {
             return $topten;
         }
         return FALSE;
+    }
+
+    /**
+     * find user by uid in database
+     */
+    public function findUserByUid($uid){
+        $sql = "SELECT `uid`, `nickname` FROM `user` WHERE `uid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $uid);
+        $res->execute();
+        $res->bind_result($uid, $nickname);
+        if($res->fetch()) {
+            $user = new \stdClass();
+            $user->uid = $uid;
+            $user->nickname = $nickname;
+            return $user;
+        }
+        return NULL;
     }
 
 }

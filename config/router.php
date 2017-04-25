@@ -12,9 +12,9 @@ $routers['/'] = array('CampaignBundle\Page', 'index');
 $routers['/clear'] = array('CampaignBundle\Page', 'clearCookie');
 
 //page
-$routers['/form'] = array('CampaignBundle\Page', 'apply');//预约授权
-$routers['/create'] = array('CampaignBundle\Page', 'collection');//上传图片授权
-$routers['/result'] = array('CampaignBundle\Page', 'praise');//积赞
+$routers['/form'] = array('CampaignBundle\Page', 'form');//预约授权
+$routers['/create'] = array('CampaignBundle\Page', 'create');//上传图片授权
+$routers['/result'] = array('CampaignBundle\Page', 'result');//积赞
 $routers['/checkPhoto'] = array('CampaignBundle\Page', 'checkPhoto');//判断是否已经参加活动
 $routers['/topten'] = array('CampaignBundle\Page', 'topTen');//积分榜
 

@@ -27,6 +27,7 @@ class ApiController extends Controller {
      * 2.查询是否已经上传过图片
      * 3.转换图片流为图片并且存储到/template/upload
      * 4.保存作品
+     * 5.保存成功返回作品id pid
      */
     public function uploadPicAction() {
         global $user;
@@ -55,7 +56,7 @@ class ApiController extends Controller {
             $this->statusPrint('2004', 'pic insert failed');
         }
 
-        $this->statusPrint('1', 'upload success');
+        $this->statusPrint('1', $db->insertPhoto($photoInfo));
     }
 
     /**
