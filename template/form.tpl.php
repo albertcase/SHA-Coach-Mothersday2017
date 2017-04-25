@@ -70,17 +70,17 @@
                             <li class="selectType">
                                 <input type="text" name="shop" placeholder="店 铺" readonly>
                                 <select class="choseShop">
-                                    <option>北京</option>
-                                    <option>上海</option>
-                                    <option>深圳</option>
+                                    <option>shop1</option>
+                                    <option>shop2</option>
+                                    <option>shop3</option>
                                 </select>
                             </li>
                             <li class="selectType">
                                 <input type="text" name="date" placeholder="日 期" readonly>
                                 <select class="choseDate">
-                                    <option>20170501am</option>
-                                    <option>20170502am</option>
-                                    <option>20170503pm</option>
+                                    <option>20170501:am</option>
+                                    <option>20170502:am</option>
+                                    <option>20170503:pm</option>
                                 </select>
                             </li>
                         </ul>

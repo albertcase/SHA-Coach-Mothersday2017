@@ -91,7 +91,7 @@
     var allimg = [
        '/build/dist/img/logo.png',
        '/build/dist/img/close.png'
-    ];
+    ], pid = (pfun.getQueryString('pid') ? pfun.getQueryString('pid') : 0);
 
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
@@ -105,6 +105,7 @@
             paginationClickable: true,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
+            initialSlide: pid,
         });
 
     })   

@@ -1103,6 +1103,16 @@ button.swiper-pagination-bullet {
   left: 0;
   top: 0;
   z-index: 999; }
+  .scenesNode span {
+    width: 15%;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    color: #fff;
+    font-size: 1.4rem; }
+    .scenesNode span .ruleclose {
+      width: 26%;
+      top: 0; }
 
 video {
   position: fixed;
