@@ -63,19 +63,22 @@ class Request {
 		    $value = trim($raw[$field]);
 		    if($info) {
 		      if($info[0] == 'notnull' && $value == '') {
-		        $code = isset($info[1]) ? $info[1] : '999';
-		        $response = new Response;
-		        $response->statusPrint($code);
+                  $code = isset($info[1]) ? $info[1] : '999';
+                  $msg = isset($info[2]) ? $info[2] : 'not known';
+                  $response = new Response;
+                  $response->statusPrint($code ,$msg);
 		      }
 		      if($info[0] == 'date' && !strtotime($value)){
-		        $code = isset($info[1]) ? $info[1] : '999';
-		        $response = new Response;
-		        $response->statusPrint($code);
+		          $code = isset($info[1]) ? $info[1] : '999';
+                  $msg = isset($info[2]) ? $info[2] : 'not known';
+                  $response = new Response;
+                  $response->statusPrint($code, $msg);
 		      }
 	          if($info[0] == 'cellphone' && !preg_match("/^1\d{10}$/", $value)){
-	          	 $code = isset($info[1]) ? $info[1] : '999';
-		        $response = new Response;
-		        $response->statusPrint($code);
+                  $code = isset($info[1]) ? $info[1] : '999';
+                  $msg = isset($info[2]) ? $info[2] : 'not known';
+                  $response = new Response;
+                  $response->statusPrint($code, $msg);
 	          }
 		    }
 		    $data[$field] = $value; 
@@ -85,7 +88,7 @@ class Request {
 
 	public function setSourceUrl($url, $type = 'cookie') {
 		if($type == 'cookie') {
-			setcookie("redirect_url", $url);
+			setcookie("redirect_url", $url, time() + 3600*8, '/');
 		}
 	}
 

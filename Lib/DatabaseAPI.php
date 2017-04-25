@@ -13,32 +13,39 @@ class DatabaseAPI {
 		$this->db->query('SET NAMES UTF8');
 		return $this->db;
 	}
+
 	/**
 	 * Create user in database
 	 */
 	public function insertUser($userinfo){
 		$nowtime = NOWTIME;
-		$sql = "INSERT INTO `user` SET `openid` = ?, `created` = ?, `updated` = ?"; 
-		$res = $this->connect()->prepare($sql); 
-		$res->bind_param("sss", $userinfo->openid, $nowtime, $nowtime);
+		$nickname = isset($userinfo->nickname) ? $userinfo->nickname : '';
+		$sex = isset($userinfo->sex) ? $userinfo->sex : '';
+		$city = isset($userinfo->city) ? $userinfo->city : '';
+		$province = isset($userinfo->province) ? $userinfo->province : '';
+		$country = isset($userinfo->country) ? $userinfo->country : '';
+		$headimgurl = isset($userinfo->headimgurl) ? $userinfo->headimgurl : '';
+        $sql = "INSERT INTO `user` SET `openid` = ?, `nickname` = ?, `sex` = ?, `city` = ?, `province` = ?, `country` = ?, `headimgurl` = ?, `created` = ?, `updated` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("sssssssss", $userinfo->openid, $nickname, $sex, $city, $province, $country, $headimgurl, $nowtime, $nowtime);
 		if($res->execute()) 
 			return $this->findUserByOpenid($userinfo->openid);
 		else 
 			return FALSE;
 	}
 
-	public function updateUser($data) {
-		if ($this->findUserByOauth($data->openid)) {
-			return TRUE;
-		}
-		$sql = "INSERT INTO `oauth` SET `openid` = ?, nickname = ?, headimgurl = ?";
-		$res = $this->db->prepare($sql); 
-		$res->bind_param("sss", $data->openid, $data->nickname, $data->headimgurl);
-		if ($res->execute()) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
+	public function updateUser($userinfo) {
+        $userinfo = (object)$userinfo;
+		if ($this->findUserByOpenid($userinfo->openid)) {
+            $nowtime = NOWTIME;
+            $sql = "UPDATE `user` SET `nickname` = ?, `sex` = ?, `city` = ?, `province` = ?, `country` = ?, `headimgurl` = ?, `created` = ?, `updated` = ? WHERE `openid` = ?";
+            $res = $this->connect()->prepare($sql);
+            $res->bind_param("sssssssss", $userinfo->nickname, $userinfo->sex, $userinfo->city, $userinfo->province, $userinfo->country, $userinfo->headimgurl, $nowtime, $nowtime, $userinfo->openid);
+            if($res->execute())
+                return $this->findUserByOpenid($userinfo->openid);
+		}else{
+            $this->insertUser($userinfo);
+        }
 	}
 
 	public function findUserByOauth($openid) {
@@ -129,5 +136,114 @@ class DatabaseAPI {
 		}
 		return NULL;
 	}
+
+	/**
+     * Create apply in database
+	 */
+	public function insertApply($applyInfo) {
+        $nowtime = NOWTIME;
+	    $sql = "INSERT INTO `apply` SET `uid` = ?, `name` = ?, `tel` = ?, `shop` = ?, `date` = ?, `created` = ?";
+	    $res = $this->connect()->prepare($sql);
+        $res->bind_param("ssssss", $applyInfo->uid, $applyInfo->name, $applyInfo->tel, $applyInfo->shop, $applyInfo->date, $nowtime);
+        if($res->execute())
+            return $res->insert_id;
+        else
+            return FALSE;
+    }
+
+    /**
+     * find apply in database
+     */
+    public function findApplyByUid($uid){
+        $sql = "SELECT `id`, `name`, `tel`, `shop`, `date`, `created` FROM `apply` WHERE `uid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $uid);
+        $res->execute();
+        $res->bind_result($id, $name, $tel, $shop, $date, $created);
+        if($res->fetch()) {
+            $apply = new \stdClass();
+            $apply->id = $id;
+            $apply->name = $name;
+            $apply->tel = $tel;
+            $apply->shop = $shop;
+            $apply->date = $date;
+            $apply->created = $created;
+            return $apply;
+        }
+        return NULL;
+    }
+
+    /**
+     * Create photo in database
+     */
+    public function insertPhoto($photoInfo) {
+        $nowtime = NOWTIME;
+        $sql = "INSERT INTO `photo` SET `uid` = ?, `pic` = ?, `created` = ?, `updated` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ssss", $photoInfo->uid, $photoInfo->pic, $nowtime, $nowtime);
+        if($res->execute())
+            return $res->insert_id;
+        else
+            return FALSE;
+    }
+
+    /**
+     * find photo in database
+     */
+    public function findPhotoByUid($uid){
+        $sql = "SELECT `id` FROM `photo` WHERE `uid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $uid);
+        $res->execute();
+        $res->bind_result($uid);
+        if($res->fetch()) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
+     * find photo in database
+     */
+    public function findPhotoByUidPid($uid, $pid){
+        $sql = "SELECT `id` FROM `photo` WHERE `uid` = ?, `id` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ss", $uid, $pid);
+        $res->execute();
+        $res->bind_result($uid);
+        if($res->fetch()) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
+     * Create praise in database
+     */
+    public function insertPraise($praiseInfo) {
+        $nowtime = NOWTIME;
+        $sql = "INSERT INTO `praise` SET `pid` = ?, `uid` = ?, `created` = ?, `updated` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ssss", $praiseInfo->pid, $praiseInfo->uid, $nowtime, $nowtime);
+        if($res->execute())
+            return $res->insert_id;
+        else
+            return FALSE;
+    }
+
+    /**
+     * find photo in database
+     */
+    public function findPraiseByUid($uid){
+        $sql = "SELECT `id` FROM `praise` WHERE `uid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $uid);
+        $res->execute();
+        $res->bind_result($uid);
+        if($res->fetch()) {
+            return TRUE;
+        }
+        return FALSE;
+    }
 
 }

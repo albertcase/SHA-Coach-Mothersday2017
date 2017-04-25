@@ -18,7 +18,8 @@ define("NOWTIME", date('Y-m-d H:i:s'));
 define("AHEADTIME", '100');
 
 define("NONCESTR", '?????');
-define("CURIO_AUTH_URL", '?????'); 
+define("CURIO_TOKEN", 'zcBpBLWyAFy6xs3e7HeMPL9zWrd7Xy');
+define("CURIO_AUTH_URL", 'http://coach.samesamechina.com/api/wechat/oauth/auth/e88bea4c-0247-4d17-a102-ad3ee0bec8f5');
 
 //Redis config info
 define("REDIS_HOST", '127.0.0.1');
@@ -32,14 +33,15 @@ define("DBNAME", 'coach-monthersday2017');
 
 //Wechat Authorize
 define("CALLBACK", 'wechat/callback');
-define("SCOPE", 'snsapi_base');
+define("SCOPE", 'snsapi_userinfo');
 
 //Wechat Authorize Page
 define("AUTHORIZE_URL", '[
-	"/"
+	"/apply",
+	"/create"
 ]');
 
-//Account Access
+//Account Access`
 define("OAUTH_ACCESS", '{
 	"xxxx": "samesamechina.com" 
 }');

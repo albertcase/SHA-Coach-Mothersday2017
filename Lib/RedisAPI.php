@@ -69,4 +69,33 @@ class RedisAPI {
 		$wechatJSSDKAPI = new \Lib\JSSDKAPI();
 		return json_encode($wechatJSSDKAPI->getJSSDKConfig(APPID, $jsapi_ticket, $url));
 	}
+
+	public function hSet($key, $feild, $val) {
+        return $this->_redis->hSet($key, $feild, $val);
+    }
+
+    public function hGet($key, $feild) {
+        return $this->_redis->hGet($key, $feild);
+    }
+
+	public function hmSet($key, $data) {
+	    $data = (array) $data;
+        $feildString = '';
+	    foreach ($data as $k=>$v) {
+            $feildString .= $k . ' ' . $v . ',';
+        }
+        $this->_redis->hMset($key, $feildString);
+    }
+
+    /**
+     * @example $num>0:自增 $num<0:自减
+     */
+    public function hInCrby($key, $feild, $num) {
+        return $this->_redis->hIncrBy($key, $feild, $num);
+    }
+
+    public function hKeys($key) {
+        return $this->_redis->hKeys($key);
+    }
+
 }
