@@ -1,0 +1,38 @@
+{
+  "name": "gulp-online",
+  "version": "1.0.0",
+  "description": "gulp run-sequence gulp-if gulp-uglify gulp-sass gulp-csslint gulp-rev gulp-minify-css gulp-changed gulp-jshint jshint-stylish gulp-rev-collector gulp-minify-html gulp-autoprefixer gulp-rename gulp-concat gulp-cache del browser-sync",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "v",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cache": "^0.4.6",
+    "gulp-changed": "^2.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csslint": "^1.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-jshint": "^2.0.4",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^7.1.2",
+    "gulp-rev-collector": "^1.1.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-tinypng": "^1.0.2",
+    "gulp-uglify": "^2.1.2",
+    "imagemin-pngquant": "^5.0.0",
+    "jshint": "^2.9.4",
+    "jshint-stylish": "^2.2.1",
+    "node-sass": "^4.5.2",
+    "run-sequence": "^1.2.2",
+    "tinify": "^1.5.0"
+  }
+}
