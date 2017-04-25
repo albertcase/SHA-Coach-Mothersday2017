@@ -161,7 +161,6 @@ class ApiController extends Controller {
         $pid = (int) $pid;
         $db = new \Lib\DatabaseAPI();
         $db->findPhotoByUidPid($uid, $pid);
-        var_dump($db->findPhotoByUidPid($uid, $pid));exit;
         if($db->findPhotoByUidPid($uid, $pid)) {
             return false;
         }
@@ -188,7 +187,7 @@ class ApiController extends Controller {
     private function picConvert($picstr) {
         global $user;
         $str = base64_decode($picstr);
-        $fileName = $this->uploadPath.'/'. md5(NOWTIME . $user->uid) . '.png';
+        $fileName = $this->uploadPath.'/'. md5(NOWTIME . $user->uid . uniqid()) . '.png';
         if(file_put_contents($fileName ,$str) > 0) {
             return $fileName;
         } else {

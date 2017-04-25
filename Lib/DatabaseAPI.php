@@ -195,7 +195,6 @@ class DatabaseAPI {
         $res = $this->connect()->prepare($sql);
         $res->bind_param("s", $uid);
         $res->execute();
-        $res->bind_result($uid);
         if($res->fetch()) {
             return TRUE;
         }
@@ -206,11 +205,10 @@ class DatabaseAPI {
      * find photo in database
      */
     public function findPhotoByUidPid($uid, $pid){
-        $sql = "SELECT `id` FROM `photo` WHERE `uid` = ?, `id` = ?";
+        $sql = "SELECT `created` FROM `photo` WHERE `uid` = ? AND `id` = ?";
         $res = $this->connect()->prepare($sql);
         $res->bind_param("ss", $uid, $pid);
         $res->execute();
-        $res->bind_result($uid);
         if($res->fetch()) {
             return TRUE;
         }
