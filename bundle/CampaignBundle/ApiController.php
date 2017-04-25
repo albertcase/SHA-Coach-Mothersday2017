@@ -61,6 +61,8 @@ class ApiController extends Controller {
     /**
      * 用户积赞
      * 1.判断用户能否进行积赞(1.是否是自己的作品 2.是否已经积赞过)
+     * 2.插入积赞表
+     * 3.修改图片的积赞数
      */
     public function praiseAction() {
         global $user;
@@ -80,8 +82,17 @@ class ApiController extends Controller {
         $praiseInfo->uid = $user->uid;
         $praiseInfo->pid = $pid;
 
+        $photoupdate = new \stdClass();
+        $photoupdate->pid = $pid;
+        $photoupdate->favorite = $db->findFavorite($pid) + 1;
+
+
         if(!$db->insertPraise($praiseInfo)) {
             $this->statusPrint('2008', 'praise insert failed');
+        }
+
+        if(!$db->updatePhoto($photoupdate)) {
+            $this->statusPrint('2009', 'favorite update failed');
         }
 
         $this->statusPrint('1', 'success');
@@ -119,7 +130,6 @@ class ApiController extends Controller {
             'date' => array('notnull', '1004', 'date is null'),
         );
         $request->validation($fields);
-
         //检查场次名额
         $searchData = array($request->request->get('shop'), $request->request->get('date'));
         $searchKey = $this->convertKey($searchData);

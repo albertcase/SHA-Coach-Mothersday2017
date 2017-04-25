@@ -216,6 +216,37 @@ class DatabaseAPI {
     }
 
     /**
+     * find favorite in photo
+     */
+    public function findFavorite($pid) {
+        $sql = "SELECT `favorite` FROM `photo` WHERE `id` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $pid);
+        $res->execute();
+        $res->bind_result($favorite);
+        if($res->fetch()) {
+            return $favorite;
+        }
+        return FALSE;
+    }
+
+    /**
+     * update favorite in photo
+     */
+    public function updatePhoto($photoinfo) {
+        $photoinfo = (object)$photoinfo;
+        $nowtime = NOWTIME;
+        $sql = "UPDATE `photo` SET `favorite` = ?, `updated` = ? WHERE `id` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("sss", $photoinfo->favorite, $nowtime, $photoinfo->pid);
+        if($res->execute())
+            return TRUE;
+        else
+            return FALSE;
+
+    }
+
+    /**
      * Create praise in database
      */
     public function insertPraise($praiseInfo) {
@@ -230,7 +261,7 @@ class DatabaseAPI {
     }
 
     /**
-     * find photo in database
+     * find praise in database
      */
     public function findPraiseByUid($uid){
         $sql = "SELECT `id` FROM `praise` WHERE `uid` = ?";
@@ -240,6 +271,24 @@ class DatabaseAPI {
         $res->bind_result($uid);
         if($res->fetch()) {
             return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
+     * find topten praise in database
+     */
+    public function findPraiseTopTen(){
+        $sql = "SELECT u.`nickname`, p.`favorite`, p.`pic` FROM `photo` AS p, `user` AS u WHERE p.`uid` = u.`uid` LIMIT 0, 10";
+        $res = $this->connect()->prepare($sql);
+        $res->execute();
+        $res->bind_result($nickname, $num, $pic);
+        if($res->fetch()) {
+            $topten = new \stdClass();
+            $topten->nickname = $nickname;
+            $topten->num = $num;
+            $topten->pic = $pic;
+            return $topten;
         }
         return FALSE;
     }

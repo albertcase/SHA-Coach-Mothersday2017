@@ -20,7 +20,7 @@ class PageController extends Controller {
      * 预约
      */
     public function applyAction() {
-        $this->render('offstore');
+        $this->render('form');
     }
 
     /**
@@ -43,6 +43,7 @@ class PageController extends Controller {
      */
     public function topTenAction() {
         $list = $this->getTopTen();
+        var_dump($list);exit;
         $this->render('topten', $list);
     }
 
@@ -59,7 +60,8 @@ class PageController extends Controller {
      * 获取积赞榜单前十名
      */
     private function getTopTen() {
-
+        $db = new \Lib\DatabaseAPI();
+        return $db->findPraiseTopTen();
     }
 
 }
