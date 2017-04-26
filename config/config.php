@@ -20,7 +20,7 @@ define("AHEADTIME", '100');
 
 define("NONCESTR", '?????');
 define("CURIO_TOKEN", 'zcBpBLWyAFy6xs3e7HeMPL9zWrd7Xy');
-define("CURIO_AUTH_URL", 'http://coach.samesamechina.com/api/wechat/oauth/auth/e88bea4c-0247-4d17-a102-ad3ee0bec8f5');
+define("CURIO_AUTH_URL", 'http://coach.samesamechina.com/api/wechat/oauth/auth/e7a33b9c-c26e-41d0-88ec-14bf1a8ca4da');
 
 //Redis config info
 define("REDIS_HOST", '127.0.0.1');
