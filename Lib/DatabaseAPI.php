@@ -300,7 +300,7 @@ class DatabaseAPI {
     public function findPraiseTopTen(){
         $sql = "SELECT u.`nickname`, p.`favorite`, p.`pic` FROM `photo` AS p, `user` AS u WHERE p.`uid` = u.`uid` LIMIT 0, 10";
         $res = $this->connect()->query($sql);
-        $list = $res->fetch_array();
+        $list = $res->fetch_all($resulttype = MYSQLI_ASSOC);
         if($list) {
             return $list;
         }
@@ -331,7 +331,7 @@ class DatabaseAPI {
     public function getApplyList($date) {
         $sql = "SELECT u.`openid`, a.`name`, a.`created` FROM `apply` AS a, `user` AS u WHERE a.`uid` = u.`uid` AND a.`created` = '" . $date . "';";
         $res = $this->connect()->query($sql);
-        $list = $res->fetch_array();
+        $list = $res->fetch_all($resulttype = MYSQLI_ASSOC);
         if($list) {
             return $list;
         }

@@ -65,8 +65,8 @@
                         <div class="createEl">
                             <div class="userInfo ycenter disabled">
                                 <span>
-                                    <em><?php echo $v['nickname'];?></em>
-                                    <i><?php echo $v['num'];?></i>
+                                    <em><?php echo !empty($v['nickname']) ? $v['nickname'] : 'coach';?></em>
+                                    <i><?php echo $v['favorite'];?></i>
                                 </span>
                             </div>
                         </div>
