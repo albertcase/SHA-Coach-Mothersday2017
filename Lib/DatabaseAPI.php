@@ -287,9 +287,9 @@ class DatabaseAPI {
         $res = $this->connect()->prepare($sql);
         $res->bind_param("s", $uid);
         $res->execute();
-        $res->bind_result($uid);
+        $res->bind_result($pid);
         if($res->fetch()) {
-            return TRUE;
+            return $pid;
         }
         return FALSE;
     }
@@ -299,15 +299,10 @@ class DatabaseAPI {
      */
     public function findPraiseTopTen(){
         $sql = "SELECT u.`nickname`, p.`favorite`, p.`pic` FROM `photo` AS p, `user` AS u WHERE p.`uid` = u.`uid` LIMIT 0, 10";
-        $res = $this->connect()->prepare($sql);
-        $res->execute();
-        $res->bind_result($nickname, $num, $pic);
-        if($res->fetch()) {
-            $topten = new \stdClass();
-            $topten->nickname = $nickname;
-            $topten->num = $num;
-            $topten->pic = $pic;
-            return $topten;
+        $res = $this->connect()->query($sql);
+        $list = $res->fetch_array();
+        if($list) {
+            return $list;
         }
         return FALSE;
     }
@@ -328,6 +323,19 @@ class DatabaseAPI {
             return $user;
         }
         return NULL;
+    }
+
+    /**
+     * find apply in database
+     */
+    public function getApplyList($date) {
+        $sql = "SELECT u.`openid`, a.`name`, a.`created` FROM `apply` AS a, `user` AS u WHERE a.`uid` = u.`uid` AND a.`created` = '" . $date . "';";
+        $res = $this->connect()->query($sql);
+        $list = $res->fetch_array();
+        if($list) {
+            return $list;
+        }
+        return FALSE;
     }
 
 }

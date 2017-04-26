@@ -176,7 +176,7 @@ class ApiController extends Controller {
         if($db->findPhotoByUidPid($uid, $pid)) {
             return false;
         }
-        if($db->findPraiseByUid($uid)){
+        if($pid == $db->findPraiseByUid($uid)){
             return false;
         }
         return true;
