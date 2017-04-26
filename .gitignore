@@ -8,4 +8,5 @@ build/dist/media/
 build/gulpfile.js
 .zip
 build/.gulp/
+upload/
 

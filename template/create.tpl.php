@@ -319,6 +319,7 @@
 
     // 选取本地亲子照片事件
     $(".selectPhoto").on("click", function(){
+        if($(this).hasClass("disabled")) return false;
         var inputFileVal = $("input[type=file]").val();
         if(!inputFileVal) return false;
         var self = $(this);
@@ -336,13 +337,34 @@
             var elSrc = "/build/dist/img/el/"+elVal+".png"
             createPhotoFun(elSrc, 0, function(){
                 var finPhoto = fabricCreateCanvas.toDataURL({format: 'png', quality: 1});
-                console.log(finPhoto);
+                var uploadPicObj = {
+                    "pic": finPhoto.replace("data:image/png;base64,", "")
+                }
+                console.log(uploadPicObj);
                 console.log("生成成功");
                 $(".createEl").addClass("disabled");
                 self.addClass("disabled");
+
+                pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
+                    if(data.status == "1"){
+                       console.log(data);
+                       location.href = "/result?pid=" + data.msg;
+                       $(".formNode").removeClass("hidden");
+                       $(".formTable").addClass("hidden");
+                    }
+                    pfun.formErrorTips(data.msg);
+                    self.removeClass("disabled");
+                });
+
             });
         }
     })
+
+
+
+
+
+    
 
 
 </script>
