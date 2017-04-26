@@ -70,6 +70,7 @@
                             <li class="selectType">
                                 <input type="text" name="shop" placeholder="店 铺" readonly>
                                 <select class="choseShop">
+                                    <option></option>
                                     <option>shop1</option>
                                     <option>shop2</option>
                                     <option>shop3</option>
@@ -78,6 +79,7 @@
                             <li class="selectType">
                                 <input type="text" name="date" placeholder="日 期" readonly>
                                 <select class="choseDate">
+                                    <option></option>
                                     <option>20170501:am</option>
                                     <option>20170502:am</option>
                                     <option>20170503:pm</option>
