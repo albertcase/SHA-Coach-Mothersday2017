@@ -62,7 +62,7 @@ class PageController extends Controller {
      */
     public function topTenAction() {
         $list = (array) $this->getTopTen();
-        $this->render('topten', $list);
+        $this->render('topten', array('list' => $list));
     }
 
     /**

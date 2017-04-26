@@ -9,6 +9,7 @@ class ApiController extends Controller {
 
     private $hashKey = 'quality';
     private $uploadPath = UPLOAD_ROOT;
+    private $savePath = '/upload';
 
     public function __construct() {
 
@@ -198,9 +199,10 @@ class ApiController extends Controller {
     private function picConvert($picstr) {
         global $user;
         $str = base64_decode($picstr);
-        $saveFileName = '/upload/' . md5(NOWTIME . $user->uid . uniqid()) . '.png';
-        $fileName = $this->uploadPath .'/'. md5(NOWTIME . $user->uid . uniqid()) . '.png';
-        if(file_put_contents($fileName ,$str) > 0) {
+        $fileName = '/'. md5(NOWTIME . $user->uid . uniqid()) . '.png';
+        $uploadFileName = $this->uploadPath . $fileName;
+        $saveFileName = $this->savePath . $fileName;
+        if(file_put_contents($uploadFileName ,$str) > 0) {
             return $saveFileName;
         } else {
             return false;
