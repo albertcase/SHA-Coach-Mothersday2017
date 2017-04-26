@@ -1,6 +1,8 @@
 <?php
-    print_r($list);exit;
+    print_r($list);  // exit;
 ?>
+
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -60,7 +62,7 @@
                     <img src="/build/dist/img/m_bg.png" width="100%" class="opacity0">
                     <div class="createArea_con">
                         <div class="createStage">
-                            <img src="/build/dist/img/m_bg.png" width="100%">
+                            <img src="<?php echo $list['pic']; ?>" width="100%">
                         </div>
 
                         <div class="createEl">
