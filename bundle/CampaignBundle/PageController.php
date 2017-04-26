@@ -50,6 +50,9 @@ class PageController extends Controller {
             $ispraise = 1;
         }
 
+        if($role ==1) {
+            $ispraise = 1;
+        }
         $list = array(
             'pid' => $pid,
             'name' => empty($nickname) ? 'coche' : $nickname,
