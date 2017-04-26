@@ -1491,6 +1491,9 @@ video {
   top: 0;
   z-index: 10; }
 
+.btn.praiseBtn.disabled:before {
+  content: "已点赞"; }
+
 /* popup */
 .popup, .popup-rule {
   /*display: none;

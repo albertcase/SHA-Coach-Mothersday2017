@@ -1,5 +1,5 @@
 <?php
-// print_r($list);exit;
+print_r($list);exit;
 ?>
 <!DOCTYPE HTML>
 <html>

@@ -1,5 +1,5 @@
 <?php
-    //print_r($list);  // exit;
+    print_r($list);  // exit;
 ?>
 
 
@@ -29,7 +29,13 @@
 </head>
 <body>
 
+<?php
+    if($list['role']) {
+?>
 <div class="shareTips"></div>
+<?php
+    }
+?>
 
 <div class="loading">
     <div class="loading_con">
@@ -65,7 +71,7 @@
                             <img src="<?php echo $list['pic']; ?>" width="100%">
                         </div>
                         <div class="createEl">
-                            <div class="userInfo ycenter">
+                            <div class="userInfo ycenter <?php echo !$list['ispraise'] ? '' : 'disabled'; ?>">
                                 <span>
                                     <em><?php echo !empty($list['name']) ? $list['name'] : 'coach'; ?></em>
                                     <i><?php echo $list['num']; ?></i>
@@ -84,7 +90,7 @@
                     <?php
                         } else {
                     ?>
-                    <a href="javascript:void(0);" class="btn praiseBtn"><img src="/build/dist/img/heart-2.png" width="15%">为她点赞</a>
+                    <a href="javascript:void(0);" class="btn praiseBtn <?php echo !$list['ispraise'] ? '' : 'disabled'; ?>"><img src="/build/dist/img/heart-2.png" width="15%">为她点赞</a>
                     <a href="/" class="btn">我也要玩</a>
                     <?php } ?>
                 </div>
