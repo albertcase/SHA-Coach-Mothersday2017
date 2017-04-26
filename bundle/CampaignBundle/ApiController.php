@@ -8,7 +8,7 @@ use Wechat\ApiBundle\Modals\classes\WechatRequest\eventRequest\scanEvent;
 class ApiController extends Controller {
 
     private $hashKey = 'quality';
-    private $uploadPath = TEMPLATE_ROOT . '/upload';
+    private $uploadPath = UPLOAD_ROOT;
 
     public function __construct() {
 
@@ -56,7 +56,7 @@ class ApiController extends Controller {
             $this->statusPrint('2004', 'pic insert failed');
         }
 
-        $this->statusPrint('1', $db->insertPhoto($photoInfo));
+        $this->statusPrint('1', $pid);
     }
 
     /**
@@ -198,9 +198,10 @@ class ApiController extends Controller {
     private function picConvert($picstr) {
         global $user;
         $str = base64_decode($picstr);
-        $fileName = $this->uploadPath.'/'. md5(NOWTIME . $user->uid . uniqid()) . '.png';
+        $saveFileName = '/upload/' . md5(NOWTIME . $user->uid . uniqid()) . '.png';
+        $fileName = $this->uploadPath .'/'. md5(NOWTIME . $user->uid . uniqid()) . '.png';
         if(file_put_contents($fileName ,$str) > 0) {
-            return $fileName;
+            return $saveFileName;
         } else {
             return false;
         }

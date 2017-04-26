@@ -1,3 +1,6 @@
+<?php
+    print_r($list);exit;
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
