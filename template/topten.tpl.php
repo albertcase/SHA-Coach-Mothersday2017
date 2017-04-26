@@ -1,3 +1,6 @@
+<?php
+// print_r($list);exit;
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -52,48 +55,24 @@
                 <img src="/build/dist/img/slogan.png" width="100%">
             
                 <ul class="photolist">
+                <?php 
+                    foreach ($list as $k => $v) {
+                ?>
                     <li>
                         <div class="createStage">
-                            <img src="/build/dist/img/m_bg.png" width="100%">
+                            <img src="<?php echo $v['pic'];?>" width="100%">
                         </div>
-
                         <div class="createEl">
                             <div class="userInfo ycenter disabled">
                                 <span>
-                                    <em>Aimmeyuityiuyutit</em>
-                                    <i>369</i>
+                                    <em><?php echo $v['nickname'];?></em>
+                                    <i><?php echo $v['num'];?></i>
                                 </span>
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <div class="createStage">
-                            <img src="/build/dist/img/m_bg.png" width="100%">
-                        </div>
-
-                        <div class="createEl">
-                            <div class="userInfo ycenter disabled">
-                                <span>
-                                    <em>Aimmeyuityiuyutit</em>
-                                    <i>369</i>
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="createStage">
-                            <img src="/build/dist/img/m_bg.png" width="100%">
-                        </div>
-
-                        <div class="createEl">
-                            <div class="userInfo ycenter disabled">
-                                <span>
-                                    <em>Aimmeyuityiuyutit</em>
-                                    <i>369</i>
-                                </span>
-                            </div>
-                        </div>
-                    </li>
+                <?php } ?>
+                    
                 </ul>
             </div>
         </div>

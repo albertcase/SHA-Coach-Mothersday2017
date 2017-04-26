@@ -1,5 +1,5 @@
 <?php
-    print_r($list);  // exit;
+    //print_r($list);  // exit;
 ?>
 
 
@@ -64,12 +64,11 @@
                         <div class="createStage">
                             <img src="<?php echo $list['pic']; ?>" width="100%">
                         </div>
-
                         <div class="createEl">
-                            <div class="userInfo ycenter disabled">
+                            <div class="userInfo ycenter">
                                 <span>
-                                    <em>Aimmeyuityiuyutit</em>
-                                    <i>369</i>
+                                    <em><?php echo !empty($list['name']) ? $list['name'] : 'coach'; ?></em>
+                                    <i><?php echo $list['num']; ?></i>
                                 </span>
                             </div>
                         </div>
@@ -78,9 +77,16 @@
                 </div>
 
                 <div class="showFooterArea">
+                    <?php
+                        if($list['role']) {
+                    ?>
                     <a href="javascript:void(0);" class="btn shareBtn">分享</a>
-                    <a href="javascript:void(0);" class="btn"><img src="/build/dist/img/heart-2.png" width="15%">为她点赞</a>
-                    <a href="javascript:void(0);" class="btn">我也要玩</a>
+                    <?php
+                        } else {
+                    ?>
+                    <a href="javascript:void(0);" class="btn praiseBtn"><img src="/build/dist/img/heart-2.png" width="15%">为她点赞</a>
+                    <a href="/" class="btn">我也要玩</a>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -117,6 +123,27 @@
     $(".shareBtn").on("click", function(){
         $(".shareTips").removeClass("hidden");
     })
+
+
+    $(".praiseBtn").on("click", function(){
+        var self = $(this);
+        if(self.hasClass("disabled") || $(".userInfo").hasClass("disabled")) return false;
+
+        var praiseNum = $(".userInfo span i").text() * 1;
+
+        self.addClass("disabled");
+        pfun.ajaxFun("POST", "/api/praise", {
+            'pid': <?php echo $list['pid']; ?>
+        }, "json", function(data){
+            if(data.status == "1"){
+               $(".userInfo span i").text(praiseNum + 1);
+               $(".userInfo").addClass("disabled")
+            }
+            pfun.formErrorTips(data.msg);
+            self.removeClass("disabled");
+        });
+    })
+    
 
 
 
