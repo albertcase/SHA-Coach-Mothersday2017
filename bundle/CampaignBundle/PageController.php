@@ -32,25 +32,31 @@ class PageController extends Controller {
 
     /**
      * 积赞
-     * 1.array [pid, nickname, role:1(自己) 0:(好友), num:点赞数, pic:作品图品]
+     * 1.array [pid, nickname, role:1(自己) 0:(好友), num:点赞数, pic:作品图品, ispraise:0(未点赞) 1(已点赞)]
      */
     public function resultAction() {
         global $user;
         $db = new \Lib\DatabaseAPI();
         $pid = $_GET['pid'];
         $role = 0;
+        $ispraise = 0;
         $nickname = $db->findUserByUid($user->uid)->nickname;
         $photoinfo = $db->findPhotoByPid($pid);
         if($this->checkPhotoUser($pid, $user->uid)) {
             $role = 1;
         }
 
+        if($pid == $db->findPraiseByUid($user->uid)) {
+            $ispraise = 1;
+        }
+
         $list = array(
             'pid' => $pid,
-            'name' => $nickname,
+            'name' => empty($nickname) ? 'coche' : $nickname,
             'role' => $role,
             'num' => $photoinfo->num,
             'pic' => $photoinfo->pic,
+            'ispraise' => $ispraise,
         );
 
         $this->render('result', array('list' => $list));

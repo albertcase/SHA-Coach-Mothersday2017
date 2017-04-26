@@ -3,11 +3,21 @@ require_once "./Core/bootstrap.php";
 include_once "./config/config.php";
 include_once "./config/router.php";
 
-$data = array(
-    'openid' => 'oKCDxjs3Pi4XDVv4Y9_CGI3tu33o',
-    'name' => 'anke'
-);
-var_dump(sendMessage($data));
+$date = $argv[1];
+$db = new \Lib\DatabaseAPI();
+$applylist = getApplyList($db, $date);
+
+var_dump($applylist);exit;
+
+foreach ($applylist as $v){
+    sendMessage($v);
+    pushLog($v);
+    updateStatus($v['pid']);
+}
+//$data = array(
+//    'openid' => 'oKCDxjs3Pi4XDVv4Y9_CGI3tu33o',
+//    'name' => 'anke'
+//);
 
 /**
  * send template msg
@@ -58,6 +68,24 @@ function postData($api_url, $data) {
     curl_close ( $ch );
 }
 
-function pushLog() {
+/**
+ * 获取要推送的数据
+ * @param date: 20170501 提前一天推送
+ */
+function getApplyList($db, $date)  {
+    return $db->getApplyList($date);
+}
+
+/**
+ * 记录消息推送日志
+ */
+function pushLog($data) {
+
+}
+
+/**
+ * 修改线下预约数据的状态
+ */
+function updateStatus($applyId) {
 
 }
