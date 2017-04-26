@@ -96,7 +96,7 @@
 
                 <div class="showFooterArea">
                     <a href="javascript:void(0);" class="btn selectPhoto">就选这张</a>
-                    <a href="javascript:void(0);" class="btn abc">返回主页</a>
+                    <a href="/application/index.html" class="btn">返回主页</a>
                 </div>
             </div>
         </div>
