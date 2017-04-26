@@ -1,8 +1,9 @@
 <?php
 
-define("BASE_URL", 'http://127.0.0.1:9211/');
+define("BASE_URL", 'http://127.0.0.1:9243/');
 define("TEMPLATE_ROOT", dirname(__FILE__) . '/../template');
 define("VENDOR_ROOT", dirname(__FILE__) . '/../vendor');
+define("UPLOAD_ROOT", dirname(__FILE__) . '/../upload');
 
 //User
 define("USER_STORAGE", 'COOKIE');

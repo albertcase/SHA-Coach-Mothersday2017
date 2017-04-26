@@ -217,6 +217,24 @@ class DatabaseAPI {
     }
 
     /**
+     * find photo by pid in database
+     */
+    public function findPhotoByPid($pid){
+        $sql = "SELECT `favorite`, `pic` FROM `photo` WHERE `id` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $pid);
+        $res->execute();
+        $res->bind_result($num, $pic);
+        if($res->fetch()) {
+            $photoinfo =  new \stdClass();
+            $photoinfo->num = $num;
+            $photoinfo->pic = $pic;
+            return $photoinfo;
+        }
+        return FALSE;
+    }
+
+    /**
      * find favorite in photo
      */
     public function findFavorite($pid) {

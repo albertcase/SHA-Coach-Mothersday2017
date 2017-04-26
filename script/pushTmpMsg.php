@@ -57,3 +57,7 @@ function postData($api_url, $data) {
     return $return;
     curl_close ( $ch );
 }
+
+function pushLog() {
+
+}

@@ -32,7 +32,7 @@ class PageController extends Controller {
 
     /**
      * 积赞
-     * 1.array [pid, nickname, role:1(自己) 0:(好友)]
+     * 1.array [pid, nickname, role:1(自己) 0:(好友), num:点赞数, pic:作品图品]
      */
     public function resultAction() {
         global $user;
@@ -40,6 +40,7 @@ class PageController extends Controller {
         $pid = $_GET['pid'];
         $role = 0;
         $nickname = $db->findUserByUid($user->uid)->nickname;
+        $photoinfo = $db->findPhotoByPid($pid);
         if($this->checkPhotoUser($pid, $user->uid)) {
             $role = 1;
         }
@@ -48,9 +49,11 @@ class PageController extends Controller {
             'pid' => $pid,
             'name' => $nickname,
             'role' => $role,
+            'num' => $photoinfo->num,
+            'pic' => $photoinfo->pic,
         );
 
-        $this->render('result', $list);
+        $this->render('result', array('list' => $list));
     }
 
     /**
