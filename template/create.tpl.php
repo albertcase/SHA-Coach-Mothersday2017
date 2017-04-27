@@ -324,8 +324,7 @@
                         "pic": finPhoto.replace("data:image/png;base64,", "")
                     }
                     alert("生成成功");
-                    $(".createEl").addClass("disabled");
-                    self.addClass("disabled");
+                    
 
                     alert(6);
                     pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
@@ -337,7 +336,7 @@
                            $(".formTable").addClass("hidden");
                         }
                         pfun.formErrorTips(data.msg);
-                        self.removeClass("disabled");
+                        //self.removeClass("disabled");
                     });
                 }   
             }   
@@ -367,6 +366,8 @@
             $(".eleNode").addClass("hidden");
             var elSrc = "/build/dist/img/el/"+elVal+".png"
             createPhotoFun(elSrc, 0, function(){
+                $(".createEl").addClass("disabled");
+                self.addClass("disabled");
                 // var finPhoto = fabricCreateCanvas.toDataURL({format: 'png', quality: 1});
                 // var uploadPicObj = {
                 //     "pic": finPhoto.replace("data:image/png;base64,", "")
