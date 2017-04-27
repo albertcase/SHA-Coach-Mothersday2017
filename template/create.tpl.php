@@ -356,7 +356,9 @@
                 $.ajax({
                     type: "POST",
                     url: "/api/uploadpic",
-                    data: uploadPicObj,
+                    data: {
+                        'pic': finPhoto.replace("data:image/png;base64,", "")
+                    },
                     dataType: "json"
                 }).done(function(data){
                     alert(data.status);
