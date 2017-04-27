@@ -148,9 +148,10 @@
             if(data.status == "1"){
                $(".userInfo span i").text(praiseNum + 1);
                $(".userInfo").addClass("disabled")
+            }else{
+                self.removeClass("disabled");
             }
             pfun.formErrorTips(data.msg);
-            self.removeClass("disabled");
         });
     })
 
