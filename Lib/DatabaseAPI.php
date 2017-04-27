@@ -283,7 +283,7 @@ class DatabaseAPI {
      * find praise in database
      */
     public function findPraiseByUid($uid){
-        $sql = "SELECT `id` FROM `praise` WHERE `uid` = ?";
+        $sql = "SELECT `pid` FROM `praise` WHERE `uid` = ?";
         $res = $this->connect()->prepare($sql);
         $res->bind_param("s", $uid);
         $res->execute();
