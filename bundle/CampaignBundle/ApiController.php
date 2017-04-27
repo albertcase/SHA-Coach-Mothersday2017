@@ -40,12 +40,12 @@ class ApiController extends Controller {
         $pic = $request->request->get('pic');
 
         if(!$this->checkUserUpload($user->uid)) {
-            $this->statusPrint('2002', 'pic is upload again');
+            $this->statusPrint('2002', '您已创建作品！');
         }
 
         $fileName = $this->picConvert($pic);
         if(!$fileName) {
-            $this->statusPrint('2003', 'pic failed');
+            $this->statusPrint('2003', '作品创建失败！');
         }
 
         $db = new \Lib\DatabaseAPI();
@@ -54,7 +54,7 @@ class ApiController extends Controller {
         $photoInfo->pic = $fileName;
         $pid = $db->insertPhoto($photoInfo);
         if(!$pid) {
-            $this->statusPrint('2004', 'pic insert failed');
+            $this->statusPrint('2004', '作品创建失败！');
         }
 
         $this->statusPrint('1', $pid);
@@ -76,7 +76,7 @@ class ApiController extends Controller {
         $pid = $request->request->get('pid');
 
         if(!$this->checkUserPraise($user->uid, $pid)) {
-            $this->statusPrint('2005', 'user praise failed');
+            $this->statusPrint('2005', '您已点赞！');
         }
 
         $db = new \Lib\DatabaseAPI();
@@ -90,14 +90,14 @@ class ApiController extends Controller {
 
 
         if(!$db->insertPraise($praiseInfo)) {
-            $this->statusPrint('2008', 'praise insert failed');
+            $this->statusPrint('2008', '点赞失败！');
         }
 
         if(!$db->updatePhoto($photoupdate)) {
-            $this->statusPrint('2009', 'favorite update failed');
+            $this->statusPrint('2009', '点赞失败！');
         }
 
-        $this->statusPrint('1', 'success');
+        $this->statusPrint('1', '点赞成功！');
     }
 
     /**
@@ -137,11 +137,11 @@ class ApiController extends Controller {
         $searchKey = $this->convertKey($searchData);
 
         if(!$this->getCountNum($searchKey)) {
-            $this->statusPrint('1005', 'count failed');
+            $this->statusPrint('1005', '名额已满！');
         }
 
         if(!$this->checkUserStatus($user->uid)) {
-            $this->statusPrint('1006', 'user status failed');
+            $this->statusPrint('1006', '您已预约！');
         }
 
         $db = new \Lib\DatabaseAPI();
@@ -153,14 +153,14 @@ class ApiController extends Controller {
         $applyInfo->date = $request->request->get('date');
 
         if(!$db->insertApply($applyInfo)) {
-            $this->statusPrint('1007', 'insert failed');
+            $this->statusPrint('1007', '预约失败！');
         }
 
         if(!$this->inCreateCountNum($searchKey)) {
-            $this->statusPrint('1008', 'apply failed');
+            $this->statusPrint('1008', '预约失败！');
         }
 
-        $this->statusPrint('1', 'apply success');
+        $this->statusPrint('1', '预约成功！');
 
     }
 
