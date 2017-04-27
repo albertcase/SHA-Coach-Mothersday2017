@@ -350,14 +350,15 @@
                     "pic": finPhoto.replace("data:image/png;base64,", "")
                 }
                 console.log(uploadPicObj);
-                console.log("生成成功");
+                alert("生成成功");
                 $(".createEl").addClass("disabled");
                 self.addClass("disabled");
 
                 pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
+                    alert(data.status);
                     if(data.status == "1"){
                        console.log(data);
-                       location.href = "/result?pid=" + data.msg;
+                       window.location.href = "/result?pid=" + data.msg;
                        $(".formNode").removeClass("hidden");
                        $(".formTable").addClass("hidden");
                     }
