@@ -50,7 +50,9 @@
     <div class="section indexScroll" id="form">
         <div class="bg">
             <img src="/build/dist/img/logo.png" width="100%" class="logo">
-            
+            <div class="head">
+                <a href="/" class="back">返回首页</a>
+            </div>
             
             <div class="pageCon">
                 <div class="formNode formSuccess hidden">
