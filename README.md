@@ -63,4 +63,101 @@ pic: base64图片流
   status: '1',
   msg: pid
 }
+``` 
+
+---
+
+### 3. 获取场次API
+
+Method: POST
+
+##### API URL:
+
+```html
+  http://2017mothersday.samesamechina.com/api/applylist
+```
+
+##### Response
+
+##### status 1
+
+```json
+{ 
+    "shop1":
+    {
+        "20170501":
+        {
+            "am":"10",
+            "pm":"10"
+        },
+        "20170502":
+        {
+            "am":0,
+            "pm":"10"
+        }
+    },
+    "shop2":
+    {
+        "20170501":
+        {
+            "am":"8",
+            "pm":"10"
+        },
+        "20170502":
+        {
+            "am":"9",
+            "pm":"10"
+        }
+    }
+}
+``` 
+
+---
+
+### 4. 点赞API
+
+Method: POST
+
+##### API URL:
+
+```html
+  http://2017mothersday.samesamechina.com/api/praise
+```
+##### Get Parameter
+
+pid: 作品id
+
+```javascript
+{
+  pid: 1
+}
+```
+
+##### Response
+
+##### status 1
+
+```javascript
+{
+  status: '1',
+  msg: '点赞成功！'
+}
+``` 
+
+---
+
+### 5. 后台脚本
+
+Method: PHP脚本
+
+##### 初始化场次信息:
+
+```
+  php script/createQuality.php
+```
+
+##### 推送模版消息:
+
+```
+   php script/pushTmpMsg.php 2017-04-26
 ```
