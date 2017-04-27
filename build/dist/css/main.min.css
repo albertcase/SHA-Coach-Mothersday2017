@@ -1419,7 +1419,11 @@ video {
               font-size: 1.4rem;
               overflow: hidden;
               margin: 0 6% 0 0;
-              text-align: right; }
+              text-align: right;
+              display: block;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis; }
             .createCon .createArea .createArea_con .createEl .userInfo span i {
               width: 20%;
               float: left;
