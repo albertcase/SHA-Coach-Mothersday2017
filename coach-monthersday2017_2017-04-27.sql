@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17-0ubuntu0.16.04.1)
 # Database: coach-monthersday2017
-# Generation Time: 2017-04-26 02:52:54 +0000
+# Generation Time: 2017-04-27 04:03:47 +0000
 # ************************************************************
 
 
@@ -32,7 +32,7 @@ CREATE TABLE `apply` (
   `tel` varchar(255) DEFAULT NULL,
   `shop` varchar(255) DEFAULT '',
   `date` varchar(255) DEFAULT '',
-  `created` datetime DEFAULT NULL,
+  `created` date DEFAULT NULL,
   `status` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -54,15 +54,6 @@ CREATE TABLE `photo` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-LOCK TABLES `photo` WRITE;
-/*!40000 ALTER TABLE `photo` DISABLE KEYS */;
-
-INSERT INTO `photo` (`id`, `uid`, `pic`, `favorite`, `created`, `updated`)
-VALUES
-	(1,1,'/vagrant/config/../template/upload/e564d0c5502bf8cfe4029d9fb2e46ad0.png',2,'2017-04-24 09:31:25','2017-04-25 06:44:11');
-
-/*!40000 ALTER TABLE `photo` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table praise
@@ -79,16 +70,6 @@ CREATE TABLE `praise` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-LOCK TABLES `praise` WRITE;
-/*!40000 ALTER TABLE `praise` DISABLE KEYS */;
-
-INSERT INTO `praise` (`id`, `pid`, `uid`, `created`, `updated`)
-VALUES
-	(1,1,2,'2017-04-25 06:43:44','2017-04-25 06:43:44'),
-	(2,1,3,'2017-04-25 06:44:11','2017-04-25 06:44:11');
-
-/*!40000 ALTER TABLE `praise` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table pushlog
@@ -128,17 +109,6 @@ CREATE TABLE `user` (
   KEY `openid` (`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-
-INSERT INTO `user` (`uid`, `openid`, `nickname`, `sex`, `city`, `province`, `headimgurl`, `country`, `created`, `updated`)
-VALUES
-	(1,'moifada','','','','','','','2017-04-24 07:36:55','2017-04-24 07:36:55'),
-	(2,'aa','','','','','','','2017-04-24 10:23:12','2017-04-24 10:23:12'),
-	(3,'bb','','','','','','','2017-04-25 06:44:07','2017-04-25 06:44:07');
-
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 

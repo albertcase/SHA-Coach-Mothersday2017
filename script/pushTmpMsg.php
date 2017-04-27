@@ -3,28 +3,22 @@ require_once "./Core/bootstrap.php";
 include_once "./config/config.php";
 include_once "./config/router.php";
 
-$date = $argv[1];
+$date = $argv[1];//推送的日期
 $db = new \Lib\DatabaseAPI();
 $applylist = getApplyList($db, $date);
 
-var_dump($applylist);exit;
-
 foreach ($applylist as $v){
     sendMessage($v);
-    pushLog($v);
-    updateStatus($v['pid']);
+    pushLog($db, $v);
+    updateStatus($db, $v);
 }
-//$data = array(
-//    'openid' => 'oKCDxjs3Pi4XDVv4Y9_CGI3tu33o',
-//    'name' => 'anke'
-//);
 
 /**
  * send template msg
  */
-function sendMessage($data) {
+function sendMessage($senddata) {
     $data = array(
-        'touser' => $data['openid'],
+        'touser' => $senddata['openid'],
         'template_id' => 'WndD3kOmw-_OvtTPg0yfs0qziEWoHirCnsyXF8IiPns',
         'url' => '',
         'topcolor' => '#000000',
@@ -34,11 +28,11 @@ function sendMessage($data) {
                 'color' => '#000000'
             ),
             'keyword1' => array(
-                'value' => $data['name'],
+                'value' => $senddata['name'],
                 'color' => '#000000'
             ),
             'keyword2' => array(
-                'value' => date('Y-m-d'),
+                'value' => $senddata['created'],
                 'color' => '#000000'
             ),
             'remark' => array(
@@ -79,13 +73,18 @@ function getApplyList($db, $date)  {
 /**
  * 记录消息推送日志
  */
-function pushLog($data) {
-
+function pushLog($db, $data) {
+    $loginfo = new \stdClass();
+    $loginfo->apply_id = $data['id'];
+    $loginfo->openid = $data['openid'];
+    $loginfo->name = $data['name'];
+    $loginfo->status = 1;
+    $db->insertPushLog($loginfo);
 }
 
 /**
  * 修改线下预约数据的状态
  */
-function updateStatus($applyId) {
-
+function updateStatus($db, $data) {
+    $db->updateApplyStatus($data['id']);
 }

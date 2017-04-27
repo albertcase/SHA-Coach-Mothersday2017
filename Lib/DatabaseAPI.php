@@ -262,7 +262,6 @@ class DatabaseAPI {
             return TRUE;
         else
             return FALSE;
-
     }
 
     /**
@@ -329,13 +328,42 @@ class DatabaseAPI {
      * find apply in database
      */
     public function getApplyList($date) {
-        $sql = "SELECT u.`openid`, a.`name`, a.`created` FROM `apply` AS a, `user` AS u WHERE a.`uid` = u.`uid` AND a.`created` = '" . $date . "';";
+        $sql = "SELECT a.`id`, u.`openid`, a.`name`, a.`created` FROM `apply` AS a, `user` AS u WHERE a.`uid` = u.`uid` AND a.`created` = '" . $date . "' AND `status` = 0;";
         $res = $this->connect()->query($sql);
         $list = $res->fetch_all($resulttype = MYSQLI_ASSOC);
         if($list) {
             return $list;
         }
         return FALSE;
+    }
+
+    /**
+     * insert pushlog in database
+     */
+    public function insertPushLog($loginfo) {
+        $nowtime = NOWTIME;
+        $sql = "INSERT INTO `pushlog` SET `apply_id` = ?, `openid` = ?, `name` = ?, `status` = ?, `created` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("sssss", $loginfo->apply_id, $loginfo->openid, $loginfo->name, $loginfo->status, $nowtime);
+        if($res->execute())
+            return $res->insert_id;
+        else
+            return FALSE;
+    }
+
+    /**
+     * update apply status by applyid in database
+     */
+    public function updateApplyStatus($applyid) {
+        $applyid = (int)$applyid;
+        $status = 1;
+        $sql = "UPDATE `apply` SET `status` = ? WHERE `id` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ss", $status, $applyid);
+        if($res->execute())
+            return TRUE;
+        else
+            return FALSE;
     }
 
 }
