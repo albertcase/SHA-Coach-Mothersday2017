@@ -317,6 +317,16 @@
                     var eleImgHeight = this.height * eleImgRate;
                     imgDraw(fabricCreateCanvas, this, createCanvasWidth, eleImgHeight, 0, 0, false);  
                     setTimeout(_cb, 200);
+
+                    pfun.ajaxFun("POST", "/api/apply", formData, "json", function(data){
+                        alert(data.status);
+                        // if(data.status == "1"){
+                        //    $(".formNode").removeClass("hidden");
+                        //    $(".formTable").addClass("hidden");
+                        // }
+                        // pfun.formErrorTips(data.msg);
+                        // self.removeClass("disabled");
+                    });
                 }   
             }   
     }
@@ -354,15 +364,7 @@
                 self.addClass("disabled");
 
 
-                pfun.ajaxFun("POST", "/api/apply", formData, "json", function(data){
-                    alert(data.status);
-                    // if(data.status == "1"){
-                    //    $(".formNode").removeClass("hidden");
-                    //    $(".formTable").addClass("hidden");
-                    // }
-                    // pfun.formErrorTips(data.msg);
-                    // self.removeClass("disabled");
-                });
+
                 // pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
                 //     alert(data.status);
                 //     if(data.status == "1"){
