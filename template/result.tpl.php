@@ -109,7 +109,6 @@
 <script type="text/javascript">
     var allimg = [
        '/build/dist/img/logo.png',
-       '/build/dist/img/close.png'
     ];
 
     pfun.loadingFnDoing(allimg, function(){

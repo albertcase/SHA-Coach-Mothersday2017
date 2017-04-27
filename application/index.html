@@ -46,16 +46,16 @@
 </div>
 
 <div id="dreambox">
-    <div class="section indexScroll" id="show">
+    <div class="section indexScroll" id="application">
         <div class="bg">
-            <img src="/build/dist/img/logo.png" width="100%" class="logo">
+            <img src="" sourcesrc="/build/dist/img/logo.png" width="100%" class="logo">
             <div class="head">
                 <a href="/" class="back">返回首页</a>
             </div>
             
             <div class="pageCon">
                 <div class="activities_con">
-                    <img src="/build/dist/img/activities_kv.jpg" width="100%">
+                    <img src="" sourcesrc="/build/dist/img/activities_kv.jpg" width="100%">
                     <div class="activities_info">
                         <h2>感恩母亲节，除了送上贴心问候之余<br>
 也不要忘了用相机记录下妳们之间的温馨时刻</h2>
@@ -90,16 +90,16 @@
 <script type="text/javascript">
     var allimg = [
        '/build/dist/img/logo.png',
-       '/build/dist/img/close.png'
+       '/build/dist/img/activities_kv.jpg',
     ];
 
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
         // pfun.init();
 
-        pfun.overscroll(document.querySelector(".indexScroll")); 
+        _v.sectionChange("application");
 
-        _v.sectionChange("show");
+        pfun.overscroll(document.querySelector(".indexScroll")); 
 
         var swiper = new Swiper('.swiper-container', {
             pagination: '.swiper-pagination',

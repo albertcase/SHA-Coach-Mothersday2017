@@ -49,10 +49,10 @@
     <div class="section indexScroll" id="create">
         <div class="bg">
             <div class="createCon">
-                <img src="/build/dist/img/slogan.png" width="100%">
+                <img src="" sourcesrc="/build/dist/img/slogan.png" width="100%">
             
                 <div class="createArea">
-                    <img src="/build/dist/img/m_bg.png" width="100%" class="opacity0">
+                    <img src="" sourcesrc="/build/dist/img/m_bg.png" width="100%" class="opacity0">
                     <div class="createArea_con">
                         <div class="createStage">
                             <div class="uploadTips">
@@ -72,19 +72,19 @@
                             <ul>
                                 <li class="hover">
                                     <span>
-                                        <img src="/build/dist/img/el/s-el1.png" width="100%">
+                                        <img src="" sourcesrc="/build/dist/img/el/s-el1.png" width="100%">
                                     </span>
                                     <em>时髦妈妈</em>
                                 </li>
                                 <li>
                                     <span>
-                                        <img src="/build/dist/img/el/s-el2.png" width="100%">
+                                        <img src="" sourcesrc="/build/dist/img/el/s-el2.png" width="100%">
                                     </span>
                                     <em>运动妈妈</em>
                                 </li>
                                 <li>
                                     <span>
-                                        <img src="/build/dist/img/el/s-el3.png" width="100%">
+                                        <img src="" sourcesrc="/build/dist/img/el/s-el3.png" width="100%">
                                     </span>
                                     <em>摇滚妈妈</em>
                                 </li>
@@ -113,7 +113,15 @@
 <script type="text/javascript">
     var allimg = [
        '/build/dist/img/logo.png',
-       '/build/dist/img/close.png'
+       '/build/dist/img/slogan.png',
+       '/build/dist/img/m_bg.png',
+       '/build/dist/img/el/el1.png',
+       '/build/dist/img/el/el2.png',
+       '/build/dist/img/el/el3.png',
+       '/build/dist/img/el/s-el1.png',
+       '/build/dist/img/el/s-el2.png',
+       '/build/dist/img/el/s-el3.png',
+       '/build/dist/img/photo.jpg',
     ], step = 0, elVal = 'el1';
 
     pfun.loadingFnDoing(allimg, function(){

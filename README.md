@@ -7,7 +7,7 @@ Method: POST
 ##### API URL:
 
 ```html
-  http://127.0.0.1:9243/api/apply
+  http://2017mothersday.samesamechina.com/api/apply
 ```
 ##### Get Parameter
 

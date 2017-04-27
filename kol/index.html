@@ -61,7 +61,7 @@
 <video width="100%" height="0" id="scenesVideo" class="hidden" preload="auto" playsinline webkit-playsinline src="/build/dist/media/test.mp4" poster="/build/dist/media/poster.jpg"></video>
 
 <div id="dreambox">
-    <div class="section indexScroll" id="show">
+    <div class="section indexScroll" id="kol">
         <div class="bg">
             <img src="/build/dist/img/logo.png" width="100%" class="logo">
             <div class="head">
@@ -110,7 +110,6 @@
 <script type="text/javascript">
     var allimg = [
        '/build/dist/img/logo.png',
-       '/build/dist/img/close.png',
        '/build/dist/media/test.mp4'
     ];
 
@@ -119,8 +118,7 @@
         // pfun.init();
 
         pfun.overscroll(document.querySelector(".indexScroll")); 
-
-        _v.sectionChange("show");
+        _v.sectionChange("kol");
 
         var swiper = new Swiper('.swiper-container', {
             pagination: '.swiper-pagination',

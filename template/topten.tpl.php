@@ -49,7 +49,7 @@ print_r($list); //exit;
 </div>
 
 <div id="dreambox">
-    <div class="section indexScroll" id="result">
+    <div class="section indexScroll" id="topten">
         <div class="bg">
             <div class="createCon">
                 <img src="/build/dist/img/slogan.png" width="100%">
@@ -94,14 +94,13 @@ print_r($list); //exit;
 <script type="text/javascript">
     var allimg = [
        '/build/dist/img/logo.png',
-       '/build/dist/img/close.png'
     ];
 
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
         // pfun.init();
 
-        _v.sectionChange("result");
+        _v.sectionChange("topten");
         pfun.overscroll(document.querySelector(".indexScroll")); 
 
     })   
