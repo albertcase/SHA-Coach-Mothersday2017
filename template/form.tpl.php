@@ -187,7 +187,7 @@
                     //console.log(b);
                     $.map(a, function(c, d){
                         //console.log(b + ":" + d + c);
-                        selectHTMl['date'] += '<option>'+ (b + ":" + d + (c == 0 ? '预约已满' : c)) +'</option>';
+                        selectHTMl['date'] += '<option value="'+ b + ":" + d +'">'+ (b + ":" + d + (c == 0 ? '预约已满' : c)) +'</option>';
                         //console.log(c);
                         //console.log(d);
                     })
