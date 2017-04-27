@@ -118,7 +118,7 @@
             "_desc": "Coach感恩母亲节，一起花式“晒妈”赢好礼",    // 分享朋友圈的描述
             "_desc_friend": "Coach感恩母亲节，一起花式“晒妈”赢好礼",    // 分享好友的描述
             "_link": window.location.link,    //分享的连接
-            "_imgUrl": "http://" + window.location.host + "/build/assets/img/share.jpg",   //分享的图片
+            "_imgUrl": "http://" + window.location.host + "/build/dist/img/share.jpg",   //分享的图片
             "_url": encodeURIComponent(window.location.href)//encodeURIComponent(window.location.href.split("#")[0]) //.replace('http%3A%2F%2F','')
         }
         
