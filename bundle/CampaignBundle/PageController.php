@@ -40,8 +40,8 @@ class PageController extends Controller {
         $pid = $_GET['pid'];
         $role = 0;
         $ispraise = 0;
-        $nickname = $db->findUserByUid($user->uid)->nickname;
         $photoinfo = $db->findPhotoByPid($pid);
+        $nickname = $db->findUserByUid($photoinfo->uid)->nickname;//昵称
         if($this->checkPhotoUser($pid, $user->uid)) {
             $role = 1;
         }
