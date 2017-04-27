@@ -109,7 +109,7 @@
 
 
 
-
+<script type="text/javascript" src="/build/dist/js/vendor.min.js"></script>
 <script type="text/javascript" src="/build/dist/js/main.min.js"></script>
 <script type="text/javascript">
     var allimg = [
