@@ -318,14 +318,26 @@
                     imgDraw(fabricCreateCanvas, this, createCanvasWidth, eleImgHeight, 0, 0, false);  
                     setTimeout(_cb, 200);
 
-                    pfun.ajaxFun("POST", "/api/apply", formData, "json", function(data){
+
+                    var finPhoto = fabricCreateCanvas.toDataURL({format: 'png', quality: 1});
+                    var uploadPicObj = {
+                        "pic": finPhoto.replace("data:image/png;base64,", "")
+                    }
+                    alert("生成成功");
+                    $(".createEl").addClass("disabled");
+                    self.addClass("disabled");
+
+                    alert(6);
+                    pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
                         alert(data.status);
-                        // if(data.status == "1"){
-                        //    $(".formNode").removeClass("hidden");
-                        //    $(".formTable").addClass("hidden");
-                        // }
-                        // pfun.formErrorTips(data.msg);
-                        // self.removeClass("disabled");
+                        if(data.status == "1"){
+                           console.log(data);
+                           window.location.href = "/result?pid=" + data.msg;
+                           $(".formNode").removeClass("hidden");
+                           $(".formTable").addClass("hidden");
+                        }
+                        pfun.formErrorTips(data.msg);
+                        self.removeClass("disabled");
                     });
                 }   
             }   
@@ -355,13 +367,13 @@
             $(".eleNode").addClass("hidden");
             var elSrc = "/build/dist/img/el/"+elVal+".png"
             createPhotoFun(elSrc, 0, function(){
-                var finPhoto = fabricCreateCanvas.toDataURL({format: 'png', quality: 1});
-                var uploadPicObj = {
-                    "pic": finPhoto.replace("data:image/png;base64,", "")
-                }
-                alert("生成成功");
-                $(".createEl").addClass("disabled");
-                self.addClass("disabled");
+                // var finPhoto = fabricCreateCanvas.toDataURL({format: 'png', quality: 1});
+                // var uploadPicObj = {
+                //     "pic": finPhoto.replace("data:image/png;base64,", "")
+                // }
+                //alert("生成成功");
+                // $(".createEl").addClass("disabled");
+                // self.addClass("disabled");
 
 
 
