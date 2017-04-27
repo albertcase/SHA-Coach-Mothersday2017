@@ -1132,8 +1132,8 @@ video {
 
 .back {
   padding: 0 0 0 4%;
-  height: 34px;
-  line-height: 32px;
+  height: 30px;
+  line-height: 30px;
   text-align: right;
   background: url("../img/arr-l.png") left center no-repeat;
   background-size: auto 38%;
