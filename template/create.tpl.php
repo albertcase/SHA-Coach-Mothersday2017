@@ -353,7 +353,7 @@
                 alert("生成成功");
                 $(".createEl").addClass("disabled");
                 self.addClass("disabled");
-
+                alert(uploadPicObj['pic']);
                 pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
                     alert(data.status);
                     if(data.status == "1"){
