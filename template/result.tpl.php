@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Coach 母亲节</title>
+    <title>COACH 2017母亲节</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="format-detection" content="telephone=no">
     <!-- uc强制竖屏 -->
@@ -26,6 +26,7 @@
     <meta name="Description" content="...">
     
     <link rel="stylesheet" type="text/css" href="/build/dist/css/main.min.css">
+    <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/918fce91-ab24-42cd-9ca1-e7a86bd59fc0/wechat"></script>
 </head>
 <body>
 
@@ -112,8 +113,17 @@
     ];
 
     pfun.loadingFnDoing(allimg, function(){
+        shareArr = {
+            "_title": 'COACH 2017母亲节', //分享标题
+            "_desc": "Coach感恩母亲节，一起花式“晒妈”赢好礼",    // 分享朋友圈的描述
+            "_desc_friend": "Coach感恩母亲节，一起花式“晒妈”赢好礼",    // 分享好友的描述
+            "_link": window.location.link,    //分享的连接
+            "_imgUrl": "http://" + window.location.host + "/build/assets/img/share.jpg",   //分享的图片
+            "_url": encodeURIComponent(window.location.href)//encodeURIComponent(window.location.href.split("#")[0]) //.replace('http%3A%2F%2F','')
+        }
+        
         $(".loading").css({"visibility": "hidden"});
-        // pfun.init();
+        pfun.init();
 
         _v.sectionChange("result");
         pfun.overscroll(document.querySelector(".indexScroll")); 
@@ -148,6 +158,8 @@
             self.removeClass("disabled");
         });
     })
+
+
     
 
 

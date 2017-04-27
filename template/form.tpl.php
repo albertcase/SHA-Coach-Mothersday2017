@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Coach 母亲节</title>
+    <title>COACH 2017母亲节</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="format-detection" content="telephone=no">
     <!-- uc强制竖屏 -->
@@ -21,6 +21,7 @@
     <meta name="Description" content="...">
     
     <link rel="stylesheet" type="text/css" href="/build/dist/css/main.min.css">
+    <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/918fce91-ab24-42cd-9ca1-e7a86bd59fc0/wechat"></script>
 </head>
 <body>
 
@@ -69,21 +70,11 @@
                             </li>
                             <li class="selectType">
                                 <input type="text" name="shop" placeholder="店 铺" readonly>
-                                <select class="choseShop">
-                                    <option></option>
-                                    <option>shop1</option>
-                                    <option>shop2</option>
-                                    <option>shop3</option>
-                                </select>
+                                <select class="choseShop"></select>
                             </li>
                             <li class="selectType">
                                 <input type="text" name="date" placeholder="日 期" readonly>
-                                <select class="choseDate">
-                                    <option></option>
-                                    <option>20170501:am</option>
-                                    <option>20170502:am</option>
-                                    <option>20170503:pm</option>
-                                </select>
+                                <select class="choseDate"></select>
                             </li>
                         </ul>
                     </div>
@@ -113,24 +104,12 @@
 
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
-        // pfun.init();
-
-        pfun.overscroll(document.querySelector(".indexScroll")); 
+        pfun.init();
 
         _v.sectionChange("form");
+        pfun.overscroll(document.querySelector(".indexScroll")); 
 
     })   
-
-    $(".choseDate").change(function(){
-        var selectedVal_date = $(this).find('option:selected').val();
-        $("input[name=date]").val(selectedVal_date);
-    });
-
-    $(".choseShop").change(function(){
-        var selectedVal_shop = $(this).find('option:selected').val();
-        $("input[name=shop]").val(selectedVal_shop);
-    });
-
 
     var formData = {
         "name": "",
@@ -175,6 +154,53 @@
 
     })
 
+
+    var selectHTMl = {
+        "shop": "",
+        "date": ""
+    }, formlist;
+
+    pfun.ajaxFun("POST", "/api/applylist", "","json", function(data){
+        formlist = data;
+        selectHTMl['shop'] = $.map(data, function(v, k){ 
+            return '<option>'+ k +'</option>';
+        }).join("");
+        $(".choseShop").html('<option></option>' + selectHTMl['shop']);
+    });
+
+
+    $(".choseDate").change(function(){
+        var selectedVal_date = $(this).find('option:selected').val();
+        $("input[name=date]").val(selectedVal_date);
+    });
+
+    $(".choseShop").change(function(){
+        //console.log(formlist);
+        selectHTMl['date'] = "<option></option>";
+
+        var selectedVal_shop = $(this).find('option:selected').val();
+
+        $.map(formlist, function(j, k){
+            if(k == selectedVal_shop){
+                $.map(j, function(a, b){
+                    //console.log(a);
+                    //console.log(b);
+                    $.map(a, function(c, d){
+                        //console.log(b + ":" + d + c);
+                        selectHTMl['date'] += '<option>'+ (b + ":" + d + (c == 0 ? '预约已满' : c)) +'</option>';
+                        //console.log(c);
+                        //console.log(d);
+                    })
+                })
+                // console.log(j);
+                // console.log(k);
+            };
+        })
+
+        $("input[name=shop]").val(selectedVal_shop);
+
+        $(".choseDate").empty().html(selectHTMl['date']);
+    });
 
     
 
