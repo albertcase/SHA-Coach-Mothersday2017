@@ -55,8 +55,9 @@ print_r($list); //exit;
                 <img src="/build/dist/img/slogan.png" width="100%">
             
                 <ul class="photolist">
-                <?php 
-                    foreach ($list as $k => $v) {
+                <?php
+                    if($list) {
+                        foreach ($list as $k => $v) {
                 ?>
                     <li>
                         <div class="createStage">
@@ -71,8 +72,12 @@ print_r($list); //exit;
                             </div>
                         </div>
                     </li>
+                <?php
+                        }
+                    } else {
+                ?>
+                    <p>暂无数据</p>
                 <?php } ?>
-                    
                 </ul>
             </div>
         </div>
