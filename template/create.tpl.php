@@ -50,7 +50,7 @@
     <div class="section indexScroll" id="create">
         <div class="bg">
             <div class="createCon">
-                <img src="" sourcesrc="/build/dist/img/slogan.png" width="100%">
+                <img src="" sourcesrc="/build/dist/img/slogan.png" class="aaa" width="100%">
             
                 <div class="createArea">
                     <img src="" sourcesrc="/build/dist/img/m_bg.png" width="100%" class="opacity0">
@@ -103,8 +103,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 
@@ -316,14 +314,25 @@
                     var eleImgRate =  createCanvasWidth / this.width;   // 图片缩放比例
                     var eleImgHeight = this.height * eleImgRate;
                     imgDraw(fabricCreateCanvas, this, createCanvasWidth, eleImgHeight, 0, 0, false);  
-                    setTimeout(_cb, 200);
+                    //setTimeout(_cb, 200);
+                    _cb();
                 }   
             }   
     }
 
 
-
-       
+var xmlhttp;//设置全局变量  
+function sendRequest(method, url, isAsyns, params, action) {  
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari  
+        xmlhttp = new XMLHttpRequest();  
+    } else {// code for IE6, IE5  
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");  
+    }  
+    xmlhttp.open(method, url, isAsyns);  
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");//这行代码很关键，用来把字符串类型的参数序列化成Form Data  
+    xmlhttp.send(params);  
+    xmlhttp.onreadystatechange = action;  
+}  
 
 
     // 选取本地亲子照片事件
@@ -345,10 +354,13 @@
             $(".eleNode").addClass("hidden");
             var elSrc = "/build/dist/img/el/"+elVal+".png"
             createPhotoFun(elSrc, 0, function(){
-                var finPhoto = fabricCreateCanvas.toDataURL({format: 'png', quality: 1});
+                var finPhoto = fabricCreateCanvas.toDataURL({format: 'image/png', quality: .7});
+
                 var uploadPicObj = {
                     "pic": finPhoto.replace("data:image/png;base64,", "")
                 }
+
+                //var upic = new FormData(finPhoto.replace("data:image/png;base64,", ""));
                 // alert("生成成功6");
                 $(".createEl").addClass("disabled");
                 self.addClass("disabled");
@@ -381,28 +393,13 @@
                 // });
 
 
-                // $.ajax({
-                //     type: "POST",
-                //     url: "/api/uploadpic",
-                //     data: formData,
-                //     dataType: "json"
-                // }).done(function(data){
-                //     alert("status" + data.status);
-                //     if(data.status == "1"){
-                //        console.log(data);
-                //        window.location.href = "/result?pid=" + data.msg;
-                //        $(".formNode").removeClass("hidden");
-                //        $(".formTable").addClass("hidden");
-                //     }
-                //     pfun.formErrorTips(data.msg);
-                //     self.removeClass("disabled");
-
-                // }).fail(function(jqXHR, textStatus) {
-                //   alert( "Request failed: " + textStatus );
-                //   alert('test' + jqXHR);
-                // });
-                pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
-                    alert(data.status);
+                $.ajax({
+                    type: "POST",
+                    url: "/api/uploadpic",
+                    data: uploadPicObj,
+                    dataType: "json"
+                }).done(function(data){
+                    alert("status" + data.status);
                     if(data.status == "1"){
                        console.log(data);
                        window.location.href = "/result?pid=" + data.msg;
@@ -411,7 +408,55 @@
                     }
                     pfun.formErrorTips(data.msg);
                     self.removeClass("disabled");
+
+                }).fail(function(jqXHR, textStatus) {
+                  alert( "Request failed: " + textStatus );
+                  alert('test' + jqXHR);
                 });
+                // pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
+                //     alert(data.status);
+                //     if(data.status == "1"){
+                //        console.log(data);
+                //        window.location.href = "/result?pid=" + data.msg;
+                //        $(".formNode").removeClass("hidden");
+                //        $(".formTable").addClass("hidden");
+                //     }
+                //     pfun.formErrorTips(data.msg);
+                //     self.removeClass("disabled");
+                // });
+
+                  // var oReq = new XMLHttpRequest();
+                  // oReq.open("POST", "/api/uploadpic", true);
+                  // oReq.onload = function(oEvent) {
+                  //   console.log(oEvent);
+                  //   if (oReq.status == 200) {
+                  //     alert("Uploaded!");
+                  //   } else {
+                  //     oOutput.innerHTML = "Error " + oReq.status + " occurred when trying to upload your file.<br \/>";
+                  //   }
+                  // };
+
+                  // oReq.send(upic);
+
+                //这里为了简化代码，没有附上密码加密的代码  
+                // var params = "pic=" + finPhoto.replace("data:image/png;base64,", "");  
+                // console.log(finPhoto.replace("data:image/png;base64,", ""));
+                // //var params = "pic="
+                // $(".aaa").attr("src", finPhoto);
+                // sendRequest("POST", "/api/uploadpic", true, params, function(response) { 
+                //     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) { 
+                //         var callbackData = JSON.parse(response.target.response);  
+                //         console.log(callbackData.msg);
+                //         // alert("formData - status" + data.status);
+                //         if(callbackData.status == "1"){
+                //            //window.location.href = "/result?pid=" + callbackData.msg;
+                //            $(".formNode").removeClass("hidden");
+                //            $(".formTable").addClass("hidden");
+                //         }
+                //         pfun.formErrorTips(callbackData.msg);
+                //         self.removeClass("disabled");
+                //     }  
+                // });
 
             });
         }
