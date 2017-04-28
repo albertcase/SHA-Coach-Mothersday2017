@@ -377,7 +377,7 @@ function sendRequest(method, url, isAsyns, params, action) {
                        $(".formNode").removeClass("hidden");
                        $(".formTable").addClass("hidden");
                     }
-                    pfun.formErrorTips(data.msg);
+                    pfun.formErrorTips('上传成功！');
                     self.removeClass("disabled");
 
                 }).fail(function(jqXHR, textStatus) {
