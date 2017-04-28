@@ -360,37 +360,9 @@ function sendRequest(method, url, isAsyns, params, action) {
                     "pic": finPhoto.replace("data:image/png;base64,", "")
                 }
 
-                //var upic = new FormData(finPhoto.replace("data:image/png;base64,", ""));
-                // alert("生成成功6");
                 $(".createEl").addClass("disabled");
                 self.addClass("disabled");
 
-                // var formData = new FormData();
-                // // HTML 文件类型input，由用户选择
-                // formData.append("pic", finPhoto.replace("data:image/png;base64,", ""));
-                // console.log(formData);
-
-                // $.ajax({
-                //   url: "/api/uploadpic",
-                //   type: "POST",
-                //   data: formData,
-                //   processData: false,  // 不处理数据
-                //   contentType: false   // 不设置内容类型
-                // }).done(function(data){
-                //     alert("formData - status" + data.status);
-                //     if(data.status == "1"){
-                //        console.log(data);
-                //        window.location.href = "/result?pid=" + data.msg;
-                //        $(".formNode").removeClass("hidden");
-                //        $(".formTable").addClass("hidden");
-                //     }
-                //     pfun.formErrorTips(data.msg);
-                //     self.removeClass("disabled");
-
-                // }).fail(function(jqXHR, textStatus) {
-                //   alert( "formData - Request failed: " + textStatus );
-                //   alert('formData - test' + jqXHR);
-                // });
 
 
                 $.ajax({
@@ -399,9 +371,8 @@ function sendRequest(method, url, isAsyns, params, action) {
                     data: uploadPicObj,
                     dataType: "json"
                 }).done(function(data){
-                    alert("status" + data.status);
+                    // alert("status" + data.status);
                     if(data.status == "1"){
-                       console.log(data);
                        window.location.href = "/result?pid=" + data.msg;
                        $(".formNode").removeClass("hidden");
                        $(".formTable").addClass("hidden");
@@ -410,13 +381,13 @@ function sendRequest(method, url, isAsyns, params, action) {
                     self.removeClass("disabled");
 
                 }).fail(function(jqXHR, textStatus) {
-                  alert( "Request failed: " + textStatus );
-                  alert('test' + jqXHR);
+                  console.log( "Request failed: " + textStatus );
+                  console.log('test' + jqXHR);
                 });
                 // pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
-                //     alert(data.status);
+                //     // alert(data.status);
                 //     if(data.status == "1"){
-                //        console.log(data);
+                //        //console.log(data);
                 //        window.location.href = "/result?pid=" + data.msg;
                 //        $(".formNode").removeClass("hidden");
                 //        $(".formTable").addClass("hidden");
