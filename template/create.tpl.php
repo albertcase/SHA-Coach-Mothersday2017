@@ -363,6 +363,15 @@
                     dataType: "json"
                 }).done(function(data){
                     alert("status" + data.status);
+                    if(data.status == "1"){
+                       console.log(data);
+                       window.location.href = "/result?pid=" + data.msg;
+                       $(".formNode").removeClass("hidden");
+                       $(".formTable").addClass("hidden");
+                    }
+                    pfun.formErrorTips(data.msg);
+                    self.removeClass("disabled");
+
                 }).fail(function(jqXHR, textStatus) {
                   alert( "Request failed: " + textStatus );
                   alert('test' + jqXHR);
