@@ -353,27 +353,31 @@
                 $(".createEl").addClass("disabled");
                 self.addClass("disabled");
 
-                // $.ajax({
-                //     type: "POST",
-                //     url: "/api/uploadpic",
-                //     data: {
-                //         'pic': finPhoto.replace("data:image/png;base64,", "")
-                //     },
-                //     dataType: "json"
-                // }).done(function(data){
-                //     alert(data.status);
-                // })
-                pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
+                $.ajax({
+                    type: "POST",
+                    url: "/api/uploadpic",
+                    processData: false,
+                    data: {
+                        'pic': finPhoto.replace("data:image/png;base64,", "")
+                    },
+                    dataType: "json"
+                }).done(function(data){
                     alert(data.status);
-                    if(data.status == "1"){
-                       console.log(data);
-                       window.location.href = "/result?pid=" + data.msg;
-                       $(".formNode").removeClass("hidden");
-                       $(".formTable").addClass("hidden");
-                    }
-                    pfun.formErrorTips(data.msg);
-                    self.removeClass("disabled");
+                }).fail(function(jqXHR, textStatus) {
+                  alert( "Request failed: " + textStatus );
+                  alert('test' + jqXHR);
                 });
+                // pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
+                //     alert(data.status);
+                //     if(data.status == "1"){
+                //        console.log(data);
+                //        window.location.href = "/result?pid=" + data.msg;
+                //        $(".formNode").removeClass("hidden");
+                //        $(".formTable").addClass("hidden");
+                //     }
+                //     pfun.formErrorTips(data.msg);
+                //     self.removeClass("disabled");
+                // });
 
             });
         }
