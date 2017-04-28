@@ -353,14 +353,17 @@
                 $(".createEl").addClass("disabled");
                 self.addClass("disabled");
 
+                var formData = new FormData();
+                // HTML 文件类型input，由用户选择
+                formData.append("pic", finPhoto.replace("data:image/png;base64,", ""));
+                console.log(formData);
+
                 $.ajax({
-                    type: "POST",
-                    url: "/api/uploadpic",
-                    //processData: false,
-                    data: {
-                        'pic': finPhoto.replace("data:image/png;base64,", "")
-                    },
-                    dataType: "json"
+                  url: "/api/uploadpic",
+                  type: "POST",
+                  data: formData,
+                  processData: false,  // 不处理数据
+                  contentType: false   // 不设置内容类型
                 }).done(function(data){
                     alert("status" + data.status);
                     if(data.status == "1"){
@@ -375,7 +378,29 @@
                 }).fail(function(jqXHR, textStatus) {
                   alert( "Request failed: " + textStatus );
                   alert('test' + jqXHR);
-                });
+                });;
+
+                
+                // $.ajax({
+                //     type: "POST",
+                //     url: "/api/uploadpic",
+                //     data: formData,
+                //     dataType: "json"
+                // }).done(function(data){
+                //     alert("status" + data.status);
+                //     if(data.status == "1"){
+                //        console.log(data);
+                //        window.location.href = "/result?pid=" + data.msg;
+                //        $(".formNode").removeClass("hidden");
+                //        $(".formTable").addClass("hidden");
+                //     }
+                //     pfun.formErrorTips(data.msg);
+                //     self.removeClass("disabled");
+
+                // }).fail(function(jqXHR, textStatus) {
+                //   alert( "Request failed: " + textStatus );
+                //   alert('test' + jqXHR);
+                // });
                 // pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
                 //     alert(data.status);
                 //     if(data.status == "1"){
