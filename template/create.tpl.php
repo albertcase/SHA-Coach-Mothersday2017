@@ -57,7 +57,7 @@
                     <div class="createArea_con">
                         <div class="createStage">
                             <div class="uploadTips">
-                                <input type="file" capture="camera" />
+                                <input type="file" />
                             </div>
                             <div class="canvasArea">
                                 <div class="eleNode el1 hidden"></div>
@@ -321,20 +321,6 @@
     }
 
 
-var xmlhttp;//设置全局变量  
-function sendRequest(method, url, isAsyns, params, action) {  
-    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari  
-        xmlhttp = new XMLHttpRequest();  
-    } else {// code for IE6, IE5  
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");  
-    }  
-    xmlhttp.open(method, url, isAsyns);  
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");//这行代码很关键，用来把字符串类型的参数序列化成Form Data  
-    xmlhttp.send(params);  
-    xmlhttp.onreadystatechange = action;  
-}  
-
-
     // 选取本地亲子照片事件
     $(".selectPhoto").on("click", function(){
         if($(this).hasClass("disabled")) return false;
@@ -376,8 +362,11 @@ function sendRequest(method, url, isAsyns, params, action) {
                        window.location.href = "/result?pid=" + data.msg;
                        $(".formNode").removeClass("hidden");
                        $(".formTable").addClass("hidden");
+                       pfun.formErrorTips('上传成功！');
+                    }else{
+                       pfun.formErrorTips(data.msg);
                     }
-                    pfun.formErrorTips('上传成功！');
+                    
                     self.removeClass("disabled");
 
                 }).fail(function(jqXHR, textStatus) {

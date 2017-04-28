@@ -48,6 +48,8 @@
     </div>
 </div>
 
+<div class="pageQrcode hidden"></div>
+
 <div id="dreambox">
     <div class="section indexScroll" id="index">
         <div class="bg">
@@ -177,7 +179,8 @@
         if(isWeixn()){
             window.location.href = "/offstore/index.html";
         }else{
-            alert("请用微信浏览器打开");
+            $(".pageQrcode").removeClass("hidden");
+            //alert("请用微信浏览器打开");
         }
         e.preventDefault();
     })
@@ -186,9 +189,13 @@
         if(isWeixn()){
             window.location.href = "/application/index.html";
         }else{
-            alert("请用微信浏览器打开");
+            $(".pageQrcode").removeClass("hidden");
         }
         e.preventDefault();
+    })
+
+    $(".pageQrcode").on("click", function(){
+        $(this).addClass("hidden");
     })
 
 
