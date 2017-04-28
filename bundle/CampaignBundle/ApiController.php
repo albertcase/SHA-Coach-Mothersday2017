@@ -40,7 +40,7 @@ class ApiController extends Controller {
         $pic = $request->request->get('pic');
 
         if(!$this->checkUserUpload($user->uid)) {
-            $this->statusPrint('2002', '您已创建作品！');
+            $this->statusPrint('2002', '您已创建过作品！');
         }
 
         $fileName = $this->picConvert($pic);
