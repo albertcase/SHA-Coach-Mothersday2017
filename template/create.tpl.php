@@ -347,7 +347,7 @@
             createPhotoFun(elSrc, 0, function(){
                 var finPhoto = fabricCreateCanvas.toDataURL({format: 'png', quality: 1});
                 var uploadPicObj = {
-                    "pic": finPhoto.replace("data:image/png;base64,", "")
+                    "pic": 'aaaaaa'//finPhoto.replace("data:image/png;base64,", "")
                 }
                 // alert("生成成功6");
                 $(".createEl").addClass("disabled");
