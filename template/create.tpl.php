@@ -362,7 +362,7 @@
                     },
                     dataType: "json"
                 }).done(function(data){
-                    alert(data.status);
+                    alert("status" + data.status);
                 }).fail(function(jqXHR, textStatus) {
                   alert( "Request failed: " + textStatus );
                   alert('test' + jqXHR);
