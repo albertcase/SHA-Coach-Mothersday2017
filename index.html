@@ -21,8 +21,9 @@
     <meta name="Description" content="...">
     
     <link rel="stylesheet" type="text/css" href="/build/dist/css/main.min.css">
-    
 
+    <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/918fce91-ab24-42cd-9ca1-e7a86bd59fc0/wechat"></script>
+    
 </head>
 <body>
 
@@ -66,8 +67,8 @@
             
             <div class="enterArea">
                 <a href="/kol/index.html" class="btn">达人时尚大片</a>
-                <a href="/offstore/index.html" class="btn">刻字服务体验</a>
-                <a href="application/index.html" class="btn">记录温馨时刻</a>
+                <a href="javascript:void(0)" class="btn offstoreLink">刻字服务体验</a>
+                <a href="javascript:void(0)" class="btn applicationLink">记录温馨时刻</a>
 
                 <p><a href="javascript:;" class="rule">活动细则</a></p>
             </div>
@@ -137,9 +138,19 @@
        '/build/dist/img/kv3.jpg',
     ];
 
+
+    function isWeixn(){  
+        var ua = navigator.userAgent.toLowerCase();  
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {  
+            return true;  
+        } else {  
+            return false;  
+        }  
+    } 
+
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
-        // pfun.init();
+        pfun.init();
 
         _v.sectionChange("index");
 
@@ -158,6 +169,25 @@
     // 活动规则关闭事件
     $(".ruleclose").on('click', function(e){
         $("#rule-pop").addClass("hidden").removeClass("ycenter transition");
+        e.preventDefault();
+    })
+
+
+    $(".offstoreLink").on("click", function(e){
+        if(isWeixn()){
+            window.location.href = "/offstore/index.html";
+        }else{
+            alert("请用微信浏览器打开");
+        }
+        e.preventDefault();
+    })
+
+    $(".applicationLink").on("click", function(e){
+        if(isWeixn()){
+            window.location.href = "/application/index.html";
+        }else{
+            alert("请用微信浏览器打开");
+        }
         e.preventDefault();
     })
 

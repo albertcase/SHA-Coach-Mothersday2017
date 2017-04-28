@@ -80,8 +80,18 @@
                                     <img src="/build/dist/img/show/01/mt.png" width="100%">
                                 </div>
                             </div>
-                            <div class="swiper-slide">Slide 2</div>
-                            <div class="swiper-slide">Slide 3</div>
+                            <div class="swiper-slide">
+                                <img src="/build/dist/img/show/02/m.jpg" width="100%">
+                                <div class="proDesc">
+                                    <img src="/build/dist/img/show/02/mt.png" width="100%">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="/build/dist/img/show/03/m.jpg" width="100%">
+                                <div class="proDesc">
+                                    <img src="/build/dist/img/show/03/mt.png" width="100%">
+                                </div>
+                            </div>
                         </div>
                         <!-- Add Pagination -->
                         <div class="swiper-pagination"></div>
@@ -111,7 +121,13 @@
 <script type="text/javascript">
     var allimg = [
        '/build/dist/img/logo.png',
-       '/build/dist/media/test.mp4'
+       '/build/dist/media/test.mp4',
+       '/build/dist/img/show/01/m.jpg',
+       '/build/dist/img/show/01/mt.png',
+       '/build/dist/img/show/02/m.jpg',
+       '/build/dist/img/show/02/mt.png',
+       '/build/dist/img/show/03/m.jpg',
+       '/build/dist/img/show/03/mt.png',
     ];
 
     pfun.loadingFnDoing(allimg, function(){
@@ -126,6 +142,7 @@
             paginationClickable: true,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
+            loop: true,
         });
 
     })   
