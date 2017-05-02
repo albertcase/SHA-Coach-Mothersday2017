@@ -179,7 +179,7 @@
     
 
     $(".goBuyBtn").on("click", function(){
-        var pKey = $(".swiper-slide-active").index();
+        var pKey = $(".swiper-slide-active").index() * 1 - 1;
         location.href = "info.html?pid=" + pKey;
     })
 
