@@ -49,7 +49,7 @@
 <div id="dreambox">
     <div class="section indexScroll" id="form">
         <div class="bg">
-            <img src="/build/dist/img/logo.png" width="100%" class="logo">
+            <img src="" sourcesrc="/build/dist/img/logo.png" width="100%" class="logo">
             <div class="head">
                 <a href="/" class="back">返回首页</a>
             </div>
@@ -57,7 +57,7 @@
             <div class="pageCon">
                 <div class="formNode formSuccess hidden">
                     <div class="applyDesc">
-                        <img src="/build/dist/img/form-success.png" width="100%">
+                        <img src="" sourcesrc="/build/dist/img/form-success.png" width="100%">
                     </div>
                 </div>
 

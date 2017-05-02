@@ -27,7 +27,7 @@
 
 <div class="loading">
     <div class="loading_con">
-        <img src="/build/dist/img/logo.png" width="100%">
+        <img src="/build/dist/img/logo.png" width="100%" class="abc">
 
         <div class="spinner">
             <div class="bounce1"></div>
@@ -60,7 +60,7 @@
                                 <input type="file" />
                             </div>
                             <div class="canvasArea">
-                                <div class="eleNode el1 hidden"></div>
+                                <div class="eleNode hidden"></div>
                                 <div class="canvasNode casACon">
                                 </div>
                                 <div class="canvasNode createACon"></div>
@@ -71,7 +71,7 @@
 
                         <div class="createEl hidden">
                             <ul>
-                                <li class="hover">
+                                <li>
                                     <span>
                                         <img src="" sourcesrc="/build/dist/img/el/s-el1.png" width="100%">
                                     </span>
@@ -105,7 +105,8 @@
 </div>
 
 
-
+<!-- <canvas id="abcCanvas" width="500" height="500" style="width:100%; height: 100%; position: absolute; left:0; top: 0; z-index: 0;"></canvas>
+ -->
 
 <script type="text/javascript" src="/build/dist/js/vendor.min.js"></script>
 <script type="text/javascript" src="/build/dist/js/main.min.js"></script>
@@ -121,7 +122,7 @@
        '/build/dist/img/el/s-el2.png',
        '/build/dist/img/el/s-el3.png',
        '/build/dist/img/photo.jpg',
-    ], step = 0, elVal = 'el1';
+    ], step = 0, elVal = '';
 
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
@@ -134,13 +135,22 @@
 
 
     $(".createEl li").on("click", function(){
-        if($(this).hasClass("hover") || $(".createEl").hasClass("disabled")) return false;
+        if($(".createEl").hasClass("disabled")) return false;
         var cindex = $(this).index() * 1 + 1;
-        $(".createEl li").removeClass("hover");
-        $(this).addClass("hover");
 
-        $(".eleNode").attr({"class": "eleNode el" + cindex});
-        elVal = "el" + cindex;
+        if($(this).hasClass("hover")){
+            $(".createEl li").removeClass("hover");
+            $(".eleNode").attr({"class": "eleNode"});
+            elVal = "";
+        }else{
+            $(".createEl li").removeClass("hover");
+            $(this).addClass("hover");
+
+            $(".eleNode").attr({"class": "eleNode el" + cindex});
+            elVal = "el" + cindex;
+        }
+        
+        // console.log(elVal);
     })
 
 
@@ -213,8 +223,8 @@
                         imgDraw(fabricPhotoCanvas, this, uploadPhotoWidth, photoCanvasHeight, 0, 0, true);  // 绘制上传的亲子照片
                     }else{
                         var uploadPhotoRate =  photoCanvasWidth / this.width;   // 图片缩放比例
-                        var uploadPhotoHeight = this.height * uploadPhotoRate;
-                        imgDraw(fabricPhotoCanvas, this, photoCanvasWidth, uploadPhotoHeight, 0, 0, true);  // 绘制上传的亲子照片
+                        var uploadPhotoHeight = this.height * uploadPhotoRate + 18;
+                        imgDraw(fabricPhotoCanvas, this, photoCanvasWidth + 15, uploadPhotoHeight, 0, 0, true);  // 绘制上传的亲子照片
                     }
 
                     $(".loading").css({"visibility": "hidden"});
@@ -270,8 +280,6 @@
     // var eleImg = new Image();
     //     eleImg.src = "/build/dist/img/el/el1.png";
 
-
-
     defaultBgImg.onload = function () {
         var self = this;
 
@@ -284,7 +292,7 @@
         createCanvas.height = createCanvasHeight;
         $(".createACon").append(createCanvas);
 
-        fabricCreateCanvas = new fabric.Canvas('createCanvas')
+        fabricCreateCanvas = new fabric.Canvas('createCanvas');
         fabric.Object.prototype.transparentCorners = false;
 
         // var rect = new fabric.Rect({
@@ -311,9 +319,12 @@
                     var createPhotoImgHeight = this.height * createPhotoImgRate;
                     imgDraw(fabricCreateCanvas, this, createCanvasWidth * .87, createPhotoImgHeight, createCanvasWidth * .06, createCanvasHeight * .05, false);   // 绘制photo
                 }else{  // 绘制小元素
-                    var eleImgRate =  createCanvasWidth / this.width;   // 图片缩放比例
-                    var eleImgHeight = this.height * eleImgRate;
-                    imgDraw(fabricCreateCanvas, this, createCanvasWidth, eleImgHeight, 0, 0, false);  
+                    if(elVal != ""){
+                        var eleImgRate =  createCanvasWidth / this.width;   // 图片缩放比例
+                        var eleImgHeight = this.height * eleImgRate;
+                        imgDraw(fabricCreateCanvas, this, createCanvasWidth, eleImgHeight, 0, 0, false);  
+                    }
+                    
                     //setTimeout(_cb, 200);
                     _cb();
                 }   
@@ -323,12 +334,14 @@
 
     // 选取本地亲子照片事件
     $(".selectPhoto").on("click", function(){
+        
+
         if($(this).hasClass("disabled")) return false;
         var inputFileVal = $("input[type=file]").val();
         if(!inputFileVal) return false;
         var self = $(this);
-        if(!step){
-            var cphoto = fabricPhotoCanvas.toDataURL({format: 'png', quality: 1});
+        if(!step){  // 确认选择照片
+            var cphoto = fabricPhotoCanvas.toDataURL('image/png', 0.6); //.toDataURL({format: 'png', quality: 0.6});
             createPhotoFun(cphoto, 1, '');
             step = 1;
             $(".createEl").removeClass("hidden");
@@ -337,88 +350,76 @@
             $(".casACon").addClass("hidden");
             $(".eleNode").removeClass("hidden");
         }else{
-            $(".eleNode").addClass("hidden");
-            var elSrc = "/build/dist/img/el/"+elVal+".png"
+            
+            var elSrc = elVal ? "/build/dist/img/el/"+elVal+".png" : "/build/dist/img/el/el1.png";
+            console.log(elSrc);
             createPhotoFun(elSrc, 0, function(){
-                var finPhoto = fabricCreateCanvas.toDataURL({format: 'image/png', quality: .7});
+                $(".eleNode").addClass("hidden");
+                var finPhoto = fabricCreateCanvas.toDataURL('image/png', 0.6); //.toDataURL({format: 'image/png', quality: 0.7});
 
-                var uploadPicObj = {
-                    "pic": finPhoto.replace("data:image/png;base64,", "")
-                }
-
-                $(".createEl").addClass("disabled");
-                self.addClass("disabled");
+                var __abcCanvasNode = document.createElement("canvas");
+                    __abcCanvasNode.id = "abcCanvas";
+                    $("body").append(__abcCanvasNode);
 
 
+                var __abc = new Image();
+                var __abcCanvas = new fabric.Canvas('abcCanvas');
 
-                $.ajax({
-                    type: "POST",
-                    url: "/api/uploadpic",
-                    data: uploadPicObj,
-                    dataType: "json"
-                }).done(function(data){
-                    // alert("status" + data.status);
-                    if(data.status == "1"){
-                       window.location.href = "/result?pid=" + data.msg;
-                       $(".formNode").removeClass("hidden");
-                       $(".formTable").addClass("hidden");
-                       pfun.formErrorTips('上传成功！');
-                    }else{
-                       pfun.formErrorTips(data.msg);
+                __abc.src = finPhoto;
+                //$("body").append(__abc);
+                __abc.onload = function(){ 
+                    var __abcCreateW = this.width * 0.6,
+                        __abcCreateH = this.height * 0.6;
+                    __abcCanvasNode.width = __abcCreateW;
+                    __abcCanvasNode.height = __abcCreateH;
+
+                    imgDraw(__abcCanvas, this, __abcCreateW, __abcCreateH, 0, 0, false);  
+
+
+
+
+
+                    var __abcPhoto = __abcCanvas.toDataURL('image/png', 0.6);
+
+                    var uploadPicObj = {
+                        "pic": __abcPhoto.replace("data:image/png;base64,", "")
                     }
-                    
-                    self.removeClass("disabled");
 
-                }).fail(function(jqXHR, textStatus) {
-                  console.log( "Request failed: " + textStatus );
-                  console.log('test' + jqXHR);
-                });
-                // pfun.ajaxFun("POST", "/api/uploadpic", uploadPicObj, "json", function(data){
-                //     // alert(data.status);
-                //     if(data.status == "1"){
-                //        //console.log(data);
-                //        window.location.href = "/result?pid=" + data.msg;
-                //        $(".formNode").removeClass("hidden");
-                //        $(".formTable").addClass("hidden");
-                //     }
-                //     pfun.formErrorTips(data.msg);
-                //     self.removeClass("disabled");
-                // });
+                    $(".createEl").addClass("disabled");
+                    self.addClass("disabled");
 
-                  // var oReq = new XMLHttpRequest();
-                  // oReq.open("POST", "/api/uploadpic", true);
-                  // oReq.onload = function(oEvent) {
-                  //   console.log(oEvent);
-                  //   if (oReq.status == 200) {
-                  //     alert("Uploaded!");
-                  //   } else {
-                  //     oOutput.innerHTML = "Error " + oReq.status + " occurred when trying to upload your file.<br \/>";
-                  //   }
-                  // };
 
-                  // oReq.send(upic);
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/uploadpic",
+                        data: uploadPicObj,
+                        dataType: "json"
+                    }).done(function(data){
+                        // alert("status" + data.status);
+                        if(data.status == "1"){
+                           window.location.href = "/result?pid=" + data.msg;
+                           $(".formNode").removeClass("hidden");
+                           $(".formTable").addClass("hidden");
+                           pfun.formErrorTips('上传成功！');
+                        }else{
+                           pfun.formErrorTips(data.msg);
+                        }
+                        
+                        self.removeClass("disabled");
 
-                //这里为了简化代码，没有附上密码加密的代码  
-                // var params = "pic=" + finPhoto.replace("data:image/png;base64,", "");  
-                // console.log(finPhoto.replace("data:image/png;base64,", ""));
-                // //var params = "pic="
-                // $(".aaa").attr("src", finPhoto);
-                // sendRequest("POST", "/api/uploadpic", true, params, function(response) { 
-                //     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) { 
-                //         var callbackData = JSON.parse(response.target.response);  
-                //         console.log(callbackData.msg);
-                //         // alert("formData - status" + data.status);
-                //         if(callbackData.status == "1"){
-                //            //window.location.href = "/result?pid=" + callbackData.msg;
-                //            $(".formNode").removeClass("hidden");
-                //            $(".formTable").addClass("hidden");
-                //         }
-                //         pfun.formErrorTips(callbackData.msg);
-                //         self.removeClass("disabled");
-                //     }  
-                // });
+                    }).fail(function(jqXHR, textStatus) {
+                      console.log( "Request failed: " + textStatus );
+                      console.log('test' + jqXHR);
+                    });
 
+                }
             });
+
+            
+
+
+
+
         }
     })
 

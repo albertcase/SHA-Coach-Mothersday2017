@@ -28,7 +28,7 @@
 <?php
     if($list['role']) {
 ?>
-<div class="shareTips"></div>
+<div class="shareTips hidden"></div>
 <?php
     }
 ?>
@@ -58,10 +58,10 @@
     <div class="section indexScroll" id="result">
         <div class="bg">
             <div class="createCon">
-                <img src="/build/dist/img/slogan.png" width="100%">
+                <img src="" sourcesrc="/build/dist/img/slogan.png" width="100%">
             
                 <div class="createArea">
-                    <img src="/build/dist/img/m_bg.png" width="100%" class="opacity0">
+                    <img src="" sourcesrc="/build/dist/img/m_bg.png" width="100%" class="opacity0">
                     <div class="createArea_con">
                         <div class="createStage">
                             <img src="<?php echo $list['pic']; ?>" width="100%">
