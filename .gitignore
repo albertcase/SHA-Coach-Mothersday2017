@@ -9,4 +9,5 @@ build/gulpfile.js
 .zip
 build/.gulp/
 upload/
+.idea
 
