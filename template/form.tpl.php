@@ -91,12 +91,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
 <script type="text/javascript" src="/build/dist/js/main.min.js"></script>
 <script type="text/javascript">
     var allimg = [
@@ -123,13 +117,14 @@
     $(".submit").on("click", function(){
         var self = $(this);
         if(self.hasClass("disabled")) return false;
-
         formData = {
             "name": $("input[name=name]").val(),
             "tel": $("input[name=tel]").val(),
-            "shop": $("input[name=shop]").val(),
+            "shop": $(".choseShop").find('option:selected').val(),
             "date": $("input[name=date]").val(),
         }
+
+        console.log(formData);
 
         if(!formData["name"]){
             pfun.formErrorTips("姓名不能为空！");
@@ -141,7 +136,6 @@
             pfun.formErrorTips("请选择预约日期！");
         }else{
             self.addClass("disabled");
-            console.log(formData);
 
             pfun.ajaxFun("POST", "/api/apply", formData, "json", function(data){
                 if(data.status == "1"){
@@ -164,12 +158,11 @@
 
     pfun.ajaxFun("POST", "/api/applylist", "","json", function(data){
         formlist = data;
-        selectHTMl['shop'] = $.map(data, function(v, k){ 
-            return '<option>'+ k +'</option>';
+        selectHTMl['shop'] = $.map(formlist, function(v, k){
+            return '<option value="'+ k +'">'+ v.name +'</option>';
         }).join("");
         $(".choseShop").html('<option></option>' + selectHTMl['shop']);
     });
-
 
     $(".choseDate").change(function(){
         var selectedVal_date = $(this).find('option:selected').val();
@@ -177,31 +170,20 @@
     });
 
     $(".choseShop").change(function(){
-        //console.log(formlist);
-        selectHTMl['date'] = "<option></option>";
-
+        //console.log($(this).find('option:selected').attr('data-code'));
         var selectedVal_shop = $(this).find('option:selected').val();
-
-        $.map(formlist, function(j, k){
-            if(k == selectedVal_shop){
-                $.map(j, function(a, b){
-                    //console.log(a);
-                    //console.log(b);
-                    $.map(a, function(c, d){
-                        //console.log(b + ":" + d + c);
-                        selectHTMl['date'] += '<option value="'+ b + ":" + d +'">'+ (b + ":" + d + (c == 0 ? '预约已满' : '')) +'</option>';
-                        //console.log(c);
-                        //console.log(d);
-                    })
-                })
-                // console.log(j);
-                // console.log(k);
+        var selectedVal_shop_text = $(this).find('option:selected').text();
+        $.map(formlist, function(j, p){
+            if(p == selectedVal_shop){
+                selectHTMl['date'] = $.map(j.date, function(a, b){
+                    return '<option value="'+ a.ymd +'" data-num="'+ a.num +'">'+ a.ymd + (a.num == 0 ? ' 预约已满' : '') +'</option>';
+                }).join("");
             };
         })
 
-        $("input[name=shop]").val(selectedVal_shop);
+        $("input[name=shop]").val(selectedVal_shop_text);
 
-        $(".choseDate").empty().html(selectHTMl['date']);
+        $(".choseDate").empty().html('<option></option>' + selectHTMl['date']);
     });
 
     
