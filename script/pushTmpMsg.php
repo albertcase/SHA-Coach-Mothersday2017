@@ -3,14 +3,23 @@ require_once "./Core/bootstrap.php";
 include_once "./config/config.php";
 include_once "./config/router.php";
 
+error_reporting(0);
+
 $date = $argv[1];//推送的日期
 $db = new \Lib\DatabaseAPI();
 $applylist = getApplyList($db, $date);
+$msg = '';
 
 foreach ($applylist as $v){
     sendMessage($v);
     pushLog($db, $v);
     updateStatus($db, $v);
+    if(pushLog($db, $v) && updateStatus($db, $v)) {
+        $msg = 'push success';
+    } else {
+        $msg = 'push failed';
+    }
+    tailLog($v['openid'], $msg);
 }
 
 /**
@@ -79,12 +88,19 @@ function pushLog($db, $data) {
     $loginfo->openid = $data['openid'];
     $loginfo->name = $data['name'];
     $loginfo->status = 1;
-    $db->insertPushLog($loginfo);
+    return $db->insertPushLog($loginfo);
 }
 
 /**
  * 修改线下预约数据的状态
  */
 function updateStatus($db, $data) {
-    $db->updateApplyStatus($data['id']);
+    return $db->updateApplyStatus($data['id']);
+}
+
+/**
+ * 推送状态log
+ */
+function tailLog($openid, $result) {
+    file_put_contents("pushlog.txt", $openid . ' ' . $result, FILE_APPEND);
 }

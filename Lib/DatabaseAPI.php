@@ -366,26 +366,4 @@ class DatabaseAPI {
         else
             return FALSE;
     }
-
-    public function getList() {
-        $sql = "SELECT * FROM `pushtwo` WHERE `status` = '0'";
-        $res = $this->connect()->query($sql);
-        $list = $res->fetch_all($resulttype = MYSQLI_ASSOC);
-        if($list) {
-            return $list;
-        }
-        return FALSE;
-    }
-
-    public function updateStatus($openid) {
-        $status = 1;
-        $sql = "UPDATE `pushtwo` SET `status` = ? WHERE `openid` = ?";
-        $res = $this->connect()->prepare($sql);
-        $res->bind_param("ss", $status, $openid);
-        if($res->execute())
-            return TRUE;
-        else
-            return FALSE;
-    }
-
 }
