@@ -55,7 +55,7 @@ class PageController extends Controller {
         }
         $list = array(
             'pid' => $pid,
-            'name' => empty($nickname) ? 'coche' : $nickname,
+            'name' => empty($nickname) ? 'Coach' : $nickname,
             'role' => $role,
             'num' => $photoinfo->num,
             'pic' => $photoinfo->pic,
