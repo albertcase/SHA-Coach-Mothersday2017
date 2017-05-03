@@ -215,23 +215,133 @@ class ApiController extends Controller {
     private function getApplyList() {
         $list = array(
             'shop1' => array(
-                '20170501' => array(
-                    'am' => 'shop1:20170501:am',
-                    'pm' => 'shop1:20170501:pm',
-                ),
-                '20170502' => array(
-                    'am' => 'shop1:20170502:am',
-                    'pm' => 'shop1:20170502:pm',
+                'name' => '扬州金鹰国际购物中心 ',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop1:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop1:20170514',
+                    ),
                 ),
             ),
             'shop2' => array(
-                '20170501' => array(
-                    'am' => 'shop2:20170501:am',
-                    'pm' => 'shop2:20170501:pm',
+                'name' => '北京东方广场',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop2:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop2:20170514',
+                    ),
                 ),
-                '20170502' => array(
-                    'am' => 'shop2:20170502:am',
-                    'pm' => 'shop2:20170502:pm',
+            ),
+            'shop3' => array(
+                'name' => '杭州大厦精品店',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop3:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop3:20170514',
+                    ),
+                ),
+            ),
+            'shop4' => array(
+                'name' => '成都国际金融中心',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop4:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop4:20170514',
+                    ),
+                ),
+            ),
+            'shop5' => array(
+                'name' => '济南恒隆广场',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop5:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop5:20170514',
+                    ),
+                ),
+            ),
+            'shop6' => array(
+                'name' => '卓展购物中心长春店',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop6:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop6:20170514',
+                    ),
+                ),
+            ),
+            'shop7' => array(
+                'name' => '深圳华润万象城',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop7:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop7:20170514',
+                    ),
+                ),
+            ),
+            'shop8' => array(
+                'name' => '乌鲁木齐美美友好购物中心店',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop8:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop8:20170514',
+                    ),
+                ),
+            ),
+            'shop9' => array(
+                'name' => '大连百年商场',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop9:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop9:20170514',
+                    ),
+                ),
+            ),
+            'shop10' => array(
+                'name' => '上海国金中心',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '20170513',
+                        'num' => 'shop10:20170513',
+                    ),
+                    1 => array(
+                        'ymd' => '20170514',
+                        'num' => 'shop10:20170514',
+                    ),
                 ),
             ),
         );
@@ -245,13 +355,11 @@ class ApiController extends Controller {
     private function getApplyListStatus(array $list) {
         $redis = new \Lib\RedisAPI();
         foreach ($list as $sk => $sv) {
-            foreach ($sv as $dk => $dv) {
-                foreach ($dv as $tk => $tv){
-                    if($redis->hGet($this->hashKey, $tv) > 0) {
-                        $list[$sk][$dk][$tk] = $redis->hGet($this->hashKey, $tv);
-                    } else {
-                        $list[$sk][$dk][$tk] = 0;
-                    }
+            foreach ($sv['date'] as $dk => $dv) {
+                if($redis->hGet($this->hashKey, $dv['num']) > 0) {
+                    $list[$sk]['date'][$dk]['num'] = $redis->hGet($this->hashKey, $dv['num']);
+                } else {
+                    $list[$sk]['date'][$dk]['num'] = 0;
                 }
             }
         }
