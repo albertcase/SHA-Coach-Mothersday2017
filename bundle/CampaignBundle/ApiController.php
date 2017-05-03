@@ -218,12 +218,12 @@ class ApiController extends Controller {
                 'name' => '扬州金鹰国际购物中心 ',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop1:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop1:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop1:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop1:2017/05/14',
                     ),
                 ),
             ),
@@ -231,12 +231,12 @@ class ApiController extends Controller {
                 'name' => '北京东方广场',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop2:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop2:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop2:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop2:2017/05/14',
                     ),
                 ),
             ),
@@ -244,12 +244,12 @@ class ApiController extends Controller {
                 'name' => '杭州大厦精品店',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop3:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop3:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop3:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop3:2017/05/14',
                     ),
                 ),
             ),
@@ -257,12 +257,12 @@ class ApiController extends Controller {
                 'name' => '成都国际金融中心',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop4:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop4:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop4:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop4:2017/05/14',
                     ),
                 ),
             ),
@@ -270,12 +270,12 @@ class ApiController extends Controller {
                 'name' => '济南恒隆广场',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop5:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop5:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop5:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop5:2017/05/14',
                     ),
                 ),
             ),
@@ -283,12 +283,12 @@ class ApiController extends Controller {
                 'name' => '卓展购物中心长春店',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop6:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop6:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop6:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop6:2017/05/14',
                     ),
                 ),
             ),
@@ -296,12 +296,12 @@ class ApiController extends Controller {
                 'name' => '深圳华润万象城',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop7:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop7:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop7:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop7:2017/05/14',
                     ),
                 ),
             ),
@@ -309,12 +309,12 @@ class ApiController extends Controller {
                 'name' => '乌鲁木齐美美友好购物中心店',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop8:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop8:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop8:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop8:2017/05/14',
                     ),
                 ),
             ),
@@ -322,12 +322,12 @@ class ApiController extends Controller {
                 'name' => '大连百年商场',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop9:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop9:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop9:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop9:2017/05/14',
                     ),
                 ),
             ),
@@ -335,12 +335,12 @@ class ApiController extends Controller {
                 'name' => '上海国金中心',
                 'date' => array(
                     0 => array(
-                        'ymd' => '20170513',
-                        'num' => 'shop10:20170513',
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop10:2017/05/13',
                     ),
                     1 => array(
-                        'ymd' => '20170514',
-                        'num' => 'shop10:20170514',
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop10:2017/05/14',
                     ),
                 ),
             ),
