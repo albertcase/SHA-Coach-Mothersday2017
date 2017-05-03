@@ -75,19 +75,19 @@
                                     <span>
                                         <img src="" sourcesrc="/build/dist/img/el/s-el1.png" width="100%">
                                     </span>
-                                    <em>时髦妈妈</em>
+                                    <em>摇滚妈妈</em>
                                 </li>
                                 <li>
                                     <span>
                                         <img src="" sourcesrc="/build/dist/img/el/s-el2.png" width="100%">
                                     </span>
-                                    <em>运动妈妈</em>
+                                    <em>时髦妈妈</em>
                                 </li>
                                 <li>
                                     <span>
                                         <img src="" sourcesrc="/build/dist/img/el/s-el3.png" width="100%">
                                     </span>
-                                    <em>摇滚妈妈</em>
+                                    <em>运动妈妈</em>
                                 </li>
                             </ul>
                         </div>
