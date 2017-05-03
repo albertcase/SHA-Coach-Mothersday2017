@@ -49,6 +49,9 @@
 <div id="dreambox">
     <div class="section indexScroll" id="topten">
         <div class="bg">
+            <div class="head">
+                <a href="/" class="back">返回首页</a>
+            </div>
             <div class="createCon">
                 <img src="/build/dist/img/slogan.png" width="100%">
             
@@ -74,7 +77,7 @@
                         }
                     } else {
                 ?>
-                    <p>暂无数据</p>
+                    <p class="noData">暂无数据</p>
                 <?php } ?>
                 </ul>
             </div>
