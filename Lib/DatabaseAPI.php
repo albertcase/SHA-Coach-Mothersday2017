@@ -298,7 +298,7 @@ class DatabaseAPI {
      * find topten praise in database
      */
     public function findPraiseTopTen(){
-        $sql = "SELECT u.`nickname`, p.`favorite`, p.`pic` FROM `photo` AS p, `user` AS u WHERE p.`uid` = u.`uid` LIMIT 0, 10";
+        $sql = "SELECT u.`nickname`, p.`favorite`, p.`pic` FROM `photo` AS p, `user` AS u WHERE p.`uid` = u.`uid` ORDER BY p.`favorite`, p.`created` DESC LIMIT 0, 10";
         $res = $this->connect()->query($sql);
         $list = $res->fetch_all($resulttype = MYSQLI_ASSOC);
         if($list) {
@@ -361,6 +361,27 @@ class DatabaseAPI {
         $sql = "UPDATE `apply` SET `status` = ? WHERE `id` = ?";
         $res = $this->connect()->prepare($sql);
         $res->bind_param("ss", $status, $applyid);
+        if($res->execute())
+            return TRUE;
+        else
+            return FALSE;
+    }
+
+    public function getList() {
+        $sql = "SELECT * FROM `pushtwo` WHERE `status` = '0'";
+        $res = $this->connect()->query($sql);
+        $list = $res->fetch_all($resulttype = MYSQLI_ASSOC);
+        if($list) {
+            return $list;
+        }
+        return FALSE;
+    }
+
+    public function updateStatus($openid) {
+        $status = 1;
+        $sql = "UPDATE `pushtwo` SET `status` = ? WHERE `openid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ss", $status, $openid);
         if($res->execute())
             return TRUE;
         else
