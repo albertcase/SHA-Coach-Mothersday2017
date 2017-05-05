@@ -66,7 +66,7 @@ var pfun = {
                 'closeWindow'
             ]
         });
-        
+
         this.wxshareFun();
     },
     wxshareFun: function(){  //分享信息重置函数
@@ -78,12 +78,12 @@ var pfun = {
 
 
             wx.onMenuShareAppMessage({
-              title: "shareArr._title", // 分享标题
-              desc: "shareArr._desc_friend", // 分享描述
-              link: "shareArr._link", // 分享链接
-              imgUrl: 'http://2017mothersday.samesamechina.com/build/dist/img/logo.png', // 分享图标
+              title: shareArr._title, // 分享标题
+              desc: shareArr._desc_friend, // 分享描述
+              link: shareArr._link, // 分享链接
+              imgUrl: shareArr._imgUrl, // 分享图标
               trigger: function (res) {
-                
+                alert('test-ShareAppMessage');
               },
               success: function (res) {
 
@@ -97,19 +97,25 @@ var pfun = {
             });
 
 
-            // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-            // wx.onMenuShareTimeline({
-            //     title: shareArr._desc, // 分享标题
-            //     link: shareArr._link, // 分享链接
-            //     imgUrl: shareArr._imgUrl, // 分享图标
-            //     success: function () { 
-            //         // 用户确认分享后执行的回调函数
-            //         //_hmt.push(['_trackEvent', 'share', 'ShareTimeline']);
-            //     },
-            //     cancel: function () { 
-            //         // 用户取消分享后执行的回调函数
-            //     }
-            // });
+            wx.onMenuShareTimeline({
+              title: shareArr._title,
+              link: shareArr._link,
+              imgUrl: shareArr._imgUrl,
+              trigger: function (res) {
+               alert('test-ShareTimeline');
+              },
+              success: function (res) {
+
+              },
+              cancel: function (res) {
+
+              },
+              fail: function (res) {
+                alert(JSON.stringify(res));
+              }
+            });
+
+
         }); //end of wx.ready
     },
     formErrorTips: function(alertNodeContext){  //错误提示弹层
