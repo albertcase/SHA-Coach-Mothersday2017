@@ -69,6 +69,7 @@
                         <div class="createEl">
                             <div class="userInfo ycenter <?php echo !$list['ispraise'] ? '' : 'disabled'; ?>">
                                 <span>
+                                    <a href="javascript:void(0);" class="dianzan <?php echo !$list['ispraise'] ? '' : 'disabled'; ?>"></a>
                                     <em><?php echo !empty($list['name']) ? $list['name'] : 'coach'; ?></em>
                                     <i><?php echo $list['num']; ?></i>
                                 </span>
@@ -86,7 +87,7 @@
                     <?php
                         } else {
                     ?>
-                    <a href="javascript:void(0);" class="btn praiseBtn <?php echo !$list['ispraise'] ? '' : 'disabled'; ?>"><img src="/build/dist/img/heart-2.png" width="15%">为她点赞</a>
+                    <!-- <a href="javascript:void(0);" class="btn praiseBtn <?php echo !$list['ispraise'] ? '' : 'disabled'; ?>"><img src="/build/dist/img/heart-2.png" width="15%">为她点赞</a> -->
                     <a href="/" class="btn">我也要玩</a>
                     <?php } ?>
                 </div>
@@ -136,7 +137,7 @@
     })
 
 
-    $(".praiseBtn").on("click", function(){
+    $(".dianzan").on("click", function(){
         var self = $(this);
         if(self.hasClass("disabled") || $(".userInfo").hasClass("disabled")) return false;
 

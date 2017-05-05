@@ -40,7 +40,8 @@ define("SCOPE", 'snsapi_userinfo');
 define("AUTHORIZE_URL", '[
 	"/form",
 	"/create",
-	"/result"
+	"/result",
+	"/topten"
 ]');
 
 //Account Access`
