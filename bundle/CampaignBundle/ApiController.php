@@ -118,6 +118,7 @@ class ApiController extends Controller {
      * 2.验证字段
      * 3.检查所选场次是否有名额
      * 4.判断用户预约状态是否正确
+     * 5.预约成功推送模版消息
      */
     public function inCreateApplyAction() {
 
@@ -152,13 +153,62 @@ class ApiController extends Controller {
         $applyInfo->shop = $request->request->get('shop');
         $applyInfo->date = $request->request->get('date');
 
-        if(!$db->insertApply($applyInfo)) {
-            $this->statusPrint('1007', '预约失败！');
-        }
-
         if(!$this->inCreateCountNum($searchKey)) {
             $this->statusPrint('1008', '预约失败！');
         }
+        $appid = $db->insertApply($applyInfo);
+        if(!$appid) {
+            $this->statusPrint('1007', '预约失败！');
+        }
+
+        //预约成功直接推送模版消息
+        $userinfo = $db->findUserByUid($user->uid);
+        $openid = $userinfo->openid;
+        $datearr = explode('/' , $request->request->get('date'));
+        $date = $datearr['0'] . '年' . $datearr['1'] . '月' . $datearr['2'] . '日';
+        $shopAdr = $db->findShopByShopid($request->request->get('shop'))->addr;
+        $shopTime = '10:00 - 22:00';
+
+        //扬州店
+        if($request->request->get('shop') == 'shop1') {
+            if($request->request->get('date')  == '2017/05/13') {
+                $shopTime = '09:00 - 22:30';
+            } else {
+                $shopTime = '09:00 - 22:00';
+            }
+        }
+
+        //长春店
+        if($request->request->get('shop') == 'shop6') {
+            $shopTime = '10:00 - 21:00';
+        }
+
+        //深圳店
+        if($request->request->get('shop') == 'shop7') {
+            $shopTime = '10:00 - 22:30';
+        }
+
+        //乌鲁木齐店
+        if($request->request->get('shop') == 'shop8') {
+            $shopTime = '11:00 - 21:00';
+        }
+
+        //大连店
+        if($request->request->get('shop') == 'shop9') {
+            $shopTime = '09:00 - 21:30';
+        }
+
+        $pushData = array(
+            'id' => $appid,
+            'openid' => $openid,
+            'name' => $request->request->get('name'),
+            'date' => $date,
+            'addr' => $shopAdr,
+            'time' => $shopTime,
+        );
+        $this->sendMessage($pushData);
+        $this->pushLog($db, $pushData);
+        $this->updateStatus($db, $pushData);
 
         $this->statusPrint('1', '预约成功！');
 
@@ -423,6 +473,76 @@ class ApiController extends Controller {
             $data = (string) $data;
             return explode(':', $data);
         }
+    }
+
+    /**
+     * 发送模版消息
+     * param ["openid":用户标识]
+     */
+    private function sendMessage($senddata) {
+        $data = array(
+            'touser' => $senddata['openid'],
+            'template_id' => 'WndD3kOmw-_OvtTPg0yfs0qziEWoHirCnsyXF8IiPns',
+            'url' => '',
+            'topcolor' => '#000000',
+            'data' => array(
+                'first' => array(
+                    'value' => "尊敬的客人,\n您预约的COACH母亲节线下活动即将开始。\n",
+                    'color' => '#000000'
+                ),
+                'keyword1' => array(
+                    'value' => $senddata['name'],
+                    'color' => '#000000'
+                ),
+                'keyword2' => array(
+                    'value' => $senddata['date'],
+                    'color' => '#000000'
+                ),
+                'remark' => array(
+                    'value' => "地址：" . $senddata['addr'] . "\n\n欢迎您在 " . $senddata['time'] . "持此份活动通知，参与活动与COACH一起共享，母亲节温馨时刻",
+                    'color' => '#000000'
+                )
+
+            )
+        );
+        $api_url = "http://coach.samesamechina.com/v2/wx/template/send?access_token=" . CURIO_TOKEN;
+        $rs = $this->postData($api_url, $data);
+        return $rs;
+    }
+
+
+    /**
+     * post data
+     */
+    private function postData($api_url, $data) {
+        $ch = curl_init ();
+        curl_setopt ( $ch, CURLOPT_URL, $api_url );
+        curl_setopt ( $ch, CURLOPT_POST, 1 );
+        curl_setopt ( $ch, CURLOPT_HEADER, 0 );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt ( $ch, CURLOPT_POSTFIELDS, json_encode($data) );
+        $return = curl_exec ( $ch );
+        return $return;
+        curl_close ( $ch );
+    }
+
+    /**
+     * 记录消息推送日志
+     */
+    private function pushLog($db, $data) {
+        $loginfo = new \stdClass();
+        $loginfo->apply_id = $data['id'];
+        $loginfo->openid = $data['openid'];
+        $loginfo->name = $data['name'];
+        $loginfo->status = 1;
+        return $db->insertPushLog($loginfo);
+    }
+
+    /**
+     * 修改线下预约数据的状态
+     */
+    private function updateStatus($db, $data) {
+        return $db->updateApplyStatus($data['id']);
     }
 
 

@@ -121,7 +121,7 @@ class DatabaseAPI {
 	 * Create user in database
 	 */
 	public function findInfoByUid($uid){
-		$sql = "SELECT `id`, `name`, `cellphone`, `address` FROM `info` WHERE `uid` = ?"; 
+		$sql = "SELECT `id`, `name`, `cellphone`, `address` FROM `info` WHERE `uid` = ?";
 		$res = $this->connect()->prepare($sql);
 		$res->bind_param("s", $uid);
 		$res->execute();
@@ -311,15 +311,16 @@ class DatabaseAPI {
      * find user by uid in database
      */
     public function findUserByUid($uid){
-        $sql = "SELECT `uid`, `nickname` FROM `user` WHERE `uid` = ?";
+        $sql = "SELECT `uid`, `nickname`, `openid` FROM `user` WHERE `uid` = ?";
         $res = $this->connect()->prepare($sql);
         $res->bind_param("s", $uid);
         $res->execute();
-        $res->bind_result($uid, $nickname);
+        $res->bind_result($uid, $nickname, $openid);
         if($res->fetch()) {
             $user = new \stdClass();
             $user->uid = $uid;
             $user->nickname = $nickname;
+            $user->openid = $openid;
             return $user;
         }
         return NULL;
@@ -366,4 +367,22 @@ class DatabaseAPI {
         else
             return FALSE;
     }
+
+    /**
+     * find shop by shopid in database
+     */
+    public function findShopByShopid($shopid){
+        $sql = "SELECT `address` FROM `shop` WHERE `shopid` = ?";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("s", $shopid);
+        $res->execute();
+        $res->bind_result($addr);
+        if($res->fetch()) {
+            $shop = new \stdClass();
+            $shop->addr = $addr;
+            return $shop;
+        }
+        return NULL;
+    }
+
 }
