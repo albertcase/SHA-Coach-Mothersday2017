@@ -94,14 +94,15 @@
 
 <script type="text/javascript" src="/build/dist/js/main.min.js"></script>
 <script type="text/javascript">
+    pfun.init();
+    
     var allimg = [
        '/build/dist/img/logo.png',
     ];
 
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
-        pfun.init();
-
+        
         _v.sectionChange("topten");
         pfun.overscroll(document.querySelector(".indexScroll")); 
 
