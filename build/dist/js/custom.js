@@ -102,48 +102,7 @@ var pfun = {
             // 2. 分享接口
             // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
 
-            wx.onMenuShareAppMessage({
-                title: shareArr._title,
-                desc: shareArr._desc_friend,
-                link: shareArr._link,
-                imgUrl: shareArr._imgUrl,
-                trigger: function (res) {
-                    //  alert('用户点击发送给朋友');
-                },
-                success: function (res) {
-                    //_hmt.push(['_trackEvent', 'share', 'ShareAppMessage']);
-                    //  alert('已分享');
-                },
-                cancel: function (res) {
-                    //  alert('已取消');
-                },
-                fail: function (res) {
-                    //  alert(JSON.stringify(res));
-                }
-            });
-
-
-            // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-
-            wx.onMenuShareTimeline({
-                title: shareArr._desc,
-                link: shareArr._link,
-                imgUrl: shareArr._imgUrl,
-                trigger: function (res) {
-                    //_hmt.push(['_trackEvent', 'share', 'ShareTimeline']);
-                    //   alert('用户点击分享到朋友圈');
-                },
-                success: function (res) {
-
-                    // alert('已分享');
-                },
-                cancel: function (res) {
-                    //  alert('已取消');
-                },
-                fail: function (res) {
-                    //   alert(JSON.stringify(res));
-                }
-            });
+            
         }); //end of wx.ready
     },
     formErrorTips: function(alertNodeContext){  //错误提示弹层
