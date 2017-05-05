@@ -101,7 +101,8 @@ var pfun = {
             // 在这里调用 API
             // 2. 分享接口
             // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
-            
+            wx.onMenuShareAppMessage(shareArr);
+            wx.onMenuShareTimeline(shareArr);
         }); //end of wx.ready
     },
     formErrorTips: function(alertNodeContext){  //错误提示弹层
