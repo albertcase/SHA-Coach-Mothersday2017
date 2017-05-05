@@ -101,8 +101,35 @@ var pfun = {
             // 在这里调用 API
             // 2. 分享接口
             // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
-            wx.onMenuShareAppMessage(shareArr);
-            wx.onMenuShareTimeline(shareArr);
+            wx.onMenuShareAppMessage({
+                title: shareArr._title, // 分享标题
+                desc: shareArr._desc_friend, // 分享描述
+                link: shareArr._link, // 分享链接
+                imgUrl: shareArr._imgUrl, // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () { 
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () { 
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            
+
+            // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+            wx.onMenuShareTimeline({
+                title: shareArr._desc, // 分享标题
+                link: shareArr._link, // 分享链接
+                imgUrl: shareArr._imgUrl, // 分享图标
+                success: function () { 
+                    // 用户确认分享后执行的回调函数
+                    //_hmt.push(['_trackEvent', 'share', 'ShareTimeline']);
+                },
+                cancel: function () { 
+                    // 用户取消分享后执行的回调函数
+                }
+            });
         }); //end of wx.ready
     },
     formErrorTips: function(alertNodeContext){  //错误提示弹层
