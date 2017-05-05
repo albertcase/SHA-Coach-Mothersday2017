@@ -139,7 +139,7 @@
 
     $(".dianzan").on("click", function(){
         var self = $(this);
-        if($(".userInfo").hasClass("disabled")) return false;
+        // if($(".userInfo").hasClass("disabled")) return false;
 
         if(self.hasClass("disabled")){
             pfun.formErrorTips("不能重复点赞！");
@@ -152,7 +152,7 @@
             }, "json", function(data){
                 if(data.status == "1"){
                    $(".userInfo span i").text(praiseNum + 1);
-                   $(".userInfo").addClass("disabled")
+                   //$(".userInfo").addClass("disabled")
                 }else{
                     self.removeClass("disabled");
                 }
