@@ -103,7 +103,7 @@
 
                 <div class="showFooterArea">
                     <a href="javascript:void(0);" class="btn goBuyBtn">入手达人同款</a>
-                    <a href="javascript:void(0);" class="btn watch">观看拍摄花絮</a>
+                    <a href="javascript:void(0);" class="btn watch">观看温馨花絮</a>
                 </div>
 
             </div>
@@ -174,7 +174,9 @@
         $(".scenesNode").addClass("hidden");
         $("#scenesVideo").addClass("hidden");
         
-        _v.eventTester("ended");
+        var v = document.getElementById("scenesVideo");
+        v.pause();
+        v.style.height = "0";
     })
     
 

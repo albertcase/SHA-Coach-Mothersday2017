@@ -141,9 +141,11 @@
                 if(data.status == "1"){
                    $(".formNode").removeClass("hidden");
                    $(".formTable").addClass("hidden");
+                }else{
+                   pfun.formErrorTips(data.msg);
+                   self.removeClass("disabled");
                 }
-                pfun.formErrorTips(data.msg);
-                self.removeClass("disabled");
+                
             });
 
         }

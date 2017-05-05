@@ -53,7 +53,7 @@
                 <a href="/" class="back">返回首页</a>
             </div>
             <div class="createCon">
-                <img src="/build/dist/img/slogan.png" width="100%">
+                <img src="/build/dist/img/topten_slogan.png" width="100%">
             
                 <ul class="photolist">
                 <?php

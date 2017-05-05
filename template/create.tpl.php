@@ -97,7 +97,8 @@
 
                 <div class="showFooterArea">
                     <a href="javascript:void(0);" class="btn selectPhoto">就选这张</a>
-                    <a href="/application/index.html" class="btn">返回主页</a>
+                    <a href="javascritp:void(0);" class="btn replayBtn">重新上传</a>
+                    <a href="/application/index.html" class="btn rehomeBtn hidden">返回主页</a>
                 </div>
             </div>
         </div>
@@ -338,83 +339,93 @@
 
         if($(this).hasClass("disabled")) return false;
         var inputFileVal = $("input[type=file]").val();
-        if(!inputFileVal) return false;
-        var self = $(this);
-        if(!step){  // 确认选择照片
-            var cphoto = fabricPhotoCanvas.toDataURL('image/png', 0.6); //.toDataURL({format: 'png', quality: 0.6});
-            createPhotoFun(cphoto, 1, '');
-            step = 1;
-            $(".createEl").removeClass("hidden");
-
-            $(".canvasNode").removeClass("hidden");
-            $(".casACon").addClass("hidden");
-            $(".eleNode").removeClass("hidden");
+        if(!inputFileVal){
+            pfun.formErrorTips("请拍摄或上传照片！");
         }else{
-            
-            var elSrc = elVal ? "/build/dist/img/el/"+elVal+".png" : "/build/dist/img/el/el1.png";
-            console.log(elSrc);
-            createPhotoFun(elSrc, 0, function(){
-                $(".eleNode").addClass("hidden");
-                var finPhoto = fabricCreateCanvas.toDataURL('image/png', 0.6); //.toDataURL({format: 'image/png', quality: 0.7});
-
-                var __abcCanvasNode = document.createElement("canvas");
-                    __abcCanvasNode.id = "abcCanvas";
-                    $("body").append(__abcCanvasNode);
 
 
-                var __abc = new Image();
-                var __abcCanvas = new fabric.Canvas('abcCanvas');
+            var self = $(this);
+            if(!step){  // 确认选择照片
+                var cphoto = fabricPhotoCanvas.toDataURL('image/png', 0.6); //.toDataURL({format: 'png', quality: 0.6});
+                createPhotoFun(cphoto, 1, '');
+                step = 1;
+                $(".createEl").removeClass("hidden");
 
-                __abc.src = finPhoto;
-                //$("body").append(__abc);
-                __abc.onload = function(){ 
-                    var __abcCreateW = this.width * 0.6,
-                        __abcCreateH = this.height * 0.6;
-                    __abcCanvasNode.width = __abcCreateW;
-                    __abcCanvasNode.height = __abcCreateH;
+                $(".canvasNode").removeClass("hidden");
+                $(".casACon").addClass("hidden");
+                $(".eleNode").removeClass("hidden");
 
-                    imgDraw(__abcCanvas, this, __abcCreateW, __abcCreateH, 0, 0, false);  
+                $(".replayBtn").addClass("hidden");
+                $(".rehomeBtn").removeClass("hidden");
+            }else{
+                
+                var elSrc = elVal ? "/build/dist/img/el/"+elVal+".png" : "/build/dist/img/el/el1.png";
+                console.log(elSrc);
+                createPhotoFun(elSrc, 0, function(){
+                    $(".eleNode").addClass("hidden");
+                    var finPhoto = fabricCreateCanvas.toDataURL('image/png', 0.6); //.toDataURL({format: 'image/png', quality: 0.7});
 
-
-
-
-
-                    var __abcPhoto = __abcCanvas.toDataURL('image/png', 0.6);
-
-                    var uploadPicObj = {
-                        "pic": __abcPhoto.replace("data:image/png;base64,", "")
-                    }
-
-                    $(".createEl").addClass("disabled");
-                    self.addClass("disabled");
+                    var __abcCanvasNode = document.createElement("canvas");
+                        __abcCanvasNode.id = "abcCanvas";
+                        $("body").append(__abcCanvasNode);
 
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/api/uploadpic",
-                        data: uploadPicObj,
-                        dataType: "json"
-                    }).done(function(data){
-                        // alert("status" + data.status);
-                        if(data.status == "1"){
-                           window.location.href = "/result?pid=" + data.msg;
-                           $(".formNode").removeClass("hidden");
-                           $(".formTable").addClass("hidden");
-                           pfun.formErrorTips('上传成功！');
-                        }else{
-                           pfun.formErrorTips(data.msg);
+                    var __abc = new Image();
+                    var __abcCanvas = new fabric.Canvas('abcCanvas');
+
+                    __abc.src = finPhoto;
+                    //$("body").append(__abc);
+                    __abc.onload = function(){ 
+                        var __abcCreateW = this.width * 0.6,
+                            __abcCreateH = this.height * 0.6;
+                        __abcCanvasNode.width = __abcCreateW;
+                        __abcCanvasNode.height = __abcCreateH;
+
+                        imgDraw(__abcCanvas, this, __abcCreateW, __abcCreateH, 0, 0, false);  
+
+
+
+
+
+                        var __abcPhoto = __abcCanvas.toDataURL('image/png', 0.6);
+
+                        var uploadPicObj = {
+                            "pic": __abcPhoto.replace("data:image/png;base64,", "")
                         }
-                        
-                        self.removeClass("disabled");
 
-                    }).fail(function(jqXHR, textStatus) {
-                      console.log( "Request failed: " + textStatus );
-                      console.log('test' + jqXHR);
-                    });
+                        $(".createEl").addClass("disabled");
+                        self.addClass("disabled");
 
-                }
-            });
 
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/uploadpic",
+                            data: uploadPicObj,
+                            dataType: "json"
+                        }).done(function(data){
+                            // alert("status" + data.status);
+                            if(data.status == "1"){
+                               window.location.href = "/result?pid=" + data.msg;
+                               $(".formNode").removeClass("hidden");
+                               $(".formTable").addClass("hidden");
+                               pfun.formErrorTips('上传成功！');
+                            }else{
+                               pfun.formErrorTips(data.msg);
+                            }
+                            
+                            self.removeClass("disabled");
+
+                        }).fail(function(jqXHR, textStatus) {
+                          console.log( "Request failed: " + textStatus );
+                          console.log('test' + jqXHR);
+                        });
+
+                    }
+                });
+
+
+        }
+        
             
 
 
@@ -423,6 +434,14 @@
         }
     })
 
+
+    $(".replayBtn").on("click", function(){
+        var uploadFile = $("input[type=file]").val();
+        if(uploadFile){
+            $('.uploadTips').removeClass("hidden");
+            $("input[type=file]").val("");
+        };
+    })
 
 
     
