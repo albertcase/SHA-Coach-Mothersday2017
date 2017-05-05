@@ -22,7 +22,7 @@
     
     <link rel="stylesheet" type="text/css" href="/build/dist/css/main.min.css">
 
-    <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/918fce91-ab24-42cd-9ca1-e7a86bd59fc0/wechat?debug=true"></script>
+    <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/918fce91-ab24-42cd-9ca1-e7a86bd59fc0/wechat"></script>
     
     
 </head>
@@ -50,12 +50,12 @@
                 dataUrl: '',
                 success: function () {
                     //_hmt.push(['_trackEvent', 'buttons', 'click', 'onMenuShareAppMessage']);
-
                 },
                 cancel: function () {
 
                 }
             });
+
             wx.onMenuShareTimeline({
                 title: shareArr._desc,
                 link: shareArr._link,
@@ -67,7 +67,6 @@
 
                 }
             });
-
 
         });
 </script>
