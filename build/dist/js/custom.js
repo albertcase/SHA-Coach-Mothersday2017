@@ -3,31 +3,6 @@
 */
 
 
-(function() {
-    var lastTime = 0;
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
-                                   || window[vendors[x]+'CancelRequestAnimationFrame'];
-    }
-
-    if (!window.requestAnimationFrame)
-        window.requestAnimationFrame = function(callback, element) {
-            var currTime = new Date().getTime();
-            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-              timeToCall);
-            lastTime = currTime + timeToCall;
-            return id;
-        };
-
-    if (!window.cancelAnimationFrame)
-        window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
-        };
-}());
-
 var shareArr = {
     "_title": 'COACH 2017母亲节', //分享标题
     "_desc": "Coach感恩母亲节，一起花式“晒妈”赢好礼",    // 分享朋友圈的描述
@@ -76,41 +51,20 @@ var pfun = {
             jsApiList: [
                 // 所有要调用的 API 都要加到这个列表中
                 'checkJsApi',
-        'onMenuShareTimeline',
-        'onMenuShareAppMessage',
-        'onMenuShareQQ',
-        'onMenuShareWeibo',
-        'onMenuShareQZone',
-        'hideMenuItems',
-        'showMenuItems',
-        'hideAllNonBaseMenuItem',
-        'showAllNonBaseMenuItem',
-        'translateVoice',
-        'startRecord',
-        'stopRecord',
-        'onVoiceRecordEnd',
-        'playVoice',
-        'onVoicePlayEnd',
-        'pauseVoice',
-        'stopVoice',
-        'uploadVoice',
-        'downloadVoice',
-        'chooseImage',
-        'previewImage',
-        'uploadImage',
-        'downloadImage',
-        'getNetworkType',
-        'openLocation',
-        'getLocation',
-        'hideOptionMenu',
-        'showOptionMenu',
-        'closeWindow',
-        'scanQRCode',
-        'chooseWXPay',
-        'openProductSpecificView',
-        'addCard',
-        'chooseCard',
-        'openCard'
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'hideMenuItems',
+                'showMenuItems',
+                'hideAllNonBaseMenuItem',
+                'showAllNonBaseMenuItem',
+                'getNetworkType',
+                'openLocation',
+                'getLocation',
+                'hideOptionMenu',
+                'showOptionMenu',
+                'closeWindow'
             ]
         });
 
@@ -130,14 +84,13 @@ var pfun = {
               link: shareArr._link, // 分享链接
               imgUrl: shareArr._imgUrl, // 分享图标
               trigger: function (res) {
-                // 涓嶈灏濊瘯鍦╰rigger涓娇鐢╝jax寮傛璇锋眰淇敼鏈鍒嗕韩鐨勫唴瀹癸紝鍥犱负瀹㈡埛绔垎浜搷浣滄槸涓€涓悓姝ユ搷浣滐紝杩欐椂鍊欎娇鐢╝jax鐨勫洖鍖呬細杩樻病鏈夎繑鍥�
-                alert('鐢ㄦ埛鐐瑰嚮鍙戦€佺粰鏈嬪弸');
+                
               },
               success: function (res) {
-                alert('宸插垎浜�');
+
               },
               cancel: function (res) {
-                alert('宸插彇娑�');
+
               },
               fail: function (res) {
                 alert(JSON.stringify(res));
@@ -207,45 +160,9 @@ var pfun = {
             //$(".loading em").html(p);
             //console.log(p);
         });
-    },
-    overscroll: function(el){
-        el.addEventListener('touchstart', function() {
-            var top = el.scrollTop
-              , totalScroll = el.scrollHeight
-              , currentScroll = top + el.offsetHeight
-            //If we're at the top or the bottom of the containers
-            //scroll, push up or down one pixel.
-            //
-            //this prevents the scroll from "passing through" to
-            //the body.
-            if(top === 0) {
-              el.scrollTop = 1
-            } else if(currentScroll === totalScroll) {
-              el.scrollTop = top - 1
-            }
-        })
-        el.addEventListener('touchmove', function(evt) {
-            //if the content is actually scrollable, i.e. the content is long enough
-            //that scrolling can occur
-            if(el.offsetHeight < el.scrollHeight)
-              evt._isScroller = true
-        })
-    },
-    getQueryString: function(name){
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r!=null)return unescape(r[2]); return null;
     }
 
 }
 
-
-document.body.addEventListener('touchmove', function(evt) {
-    //In this case, the default behavior is scrolling the body, which
-    //would result in an overflow.  Since we don't want that, we preventDefault.
-    if(!evt._isScroller) {
-        evt.preventDefault()
-    }
-});
 
 
