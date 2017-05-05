@@ -128,72 +128,7 @@
 <script type="text/javascript">
     pfun.init();
 
-    var allimg = [
-       '/build/dist/img/logo.png',
-       '/build/dist/img/close.png',
-       '/build/dist/img/kv1.jpg',
-       '/build/dist/img/kv2.jpg',
-       '/build/dist/img/kv3.jpg',
-       '/build/dist/img/kv_desc.png',
-    ];
-
-    function isWeixn(){  
-        var ua = navigator.userAgent.toLowerCase();  
-        if(ua.match(/MicroMessenger/i)=="micromessenger") {  
-            return true;  
-        } else {  
-            return false;  
-        }  
-
-        //return true;  
-    } 
-
-    pfun.loadingFnDoing(allimg, function(){
-        $(".loading").css({"visibility": "hidden"});
-
-        _v.sectionChange("index");
-
-        pfun.overscroll(document.querySelector(".indexScroll")); 
-        pfun.overscroll(document.querySelector("#pop-rule")); 
-
-    })   
-
-
-    // 活动规则点击事件
-    $(".rule").on('touchstart', function(e){
-        $("#rule-pop").removeClass("hidden").addClass("ycenter transition");
-        e.preventDefault();
-    })
-
-    // 活动规则关闭事件
-    $(".ruleclose").on('click', function(e){
-        $("#rule-pop").addClass("hidden").removeClass("ycenter transition");
-        e.preventDefault();
-    })
-
-
-    $(".offstoreLink").on("click", function(e){
-        if(isWeixn()){
-            window.location.href = "/offstore/index.html";
-        }else{
-            $(".pageQrcode").removeClass("hidden");
-            //alert("请用微信浏览器打开");
-        }
-        e.preventDefault();
-    })
-
-    $(".applicationLink").on("click", function(e){
-        if(isWeixn()){
-            window.location.href = "/application/index.html";
-        }else{
-            $(".pageQrcode").removeClass("hidden");
-        }
-        e.preventDefault();
-    })
-
-    $(".pageQrcode").on("click", function(){
-        $(this).addClass("hidden");
-    })
+    
 
 
 </script>
