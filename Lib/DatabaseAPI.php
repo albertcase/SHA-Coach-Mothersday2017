@@ -295,6 +295,21 @@ class DatabaseAPI {
     }
 
     /**
+     * find praise by uid and pid in database
+     */
+    public function findPraiseByUidPid($uid, $pid){
+        $sql = "SELECT `pid` FROM `praise` WHERE `uid` = ? AND `pid` = ? ";
+        $res = $this->connect()->prepare($sql);
+        $res->bind_param("ss", $uid, $pid);
+        $res->execute();
+        $res->bind_result($pid);
+        if($res->fetch()) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
      * find topten praise in database
      */
     public function findPraiseTopTen(){

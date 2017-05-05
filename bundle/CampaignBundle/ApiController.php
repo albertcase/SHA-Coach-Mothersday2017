@@ -220,13 +220,11 @@ class ApiController extends Controller {
      * 2.判断当前这个人对这个作品是否进行过积赞
      */
     private function checkUserPraise($uid, $pid) {
-        $pid = (int) $pid;
         $db = new \Lib\DatabaseAPI();
-        $db->findPhotoByUidPid($uid, $pid);
         if($db->findPhotoByUidPid($uid, $pid)) {
             return false;
         }
-        if($pid == $db->findPraiseByUid($uid)){
+        if($db->findPraiseByUidPid($uid, $pid)){
             return false;
         }
         return true;
