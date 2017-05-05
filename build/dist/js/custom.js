@@ -2,7 +2,6 @@
 *   public.js
 */
 
-
 var shareArr = {
     "_title": 'COACH 2017母亲节', //分享标题
     "_desc": "Coach感恩母亲节，一起花式“晒妈”赢好礼",    // 分享朋友圈的描述
@@ -79,10 +78,10 @@ var pfun = {
 
 
             wx.onMenuShareAppMessage({
-              title: shareArr._title, // 分享标题
-              desc: shareArr._desc_friend, // 分享描述
-              link: shareArr._link, // 分享链接
-              imgUrl: shareArr._imgUrl, // 分享图标
+              title: "shareArr._title", // 分享标题
+              desc: "shareArr._desc_friend", // 分享描述
+              link: "shareArr._link", // 分享链接
+              imgUrl: 'http://2017mothersday.samesamechina.com/build/dist/img/logo.png', // 分享图标
               trigger: function (res) {
                 
               },
@@ -160,9 +159,45 @@ var pfun = {
             //$(".loading em").html(p);
             //console.log(p);
         });
+    },
+    overscroll: function(el){
+        el.addEventListener('touchstart', function() {
+            var top = el.scrollTop
+              , totalScroll = el.scrollHeight
+              , currentScroll = top + el.offsetHeight
+            //If we're at the top or the bottom of the containers
+            //scroll, push up or down one pixel.
+            //
+            //this prevents the scroll from "passing through" to
+            //the body.
+            if(top === 0) {
+              el.scrollTop = 1
+            } else if(currentScroll === totalScroll) {
+              el.scrollTop = top - 1
+            }
+        })
+        el.addEventListener('touchmove', function(evt) {
+            //if the content is actually scrollable, i.e. the content is long enough
+            //that scrolling can occur
+            if(el.offsetHeight < el.scrollHeight)
+              evt._isScroller = true
+        })
+    },
+    getQueryString: function(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return unescape(r[2]); return null;
     }
 
 }
 
+
+document.body.addEventListener('touchmove', function(evt) {
+    //In this case, the default behavior is scrolling the body, which
+    //would result in an overflow.  Since we don't want that, we preventDefault.
+    if(!evt._isScroller) {
+        evt.preventDefault()
+    }
+});
 
 
