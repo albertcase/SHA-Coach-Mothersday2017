@@ -499,7 +499,7 @@ class ApiController extends Controller {
                     'color' => '#000000'
                 ),
                 'remark' => array(
-                    'value' => "地址：" . $senddata['addr'] . "\n\n欢迎您在 " . $senddata['time'] . "持此份活动通知，参与活动与COACH一起共享，母亲节温馨时刻",
+                    'value' => "地址：" . $senddata['addr'] . "\n\n欢迎您在 " . $senddata['time'] . "持此份活动通知，参与活动与COACH一起共享母亲节温馨时刻",
                     'color' => '#000000'
                 )
 
