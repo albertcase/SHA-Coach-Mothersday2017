@@ -139,22 +139,27 @@
 
     $(".dianzan").on("click", function(){
         var self = $(this);
-        if(self.hasClass("disabled") || $(".userInfo").hasClass("disabled")) return false;
+        if($(".userInfo").hasClass("disabled")) return false;
 
-        var praiseNum = $(".userInfo span i").text() * 1;
+        if(self.hasClass("disabled")){
+            pfun.formErrorTips("不能重复点赞！");
+        }else{
+            var praiseNum = $(".userInfo span i").text() * 1;
 
-        self.addClass("disabled");
-        pfun.ajaxFun("POST", "/api/praise", {
-            'pid': <?php echo $list['pid']; ?>
-        }, "json", function(data){
-            if(data.status == "1"){
-               $(".userInfo span i").text(praiseNum + 1);
-               $(".userInfo").addClass("disabled")
-            }else{
-                self.removeClass("disabled");
-            }
-            pfun.formErrorTips(data.msg);
-        });
+            self.addClass("disabled");
+            pfun.ajaxFun("POST", "/api/praise", {
+                'pid': <?php echo $list['pid']; ?>
+            }, "json", function(data){
+                if(data.status == "1"){
+                   $(".userInfo span i").text(praiseNum + 1);
+                   $(".userInfo").addClass("disabled")
+                }else{
+                    self.removeClass("disabled");
+                }
+                pfun.formErrorTips(data.msg);
+            });
+        }
+        
     })
 
 
