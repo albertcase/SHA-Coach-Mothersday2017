@@ -60,13 +60,14 @@
                     if($list) {
                         foreach ($list as $k => $v) {
                 ?>
-                    <li data-pid="<?php echo $v['id']; ?>">
+                    <li>
                         <div class="createStage">
                             <img src="<?php echo $v['pic'];?>" width="100%">
                         </div>
                         <div class="createEl">
                             <div class="userInfo ycenter disabled">
                                 <span>
+                                    <a href="javascript:void(0);" data-pid="<?php echo $v['id']; ?>" class="dianzan"></a>
                                     <em><?php echo !empty($v['nickname']) ? $v['nickname'] : 'coach';?></em>
                                     <i><?php echo $v['favorite'];?></i>
                                 </span>
@@ -106,7 +107,27 @@
 
     })   
 
-
+    $(".dianzan").on("click", function(){
+        var self = $(this);
+        if(self.hasClass("disabled")){
+            pfun.formErrorTips("不能重复点赞！");
+        }else{
+            var praiseId = self.attr("data-pid");
+            var praiseNum = self.siblings("i").text() * 1;
+            pfun.ajaxFun("POST", "/api/praise", {
+                'pid': praiseId
+            }, "json", function(data){
+                if(data.status == "1"){
+                   self.siblings("i").text(praiseNum + 1);
+                   self.addClass("disabled")
+                }else{
+                    self.removeClass("disabled");
+                }
+                pfun.formErrorTips(data.msg);
+            });
+        }
+        
+    })
     
         
 
