@@ -76,7 +76,7 @@ class ApiController extends Controller {
         $pid = $request->request->get('pid');
 
         if(!$this->checkUserPraise($user->uid, $pid)) {
-            $this->statusPrint('2005', '您已点赞！');
+            $this->statusPrint('2005', '点赞不要贪心哦，每个ID每张只能点赞一次哦');
         }
 
         $db = new \Lib\DatabaseAPI();
@@ -262,19 +262,6 @@ class ApiController extends Controller {
      */
     private function getApplyList() {
         $list = array(
-            'shop1' => array(
-                'name' => '扬州金鹰国际购物中心 ',
-                'date' => array(
-                    0 => array(
-                        'ymd' => '2017/05/13',
-                        'num' => 'shop1:2017/05/13',
-                    ),
-                    1 => array(
-                        'ymd' => '2017/05/14',
-                        'num' => 'shop1:2017/05/14',
-                    ),
-                ),
-            ),
             'shop2' => array(
                 'name' => '北京东方广场',
                 'date' => array(
@@ -288,55 +275,16 @@ class ApiController extends Controller {
                     ),
                 ),
             ),
-            'shop3' => array(
-                'name' => '杭州大厦精品店',
+            'shop10' => array(
+                'name' => '上海国金中心',
                 'date' => array(
                     0 => array(
                         'ymd' => '2017/05/13',
-                        'num' => 'shop3:2017/05/13',
+                        'num' => 'shop10:2017/05/13',
                     ),
                     1 => array(
                         'ymd' => '2017/05/14',
-                        'num' => 'shop3:2017/05/14',
-                    ),
-                ),
-            ),
-            'shop4' => array(
-                'name' => '成都国际金融中心',
-                'date' => array(
-                    0 => array(
-                        'ymd' => '2017/05/13',
-                        'num' => 'shop4:2017/05/13',
-                    ),
-                    1 => array(
-                        'ymd' => '2017/05/14',
-                        'num' => 'shop4:2017/05/14',
-                    ),
-                ),
-            ),
-            'shop5' => array(
-                'name' => '济南恒隆广场',
-                'date' => array(
-                    0 => array(
-                        'ymd' => '2017/05/13',
-                        'num' => 'shop5:2017/05/13',
-                    ),
-                    1 => array(
-                        'ymd' => '2017/05/14',
-                        'num' => 'shop5:2017/05/14',
-                    ),
-                ),
-            ),
-            'shop6' => array(
-                'name' => '卓展购物中心长春店',
-                'date' => array(
-                    0 => array(
-                        'ymd' => '2017/05/13',
-                        'num' => 'shop6:2017/05/13',
-                    ),
-                    1 => array(
-                        'ymd' => '2017/05/14',
-                        'num' => 'shop6:2017/05/14',
+                        'num' => 'shop10:2017/05/14',
                     ),
                 ),
             ),
@@ -353,16 +301,29 @@ class ApiController extends Controller {
                     ),
                 ),
             ),
-            'shop8' => array(
-                'name' => '乌鲁木齐美美友好购物中心店',
+            'shop4' => array(
+                'name' => '成都国际金融中心',
                 'date' => array(
                     0 => array(
                         'ymd' => '2017/05/13',
-                        'num' => 'shop8:2017/05/13',
+                        'num' => 'shop4:2017/05/13',
                     ),
                     1 => array(
                         'ymd' => '2017/05/14',
-                        'num' => 'shop8:2017/05/14',
+                        'num' => 'shop4:2017/05/14',
+                    ),
+                ),
+            ),
+            'shop6' => array(
+                'name' => '长春卓展购物中心',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop6:2017/05/13',
+                    ),
+                    1 => array(
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop6:2017/05/14',
                     ),
                 ),
             ),
@@ -379,16 +340,55 @@ class ApiController extends Controller {
                     ),
                 ),
             ),
-            'shop10' => array(
-                'name' => '上海国金中心',
+            'shop3' => array(
+                'name' => '杭州大厦精品店',
                 'date' => array(
                     0 => array(
                         'ymd' => '2017/05/13',
-                        'num' => 'shop10:2017/05/13',
+                        'num' => 'shop3:2017/05/13',
                     ),
                     1 => array(
                         'ymd' => '2017/05/14',
-                        'num' => 'shop10:2017/05/14',
+                        'num' => 'shop3:2017/05/14',
+                    ),
+                ),
+            ),
+            'shop5' => array(
+                'name' => '济南恒隆广场',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop5:2017/05/13',
+                    ),
+                    1 => array(
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop5:2017/05/14',
+                    ),
+                ),
+            ),
+            'shop8' => array(
+                'name' => '乌鲁木齐美美友好购物中心店',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop8:2017/05/13',
+                    ),
+                    1 => array(
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop8:2017/05/14',
+                    ),
+                ),
+            ),
+            'shop1' => array(
+                'name' => '扬州金鹰国际购物中心 ',
+                'date' => array(
+                    0 => array(
+                        'ymd' => '2017/05/13',
+                        'num' => 'shop1:2017/05/13',
+                    ),
+                    1 => array(
+                        'ymd' => '2017/05/14',
+                        'num' => 'shop1:2017/05/14',
                     ),
                 ),
             ),

@@ -111,7 +111,7 @@
     $(".dianzan").on("click", function(){
         var self = $(this);
         if(self.hasClass("disabled")){
-            pfun.formErrorTips("不能重复点赞！");
+            pfun.formErrorTips("点赞不要贪心哦，每个ID每张只能点赞一次哦");
         }else{
             var praiseId = self.attr("data-pid");
             var praiseNum = self.siblings("i").text() * 1;

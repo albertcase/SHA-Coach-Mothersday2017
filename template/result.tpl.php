@@ -142,7 +142,7 @@
         // if($(".userInfo").hasClass("disabled")) return false;
 
         if(self.hasClass("disabled")){
-            pfun.formErrorTips("不能重复点赞！");
+            pfun.formErrorTips("点赞不要贪心哦，每个ID每张只能点赞一次哦");
         }else{
             var praiseNum = $(".userInfo span i").text() * 1;
 

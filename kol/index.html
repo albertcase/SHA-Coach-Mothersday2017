@@ -71,6 +71,7 @@
             
             <div class="pageCon">
                 <div class="showSwiper">
+                    <div class="videoIcon"></div>
                     <!-- Swiper -->
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
@@ -103,7 +104,7 @@
 
                 <div class="showFooterArea">
                     <a href="javascript:void(0);" class="btn goBuyBtn">入手达人同款</a>
-                    <a href="javascript:void(0);" class="btn watch">观看温馨花絮</a>
+                    <a href="/application/index.html" class="btn">上传我的温馨时刻</a>
                 </div>
 
             </div>
@@ -164,7 +165,7 @@
     }
 
 
-    $(".watch").on("click", function(){
+    $(".videoIcon").on("click", function(){
         $(".scenesNode").removeClass("hidden");
         $("#scenesVideo").removeClass("hidden");
         videoFun("scenesVideo");
