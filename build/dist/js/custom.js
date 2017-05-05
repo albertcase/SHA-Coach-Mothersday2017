@@ -66,7 +66,7 @@ var pfun = {
                 'closeWindow'
             ]
         });
-
+        
         this.wxshareFun();
     },
     wxshareFun: function(){  //分享信息重置函数
