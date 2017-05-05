@@ -298,7 +298,7 @@ class DatabaseAPI {
      * find topten praise in database
      */
     public function findPraiseTopTen(){
-        $sql = "SELECT u.`nickname`, p.`favorite`, p.`pic` FROM `photo` AS p, `user` AS u WHERE p.`uid` = u.`uid` ORDER BY p.`favorite` DESC, p.`created` LIMIT 0, 10";
+        $sql = "SELECT p.`id`, u.`nickname`, p.`favorite`, p.`pic` FROM `photo` AS p, `user` AS u WHERE p.`uid` = u.`uid` ORDER BY p.`favorite` DESC, p.`created` LIMIT 0, 10";
         $res = $this->connect()->query($sql);
         $list = $res->fetch_all($resulttype = MYSQLI_ASSOC);
         if($list) {
