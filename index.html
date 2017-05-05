@@ -125,10 +125,8 @@
 <script type="text/javascript" src="/build/dist/js/main.min.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){
     pfun.init();
-});
-
+    
     var allimg = [
        '/build/dist/img/logo.png',
        '/build/dist/img/close.png',
@@ -151,7 +149,7 @@ $(document).ready(function(){
 
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
-
+        pfun.init();
         _v.sectionChange("index");
 
         pfun.overscroll(document.querySelector(".indexScroll")); 
