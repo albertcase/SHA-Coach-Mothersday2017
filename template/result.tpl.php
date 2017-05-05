@@ -152,7 +152,7 @@
             }, "json", function(data){
                 if(data.status == "1"){
                    $(".userInfo span i").text(praiseNum + 1);
-                   //$(".userInfo").addClass("disabled")
+                   $(".userInfo").addClass("disabled")
                 }else{
                     self.removeClass("disabled");
                 }
