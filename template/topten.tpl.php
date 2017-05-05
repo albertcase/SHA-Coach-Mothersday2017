@@ -60,7 +60,7 @@
                     if($list) {
                         foreach ($list as $k => $v) {
                 ?>
-                    <li>
+                    <li data-pid="<?php echo $v['id']; ?>">
                         <div class="createStage">
                             <img src="<?php echo $v['pic'];?>" width="100%">
                         </div>
