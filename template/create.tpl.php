@@ -37,7 +37,7 @@
 
 <div class="loading">
     <div class="loading_con">
-        <img src="/build/dist/img/logo.png" width="100%" class="abc">
+        <img src="/build/dist/img/logo.png" width="100%">
 
         <div class="spinner">
             <div class="bounce1"></div>
@@ -174,7 +174,7 @@
         photoImg.src = "/build/dist/img/photo.jpg";
 
         photoImg.onload =  function(){
-            photoCanvasWidth = ($(document).width() * .67);
+            photoCanvasWidth = ($(document).width() * .63);
             photoCanvasRate =  photoCanvasWidth / this.width;   // 图片缩放比例
             photoCanvasHeight = this.height * photoCanvasRate;
 
@@ -227,11 +227,11 @@
                     if(this.width > this.height){
                         var uploadPhotoRate =  photoCanvasHeight / this.height;   // 图片缩放比例
                         var uploadPhotoWidth = this.width * uploadPhotoRate;
-                        imgDraw(fabricPhotoCanvas, this, uploadPhotoWidth, photoCanvasHeight, 0, 0, true);  // 绘制上传的亲子照片
+                        imgDraw(fabricPhotoCanvas, this, uploadPhotoWidth, photoCanvasHeight, 0, 0, true, 'photo');  // 绘制上传的亲子照片
                     }else{
                         var uploadPhotoRate =  photoCanvasWidth / this.width;   // 图片缩放比例
                         var uploadPhotoHeight = this.height * uploadPhotoRate + 18;
-                        imgDraw(fabricPhotoCanvas, this, (photoCanvasWidth + 15), uploadPhotoHeight, 0, 0, true);  // 绘制上传的亲子照片
+                        imgDraw(fabricPhotoCanvas, this, (photoCanvasWidth + 15), uploadPhotoHeight, 0, 0, true, 'photo');  // 绘制上传的亲子照片
                     }
 
                     $(".loading").css({"visibility": "hidden"});
@@ -252,7 +252,7 @@
 
 
 
-    function imgDraw(fabricEl, img, w, h, l, t, s){
+    function imgDraw(fabricEl, img, w, h, l, t, s, _name){
         var drawImg = new fabric.Image(img, {
             left: l,
             top: t,
@@ -261,6 +261,7 @@
             transparentCorners: false,
             hasControls: false,
             hasBorders: false,
+            name: _name,
         });
         drawImg["selectable"] = s;
         fabricEl.add(drawImg);
@@ -319,7 +320,7 @@
 
         // fabricCreateCanvas.add(rect);
 
-        imgDraw(fabricCreateCanvas, self, createCanvasWidth, createCanvasHeight, 0, 0, false);   // 绘制默认
+        imgDraw(fabricCreateCanvas, self, createCanvasWidth, createCanvasHeight, 0, 0, false, 'defaultBg');   // 绘制默认
 
     };
 
@@ -329,14 +330,14 @@
             _createImg.src = _src;
             _createImg.onload = function(){ 
                 if(_type){  // 绘制上传创建的照片
-                    var createPhotoImgRate = createCanvasWidth * .87 / this.width;
+                    var createPhotoImgRate = createCanvasWidth * 0.87 / this.width;  // * .87
                     var createPhotoImgHeight = this.height * createPhotoImgRate;
-                    imgDraw(fabricCreateCanvas, this, createCanvasWidth * .87, createPhotoImgHeight, createCanvasWidth * .06, createCanvasHeight * .05, false);   // 绘制photo
+                    imgDraw(fabricCreateCanvas, this, createCanvasWidth * 0.87, createPhotoImgHeight, createCanvasWidth * .06, createCanvasHeight * .05, false, 'qrPhoto');   // 绘制photo   .06    .05
                 }else{  // 绘制小元素
                     if(elVal != ""){
                         var eleImgRate =  createCanvasWidth / this.width;   // 图片缩放比例
                         var eleImgHeight = this.height * eleImgRate;
-                        imgDraw(fabricCreateCanvas, this, createCanvasWidth, eleImgHeight, 0, 0, false);  
+                        imgDraw(fabricCreateCanvas, this, createCanvasWidth, eleImgHeight, 0, 0, false, 'smallEle');  
                     }
                     
                     //setTimeout(_cb, 200);
@@ -360,6 +361,7 @@
             var self = $(this);
             if(!step){  // 确认选择照片
                 var cphoto = fabricPhotoCanvas.toDataURL('image/png', 0.8); //.toDataURL({format: 'png', quality: 0.6});
+                //$(".aaa").attr("src", cphoto);
                 createPhotoFun(cphoto, 1, '');
                 step = 1;
                 $(".createEl").removeClass("hidden");
@@ -394,7 +396,7 @@
                         __abcCanvasNode.width = __abcCreateW;
                         __abcCanvasNode.height = __abcCreateH;
 
-                        imgDraw(__abcCanvas, this, __abcCreateW, __abcCreateH, 0, 0, false);  
+                        imgDraw(__abcCanvas, this, __abcCreateW, __abcCreateH, 0, 0, false, 'crImg');  
 
 
 
@@ -453,9 +455,17 @@
         if(uploadFile){
             $('.uploadTips').removeClass("hidden");
             $("input[type=file]").val("");
+            fabricRemoveEvent(fabricPhotoCanvas, 'photo');
         };
     })
 
+    function fabricRemoveEvent(_node, cname){
+        $.map(_node._objects,function(v,k){
+          if(v.name == cname){
+            _node.remove(_node._objects[k]);
+          }
+        })
+    }
 
     
 
