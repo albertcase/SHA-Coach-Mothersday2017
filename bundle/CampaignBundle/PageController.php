@@ -61,7 +61,6 @@ class PageController extends Controller {
             'pic' => $photoinfo->pic,
             'ispraise' => $ispraise,
         );
-        var_dump($list);exit;
         $this->render('result', array('list' => $list));
     }
 
