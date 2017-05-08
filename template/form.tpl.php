@@ -182,6 +182,7 @@
     });
 
     $(".choseShop").change(function(){
+        $("input[name=date]").val("");
         //console.log($(this).find('option:selected').attr('data-code'));
         var selectedVal_shop = $(this).find('option:selected').val();
         var selectedVal_shop_text = $(this).find('option:selected').text();
