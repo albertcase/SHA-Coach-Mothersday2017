@@ -134,17 +134,6 @@
        '/build/dist/img/photo.jpg',
     ], step = 0, elVal = '';
 
-    var getPixelRatio = function(context) {
-      var backingStore = context.backingStorePixelRatio ||
-        context.webkitBackingStorePixelRatio ||
-        context.mozBackingStorePixelRatio ||
-        context.msBackingStorePixelRatio ||
-        context.oBackingStorePixelRatio ||
-        context.backingStorePixelRatio || 1;
-       return (window.devicePixelRatio || 1) / backingStore;
-    };
-
-
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
 
@@ -307,9 +296,9 @@
 
         createCanvas.id = 'createCanvas';
 
-        var createCanvasCtx = createCanvas.getContext('2d');
+        //var createCanvasCtx = createCanvas.getContext('2d');
         //调用
-        var ratioCreateCanvas = getPixelRatio(createCanvasCtx);
+        //var ratioCreateCanvas = getPixelRatio(createCanvasCtx);
 
         createCanvas.width = createCanvasWidth;
         createCanvas.height = createCanvasHeight;
