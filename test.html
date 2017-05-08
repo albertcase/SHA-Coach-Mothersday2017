@@ -28,8 +28,61 @@
 </head>
 <body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="node_modules/hidpi-canvas/dist/hidpi-canvas.min.js"></script>
+<script type="text/javascript" src="build/dist/src/vendor/fabric.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+
+
+    var defaultBgImg = new Image();    // 默认背景
+        defaultBgImg.src = "/build/dist/img/m_bg.png";
+    function imgDraw(fabricEl, img, w, h, l, t, s){
+        var drawImg = new fabric.Image(img, {
+            left: l,
+            top: t,
+            width: w,
+            height: h,
+            transparentCorners: false,
+            hasControls: false,
+            hasBorders: false,
+        });
+        drawImg["selectable"] = s;
+        fabricEl.add(drawImg);
+        fabricEl.renderAll();
+    }
+    defaultBgImg.onload = function () {
+        var self = this;
+
+        var photoCanvas = document.createElement("canvas");
+
+        photoCanvas.id = 'photoCanvas';
+
+        var createCanvasCtx = photoCanvas.getContext('2d');
+        //调用
+        //var ratioCreateCanvas = getPixelRatio(createCanvasCtx);
+
+        photoCanvas.width = self.width;
+        photoCanvas.height = self.height;
+
+        
+        $("body").append(photoCanvas);
+
+        fabricCreateCanvas = new fabric.Canvas('photoCanvas');
+        fabric.Object.prototype.transparentCorners = false;
+
+        // var rect = new fabric.Rect({
+        //     top : 0,
+        //     left : 0,
+        //     width : createCanvasWidth,
+        //     height : createCanvasHeight,
+        //     fill : 'rgba(23,72,56,.6)'
+        // });
+
+        // fabricCreateCanvas.add(rect);
+
+        imgDraw(fabricCreateCanvas, self, self.width, self.height, 0, 0, false);   // 绘制默认
+
+    };
 
 
 

@@ -32,6 +32,16 @@
 
     <link rel="stylesheet" type="text/css" href="/build/dist/css/main.min.css">
     <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/918fce91-ab24-42cd-9ca1-e7a86bd59fc0/wechat"></script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?0a492afa4b02e5a592b9f6ce2ba9c3da";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 <body>
 
@@ -169,6 +179,8 @@
         $(".scenesNode").removeClass("hidden");
         $("#scenesVideo").removeClass("hidden");
         videoFun("scenesVideo");
+
+        _hmt.push(['_trackEvent', 'click', 'videoPlay', 'photo' + $(".swiper-slide-active").index()]);
     })
 
     

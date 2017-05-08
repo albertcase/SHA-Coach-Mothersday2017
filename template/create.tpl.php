@@ -22,6 +22,16 @@
     
     <link rel="stylesheet" type="text/css" href="/build/dist/css/main.min.css">
     <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/918fce91-ab24-42cd-9ca1-e7a86bd59fc0/wechat"></script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?0a492afa4b02e5a592b9f6ce2ba9c3da";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 <body>
 
@@ -106,9 +116,6 @@
 </div>
 
 
-<!-- <canvas id="abcCanvas" width="500" height="500" style="width:100%; height: 100%; position: absolute; left:0; top: 0; z-index: 0;"></canvas>
- -->
-
 <script type="text/javascript" src="/build/dist/js/vendor.min.js"></script>
 <script type="text/javascript" src="/build/dist/js/main.min.js"></script>
 <script type="text/javascript">
@@ -126,6 +133,17 @@
        '/build/dist/img/el/s-el3.png',
        '/build/dist/img/photo.jpg',
     ], step = 0, elVal = '';
+
+    var getPixelRatio = function(context) {
+      var backingStore = context.backingStorePixelRatio ||
+        context.webkitBackingStorePixelRatio ||
+        context.mozBackingStorePixelRatio ||
+        context.msBackingStorePixelRatio ||
+        context.oBackingStorePixelRatio ||
+        context.backingStorePixelRatio || 1;
+       return (window.devicePixelRatio || 1) / backingStore;
+    };
+
 
     pfun.loadingFnDoing(allimg, function(){
         $(".loading").css({"visibility": "hidden"});
@@ -171,12 +189,10 @@
             photoCanvasRate =  photoCanvasWidth / this.width;   // 图片缩放比例
             photoCanvasHeight = this.height * photoCanvasRate;
 
-
             photoCanvas.id = 'photoCanvas';
             photoCanvas.width = photoCanvasWidth;
             photoCanvas.height = photoCanvasHeight;
             $(".casACon").append(photoCanvas);
-
 
 
             fabricPhotoCanvas = new fabric.Canvas('photoCanvas');
@@ -226,7 +242,7 @@
                     }else{
                         var uploadPhotoRate =  photoCanvasWidth / this.width;   // 图片缩放比例
                         var uploadPhotoHeight = this.height * uploadPhotoRate + 18;
-                        imgDraw(fabricPhotoCanvas, this, photoCanvasWidth + 15, uploadPhotoHeight, 0, 0, true);  // 绘制上传的亲子照片
+                        imgDraw(fabricPhotoCanvas, this, (photoCanvasWidth + 15), uploadPhotoHeight, 0, 0, true);  // 绘制上传的亲子照片
                     }
 
                     $(".loading").css({"visibility": "hidden"});
@@ -290,8 +306,15 @@
         createCanvasHeight = self.height * rate;
 
         createCanvas.id = 'createCanvas';
+
+        var createCanvasCtx = createCanvas.getContext('2d');
+        //调用
+        var ratioCreateCanvas = getPixelRatio(createCanvasCtx);
+
         createCanvas.width = createCanvasWidth;
         createCanvas.height = createCanvasHeight;
+
+        
         $(".createACon").append(createCanvas);
 
         fabricCreateCanvas = new fabric.Canvas('createCanvas');
@@ -347,7 +370,7 @@
 
             var self = $(this);
             if(!step){  // 确认选择照片
-                var cphoto = fabricPhotoCanvas.toDataURL('image/png', 0.6); //.toDataURL({format: 'png', quality: 0.6});
+                var cphoto = fabricPhotoCanvas.toDataURL('image/png', 0.8); //.toDataURL({format: 'png', quality: 0.6});
                 createPhotoFun(cphoto, 1, '');
                 step = 1;
                 $(".createEl").removeClass("hidden");
@@ -361,10 +384,10 @@
             }else{
                 
                 var elSrc = elVal ? "/build/dist/img/el/"+elVal+".png" : "/build/dist/img/el/el1.png";
-                console.log(elSrc);
+                //console.log(elSrc);
                 createPhotoFun(elSrc, 0, function(){
                     $(".eleNode").addClass("hidden");
-                    var finPhoto = fabricCreateCanvas.toDataURL('image/png', 0.6); //.toDataURL({format: 'image/png', quality: 0.7});
+                    var finPhoto = fabricCreateCanvas.toDataURL('image/png', 0.8); //.toDataURL({format: 'image/png', quality: 0.7});
 
                     var __abcCanvasNode = document.createElement("canvas");
                         __abcCanvasNode.id = "abcCanvas";
@@ -388,7 +411,7 @@
 
 
 
-                        var __abcPhoto = __abcCanvas.toDataURL('image/png', 0.6);
+                        var __abcPhoto = __abcCanvas.toDataURL('image/png', 0.8);
 
                         var uploadPicObj = {
                             "pic": __abcPhoto.replace("data:image/png;base64,", "")
