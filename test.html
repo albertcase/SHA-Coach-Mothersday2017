@@ -29,13 +29,25 @@
 <body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="node_modules/hidpi-canvas/dist/hidpi-canvas.min.js"></script>
-<script type="text/javascript" src="build/dist/src/vendor/fabric.min.js"></script>
+<script type="text/javascript" src="build/src/js/vendor/fabric.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 
 
     var defaultBgImg = new Image();    // 默认背景
         defaultBgImg.src = "/build/dist/img/m_bg.png";
+
+    var getPixelRatio = function(context) {
+      var backingStore = context.backingStorePixelRatio ||
+        context.webkitBackingStorePixelRatio ||
+        context.mozBackingStorePixelRatio ||
+        context.msBackingStorePixelRatio ||
+        context.oBackingStorePixelRatio ||
+        context.backingStorePixelRatio || 1;
+       return (window.devicePixelRatio || 1) / backingStore;
+    };
+
+
     function imgDraw(fabricEl, img, w, h, l, t, s){
         var drawImg = new fabric.Image(img, {
             left: l,
@@ -59,7 +71,7 @@ $(document).ready(function(){
 
         var createCanvasCtx = photoCanvas.getContext('2d');
         //调用
-        //var ratioCreateCanvas = getPixelRatio(createCanvasCtx);
+        var ratioCreateCanvas = getPixelRatio(createCanvasCtx);
 
         photoCanvas.width = self.width;
         photoCanvas.height = self.height;
@@ -80,7 +92,7 @@ $(document).ready(function(){
 
         // fabricCreateCanvas.add(rect);
 
-        imgDraw(fabricCreateCanvas, self, self.width, self.height, 0, 0, false);   // 绘制默认
+        imgDraw(fabricCreateCanvas, self, self.width * ratioCreateCanvas, self.height * ratioCreateCanvas, -280, -360, false);   // 绘制默认
 
     };
 
