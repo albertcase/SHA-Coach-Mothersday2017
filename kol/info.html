@@ -142,9 +142,11 @@
 
     $(".buyBtn").on("click", function(){
         var pKey = $(".swiper-slide-active").index();
-        window.location.href = offsiteLink[pKey];
 
         _hmt.push(['_trackEvent', 'btn', '立即购买' + pKey]);
+
+        window.open(offsiteLink[pKey], "_blank");
+        //window.location.href = offsiteLink[pKey];   
     })
     
 
