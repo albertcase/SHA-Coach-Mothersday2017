@@ -176,11 +176,12 @@
 
 
     $(".videoIcon").on("click", function(){
+        var curslideNum = $(".swiper-slide-active").index();
         $(".scenesNode").removeClass("hidden");
         $("#scenesVideo").removeClass("hidden");
         videoFun("scenesVideo");
 
-        _hmt.push(['_trackEvent', 'click', 'videoPlay', 'photo' + $(".swiper-slide-active").index()]);
+        _hmt.push(['_trackEvent', 'click', '视频播放' + curslideNum]);
     })
 
     
@@ -196,7 +197,9 @@
 
     $(".goBuyBtn").on("click", function(){
         var pKey = $(".swiper-slide-active").index() * 1 - 1;
-        location.href = "info.html?pid=" + pKey;
+        _hmt.push(['_trackEvent', 'btn', '入手达人同款' + pKey]);
+        
+        location.href = "info.html?pid=" + pKey;  
     })
 
 
