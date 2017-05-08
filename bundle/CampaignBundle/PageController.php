@@ -46,7 +46,7 @@ class PageController extends Controller {
             $role = 1;
         }
 
-        if($pid == $db->findPraiseByUid($user->uid)) {
+        if($db->findPraiseByUidPid($user->uid, $pid)) {
             $ispraise = 1;
         }
 
