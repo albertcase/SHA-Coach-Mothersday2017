@@ -139,9 +139,12 @@
 
 
     var offsiteLink = ["http://china.coach.com/product/57078_DKBLK/detail.htm", "http://china.coach.com/product/58850_DKLVK/detail.htm", "http://china.coach.com/product/58850_DKLVI/detail.htm"];
+
     $(".buyBtn").on("click", function(){
         var pKey = $(".swiper-slide-active").index();
         window.location.href = offsiteLink[pKey];
+
+        _hmt.push(['_trackEvent', 'btn', '立即购买' + pKey]);
     })
     
 
