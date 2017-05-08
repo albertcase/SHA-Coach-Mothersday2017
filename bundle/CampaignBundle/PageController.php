@@ -62,6 +62,7 @@ class PageController extends Controller {
             'ispraise' => $ispraise,
         );
 
+            var_dump($list);exit;
         $this->render('result', array('list' => $list));
     }
 
