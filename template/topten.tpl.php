@@ -107,6 +107,7 @@
     
     var allimg = [
        '/build/dist/img/logo.png',
+       '/build/dist/img/place.png',
     ];
 
     pfun.loadingFnDoing(allimg, function(){
