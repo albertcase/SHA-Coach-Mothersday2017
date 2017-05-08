@@ -113,8 +113,8 @@ class PageController extends Controller {
      */
     private function checkPhotoUser($pid, $uid) {
         $db = new \Lib\DatabaseAPI();
-        $p = $db->findPhotoByUid($uid);
-        if($p == $pid) {
+        $p = $db->findPhotoByUidPid($uid, $pid);
+        if($p) {
             return true;
         } else {
             return false;
