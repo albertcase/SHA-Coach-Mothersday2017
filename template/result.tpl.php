@@ -121,9 +121,9 @@
 
     pfun.loadingFnDoing(allimg, function(){
         shareArr = {
-            "_title": 'COACH 2017母亲节', //分享标题
-            "_desc": "Coach感恩母亲节，一起花式“晒妈”赢好礼",    // 分享朋友圈的描述
-            "_desc_friend": "Coach感恩母亲节，一起花式“晒妈”赢好礼",    // 分享好友的描述
+            "_title": 'Coach 母亲节', //分享标题
+            "_desc": "Coach感恩母亲节，为妈妈赢取比花束更美好的礼物",    // 分享朋友圈的描述
+            "_desc_friend": "Coach感恩母亲节，为妈妈赢取比花束更美好的礼物",    // 分享好友的描述
             "_link": window.location.link,    //分享的连接
             "_imgUrl": window.location.origin + "/build/dist/img/share.jpg",   //分享的图片
             "_shareAppMessageCallback": function(){
