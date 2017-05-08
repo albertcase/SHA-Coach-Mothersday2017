@@ -188,7 +188,7 @@
         $.map(formlist, function(j, p){
             if(p == selectedVal_shop){
                 selectHTMl['date'] = $.map(j.date, function(a, b){
-                    return '<option value="'+ a.ymd +'" data-num="'+ a.num +'">'+ a.ymd + (a.num == 0 ? ' 预约已满' : '') +'</option>';
+                    return '<option value="'+ a.ymd +'" '+(a.num == 0 ? 'disabled' : '')+' data-num="'+ a.num +'">'+ a.ymd + (a.num == 0 ? ' 预约已满' : '') +'</option>';
                 }).join("");
             };
         })
