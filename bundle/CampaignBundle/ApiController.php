@@ -161,6 +161,9 @@ class ApiController extends Controller {
             $this->statusPrint('1007', '预约失败！');
         }
 
+        /*********************************************************************
+        --------------------- 2017-05-08 修改 --------------------------------
+
         //预约成功直接推送模版消息
         $userinfo = $db->findUserByUid($user->uid);
         $openid = $userinfo->openid;
@@ -209,6 +212,9 @@ class ApiController extends Controller {
         $this->sendMessage($pushData);
         $this->pushLog($db, $pushData);
         $this->updateStatus($db, $pushData);
+
+        **************************************************************/
+
 
         $this->statusPrint('1', '预约成功！');
 
