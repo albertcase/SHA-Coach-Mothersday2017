@@ -34,6 +34,34 @@
     </script>
 </head>
 <body>
+<div class="pageQrcode"></div>
+<script type="text/javascript">
+    function isPC(){  
+       var userAgentInfo = navigator.userAgent;  
+       var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
+       var flag = true;  
+       for (var v = 0; v < Agents.length; v++) {  
+           if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }  
+       }  
+       return flag;  
+    } 
+
+
+    if(!isPC()){
+        document.querySelector('.pageQrcode').className = "pageQrcode hidden";
+    }else{
+        document.querySelector('.pageQrcode').className = "pageQrcode ispc";
+    }
+
+    window.onresize = function(){
+        if(!isPC()){
+            document.querySelector('.pageQrcode').className = "pageQrcode hidden";
+        }else{
+            document.querySelector('.pageQrcode').className = "pageQrcode ispc";
+        }
+    }
+</script>
+
 <div class="loading">
     <div class="loading_con">
         <img src="/build/dist/img/logo.png" width="100%">
