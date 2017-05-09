@@ -49,14 +49,14 @@
     if(!isPC()){
         document.querySelector('.pageQrcode').className = "pageQrcode hidden";
     }else{
-        document.querySelector('.pageQrcode').className = "pageQrcode";
+        document.querySelector('.pageQrcode').className = "pageQrcode ispc";
     }
 
     window.onresize = function(){
         if(!isPC()){
             document.querySelector('.pageQrcode').className = "pageQrcode hidden";
         }else{
-            document.querySelector('.pageQrcode').className = "pageQrcode";
+            document.querySelector('.pageQrcode').className = "pageQrcode ispc";
         }
     }
 </script>
