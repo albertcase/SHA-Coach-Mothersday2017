@@ -249,7 +249,7 @@ Method: PHP脚本
 ##### 5.2推送模版消息:
 
 ```
-   php script/pushTmpMsg.php 2017-04-26
+   php script/pushTmpMsg.php 2017/05/13 (2017/05/14)
 ```
 
 ##### 5.3更改场次名额数量:

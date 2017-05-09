@@ -345,7 +345,7 @@ class DatabaseAPI {
      * find apply in database
      */
     public function getApplyList($date) {
-        $sql = "SELECT a.`id`, u.`openid`, a.`name`, a.`created` FROM `apply` AS a, `user` AS u WHERE a.`uid` = u.`uid` AND a.`created` = '" . $date . "' AND `status` = 0;";
+        $sql = "SELECT a.`id`, a.`name`, a.`uid`, a.`shop`, u.`openid`, a.`name`, a.`date`, a.`created` FROM `apply` AS a, `user` AS u WHERE a.`uid` = u.`uid` AND a.`date` = '" . $date . "' AND `status` = 0;";
         $res = $this->connect()->query($sql);
         $list = $res->fetch_all($resulttype = MYSQLI_ASSOC);
         if($list) {
