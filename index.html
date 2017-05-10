@@ -227,7 +227,9 @@
     })
 
     $(".pageQrcode").on("click", function(){
-        $(this).addClass("hidden");
+        if(!isPC()){
+            $(this).addClass("hidden");
+        }
     })
 
 
