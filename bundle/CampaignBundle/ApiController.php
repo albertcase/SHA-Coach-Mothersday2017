@@ -67,6 +67,8 @@ class ApiController extends Controller {
      * 3.修改图片的积赞数
      */
     public function praiseAction() {
+        //结束点赞 2017-05-15
+        $this->statusPrint('2010', '点赞活动已结束，正在寄送礼物给TOP10获奖者，感谢您的参与。');exit;
         global $user;
         $request = $this->request;
         $fields = array(
